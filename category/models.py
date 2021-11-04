@@ -26,15 +26,19 @@ class Book(models.Model):
     TamlinhTongiao = 'TLTG'
     Sachthieunhi = 'STN'
     Truyentranh = 'TT'
+    Giaoduc = 'GD'
+    Tamly = 'TL'
     bookGenre = [
         (Chinhtriphapluat, 'Chính trị pháp luật'),
         (KhoahocCongngheKinhte, 'Khoa học công nghệ - Kinh tế'),
         (Vanhocnghethuat, 'Văn học nghệ thuật'),
         (VanhoaxahoiLichsu, 'Văn hóa xã hội - Lịch sử'),
+        (Giaoduc, 'Giáo dục'),
+        (Tamly, 'Tâm lý'),
         (Truyentieuthuyet, 'Truyện, tiểu thuyết'),
         (TamlinhTongiao, 'Tâm linh, tôn giáo'),
         (Sachthieunhi, 'Sách thiếu nhi'),
-        (Truyentranh, 'Truyện tranh')
+        (Truyentranh, 'Truyện tranh'),
     ]
     genre = models.CharField(max_length=20, choices=bookGenre)
     rating = models.IntegerField()
