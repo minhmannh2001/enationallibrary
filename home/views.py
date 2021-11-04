@@ -5,7 +5,8 @@ from category.models import Magazine
 
 def home(request):
     magazine = Magazine.objects.first()
-    print(magazine)
+    print(magazine.image.url)
+    print(magazine.pdfFile.url)
     return render(request, 'layout.html', {
         'magazine': magazine,
     })

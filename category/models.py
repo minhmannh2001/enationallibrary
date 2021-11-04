@@ -40,6 +40,9 @@ class Book(models.Model):
     rating = models.IntegerField()
     # comments
 
+    def __str__(self):
+        return self.title
+
 
 class Magazine(models.Model):
     title = models.CharField(max_length=255)
@@ -47,8 +50,10 @@ class Magazine(models.Model):
     pdfFile = models.FileField()
     image = models.ImageField()
 
+    def __str__(self):
+        return self.title
 
-class News(models.Model):
+class New(models.Model):
     title = models.CharField(max_length=255)
     summary = models.TextField()
     createdAt = models.DateTimeField()
@@ -56,9 +61,15 @@ class News(models.Model):
     image = models.ImageField()
     content = models.TextField()
 
+    def __str__(self):
+        return self.title
+
 
 class Collection(models.Model):
     title = models.CharField(max_length=255)
     books = models.ManyToManyField(Book)
     description = models.TextField()
     creator = models.TextField()
+
+    def __str__(self):
+        return self.title
