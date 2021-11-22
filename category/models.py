@@ -1,5 +1,6 @@
 from django.db import models
 from login.models import Author, Publisher
+from ckeditor.fields import RichTextField
 
 
 class Book(models.Model):
@@ -15,9 +16,10 @@ class Book(models.Model):
     publisher = models.ManyToManyField(Publisher)
     language = models.CharField(max_length=20)
     description = models.CharField(max_length=255)
-    summary = models.TextField()
+    summary = RichTextField()
     image = models.ImageField()
     quantity = models.IntegerField()
+    beingBorrowedQuantity = models.IntegerField(default=0)
     Chinhtriphapluat = 'CTPL'
     KhoahocCongngheKinhte = 'KHCNKT'
     Vanhocnghethuat = 'VHNT'
@@ -57,6 +59,7 @@ class Magazine(models.Model):
     def __str__(self):
         return self.title
 
+
 class New(models.Model):
     title = models.CharField(max_length=255)
     summary = models.TextField()
@@ -72,8 +75,8 @@ class New(models.Model):
 class Collection(models.Model):
     title = models.CharField(max_length=255)
     books = models.ManyToManyField(Book)
-    description = models.TextField()
-    creator = models.TextField()
+    description = RichTextField()
+    creator = models.CharField(max_length=255)
 
     def __str__(self):
         return self.title

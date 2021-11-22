@@ -3,7 +3,8 @@ from .models import Book, Magazine, New, Collection
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'quantity')
+    list_display = ('title', 'quantity', 'beingBorrowedQuantity')
+    search_fields = ('title',)
 
 
 # Register your models here.

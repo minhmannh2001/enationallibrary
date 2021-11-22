@@ -17,9 +17,9 @@ class MemberCard(models.Model):
     ]
     servicePlan = models.CharField(max_length=30, choices=servicesPlanChoices)
     numOfFault = models.IntegerField()
-    maxNumOfBorrowedBooks = models.IntegerField()
-    numOfBorrowedBooks = models.IntegerField()
-    borrowedBooks = models.ManyToManyField(Book)
+    maxNbOfBooksToBorrow = models.IntegerField()
+    nbOfBooksBeingBorrowed = models.IntegerField()
+    booksBeingBorrowed = models.ManyToManyField(Book)
     registerDate = models.DateTimeField(null=True)
 
 
