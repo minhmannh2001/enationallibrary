@@ -4,18 +4,23 @@ from category.models import Book, Publisher, Author
 
 
 class Event(models.Model):
-    eventName = models.CharField(max_length=255)
-    startDate = models.DateTimeField()
-    endDate = models.DateTimeField()
-    content = models.TextField()
-    banner = models.ImageField()
+    eventName = models.CharField(max_length=255, verbose_name='Tên sự kiện', unique=True)
+    startDate = models.DateTimeField(verbose_name='Ngày bắt đầu')
+    endDate = models.DateTimeField(verbose_name='Ngày kết thúc')
+    content = models.TextField(verbose_name='Nội dung khuyến mãi')
+    banner = models.ImageField(verbose_name='Banner sự kiện')
     discountFactor = models.IntegerField(
         default=50,
         validators=[
-            MinValueValidator(100),
-            MaxValueValidator(1)
-        ]
+            MinValueValidator(1),
+            MaxValueValidator(100)
+        ],
+        verbose_name='Tỷ lệ giảm giá(%)'
     )
-    appliedBooks = models.ManyToManyField(Book)
-    appliedAuthors = models.ManyToManyField(Author)
-    appliedPublisher = models.ManyToManyField(Publisher)
+    appliedBooks = models.ManyToManyField(Book, verbose_name='Sách được áp dụng', blank=True)
+    appliedAuthors = models.ManyToManyField(Author, verbose_name='Tác giả được áp dụng', blank=True)
+    appliedPublisher = models.ManyToManyField(Publisher, verbose_name='NXB được áp dụng', blank=True)
+
+    class Meta:
+        verbose_name = 'Sự kiện'
+        verbose_name_plural = 'Quản lý sự kiện'

@@ -46,7 +46,7 @@
               <a class="nav-link text-dark" href="#"> <strong>ĐĂNG KÝ THẺ THÀNH VIÊN</strong></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-dark" href="#"> <strong>ĐĂNG NHẬP</strong> </a>
+              <a class="nav-link text-dark" href="{% url 'login:sign-in' %}"> <strong>ĐĂNG NHẬP</strong> </a>
             </li>
           </ul>
         </div>
@@ -91,7 +91,7 @@
 
                 <!-- Already Registered -->
                 <div class="text-center mt-3">
-                  <p class="text-muted font-weight-bold">Đã có tài khoản? <a href="{% url 'login:signin' %}"
+                  <p class="text-muted font-weight-bold">Đã có tài khoản? <a href="{% url 'login:sign-in' %}"
                       class="text-primary ml-2">Đăng nhập</a></p>
                 </div>
               </form>

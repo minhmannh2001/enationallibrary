@@ -46,7 +46,7 @@
           <a class="nav-link text-dark" href="#"> <strong>ĐĂNG KÝ THẺ THÀNH VIÊN</strong></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="#"> <strong>ĐĂNG NHẬP</strong> </a>
+          <a class="nav-link text-dark" href="{% url 'login:sign-in' %}"> <strong>ĐĂNG NHẬP</strong> </a>
         </li>
       </ul>
     </div>
@@ -83,14 +83,14 @@
                     <input type="checkbox" checked="checked" />
                     <div class="control__indicator"></div>
                   </label>
-                  <span class="ml-auto"><a href="#" class="forgot-pass">Quên mật khẩu</a></span>
+                  <span class="ml-auto"><a href="{% url 'login:email-verification' %}" class="forgot-pass">Quên mật khẩu</a></span>
                 </div>
 
                 <input type="submit" value="Đăng nhập" class="btn text-white btn-block btn-primary">
 
                 <!-- Already Registered -->
                 <div class="text-center mt-3">
-                  <p class="text-muted font-weight-bold">Chưa có có tài khoản? <a href="{% url 'login:signup' %}"
+                  <p class="text-muted font-weight-bold">Chưa có có tài khoản? <a href="{% url 'login:sign-up' %}"
                       class="text-primary ml-2">Đăng ký</a></p>
                 </div>
               </form>

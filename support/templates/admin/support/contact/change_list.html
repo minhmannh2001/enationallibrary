@@ -22,12 +22,12 @@
             chartData.forEach((d) => {
                 data.push(d.cnt);
             })
-            document.querySelector(".content h1").innerText = "Queries";
+            document.querySelector(".content h1").innerText = "Danh sách thư phản hồi";
             const ctx = document.getElementById('myChart').getContext('2d');
             const myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Yet Answer', 'Answered'],
+                    labels: ['Chưa trả lời', 'Đã trả lời'],
                     datasets: [{
                         data: data,
                         backgroundColor: [

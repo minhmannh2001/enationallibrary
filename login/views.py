@@ -9,3 +9,11 @@ def sign_in(request):
 
 def sign_up(request):
     return render(request, 'sign_up.html')
+
+
+def email_verification(request):
+    return render(request, 'email_verification.html')
+
+
+def reset_password(request):
+    return render(request, 'reset_password.html')

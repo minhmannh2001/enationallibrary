@@ -2,8 +2,15 @@ from django.contrib import admin
 from .models import Author, Publisher
 
 
-# Register your models here.
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
 
 
-admin.site.register(Author)
-admin.site.register(Publisher)
+class PublisherAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+
+
+admin.site.register(Author, AuthorAdmin)
+admin.site.register(Publisher, PublisherAdmin)
