@@ -86,9 +86,13 @@ class New(models.Model):
 
 class Collection(models.Model):
     title = models.CharField(max_length=255, verbose_name='Tiêu đề')
+    brief_sum = models.CharField(max_length=255, verbose_name='Tóm tắt ngắn gọn', default='abc')
+    image = models.ImageField(verbose_name='Ảnh bìa', default='anh_bia.jpg')
     books = models.ManyToManyField(Book, verbose_name='Bao gồm')
     description = RichTextField(verbose_name='Bản mô tả')
     creator = models.CharField(max_length=255, verbose_name='Người tạo')
+    creator_role = models.CharField(max_length=255, verbose_name='Chức vụ', default='Thủ thư')
+    creator_image = models.ImageField(verbose_name='Ảnh người tạo', default='anh_nguoi_tao.jpg')
 
     def __str__(self):
         return self.title

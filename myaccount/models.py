@@ -1,5 +1,6 @@
 from django.db import models
 from category.models import Book
+from django.contrib.auth.models import User
 
 
 class MemberCard(models.Model):

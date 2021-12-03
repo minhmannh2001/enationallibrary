@@ -19,6 +19,8 @@ from django.conf.urls.static import static
 from . import settings
 from django.contrib.auth import views as auth_views
 
+admin.site.index_title = "Trang quản trị"
+
 urlpatterns = [
     path('home/', include('home.urls')),
     path('location/', include('location.urls')),
