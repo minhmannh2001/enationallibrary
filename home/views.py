@@ -8,6 +8,12 @@ from category.models import Collection
 
 
 def home(request):
+    is_login = False
+    is_staff = False
+    if not request.user.is_anonymous:
+        is_login = True
+    if request.user.is_staff:
+        is_staff = True
     events = Event.objects.all().order_by('startDate')[0:5]
     top_hot_news = New.objects.all().order_by('-createdAt')[0:1]
     second_hot_news = New.objects.all().order_by('-createdAt')[1:2]
@@ -38,6 +44,9 @@ def home(request):
     staff_picks_1 = staff_picks[0]
     staff_picks_2 = staff_picks[1]
     return render(request, 'homepage.html', {
+        'is_login': is_login,
+        'is_staff': is_staff,
+        'user': request.user,
         'events': events,
         'top_hot_news': top_hot_news,
         'second_hot_news': second_hot_news,

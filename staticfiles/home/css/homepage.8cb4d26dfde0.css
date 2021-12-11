@@ -1,104 +1,104 @@
 @font-face {
   font-family: "Microsoft New Tai Lue";
-  src: url("../fonts/MicrosoftNewTaiLue-Bold.woff2") format("woff2"), url("../fonts/MicrosoftNewTaiLue-Bold.woff") format("woff");
+  src: url("../fonts/MicrosoftNewTaiLue-Bold.543e7eb48105.woff2") format("woff2"), url("../fonts/MicrosoftNewTaiLue-Bold.b161feeb716b.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "MiloSlabOTW03";
-  src: url("../fonts/MiloSlabOTW03-LightItalic.woff2") format("woff2"), url("../fonts/MiloSlabOTW03-LightItalic.woff") format("woff");
+  src: url("../fonts/MiloSlabOTW03-LightItalic.b62d58052df8.woff2") format("woff2"), url("../fonts/MiloSlabOTW03-LightItalic.2da62fa52769.woff") format("woff");
   font-weight: 300;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Microsoft New Tai Lue";
-  src: url("../fonts/MicrosoftNewTaiLue.woff2") format("woff2"), url("../fonts/MicrosoftNewTaiLue.woff") format("woff");
+  src: url("../fonts/MicrosoftNewTaiLue.b2cd2e9ed6a3.woff2") format("woff2"), url("../fonts/MicrosoftNewTaiLue.4775609aa47a.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "NYTImperial";
-  src: url("../fonts/NYTImperial-Regular.woff2") format("woff2"), url("../fonts/NYTImperial-Regular.woff") format("woff");
+  src: url("../fonts/NYTImperial-Regular.d4e850479f2b.woff2") format("woff2"), url("../fonts/NYTImperial-Regular.23d90ded852f.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "NYTImperial";
-  src: url("../fonts/NYTImperial-Bold.woff2") format("woff2"), url("../fonts/NYTImperial-Bold.woff") format("woff");
+  src: url("../fonts/NYTImperial-Bold.d1cc8b450bf8.woff2") format("woff2"), url("../fonts/NYTImperial-Bold.c2482d505315.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "NYTImperial";
-  src: url("../fonts/NYTImperial-Semibold.woff2") format("woff2"), url("../fonts/NYTImperial-Semibold.woff") format("woff");
+  src: url("../fonts/NYTImperial-Semibold.718d59b3bda0.woff2") format("woff2"), url("../fonts/NYTImperial-Semibold.7e56e1dcf07d.woff") format("woff");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Cera Pro";
-  src: url("../fonts/CeraPro-BlackItalic.woff2") format("woff2"), url("../fonts/CeraPro-BlackItalic.woff") format("woff");
+  src: url("../fonts/CeraPro-BlackItalic.56ba099288d5.woff2") format("woff2"), url("../fonts/CeraPro-BlackItalic.d90830dbe5db.woff") format("woff");
   font-weight: 900;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Cera Pro";
-  src: url("../fonts/CeraPro-Black.woff2") format("woff2"), url("../fonts/CeraPro-Black.woff") format("woff");
+  src: url("../fonts/CeraPro-Black.653b0aa83b05.woff2") format("woff2"), url("../fonts/CeraPro-Black.c61be242d2a0.woff") format("woff");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Cera Pro";
-  src: url("../fonts/CeraPro-Bold.woff2") format("woff2"), url("../fonts/CeraPro-Bold.woff") format("woff");
+  src: url("../fonts/CeraPro-Bold.2b7c56837b8a.woff2") format("woff2"), url("../fonts/CeraPro-Bold.98dc770a85bf.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Cera Pro";
-  src: url("../fonts/CeraPro-Light.woff2") format("woff2"), url("../fonts/CeraPro-Light.woff") format("woff");
+  src: url("../fonts/CeraPro-Light.d18b934a6607.woff2") format("woff2"), url("../fonts/CeraPro-Light.a0cb5a49807e.woff") format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Cera Pro";
-  src: url("../fonts/CeraPro-Medium.woff2") format("woff2"), url("../fonts/CeraPro-Medium.woff") format("woff");
+  src: url("../fonts/CeraPro-Medium.e4d469ecb919.woff2") format("woff2"), url("../fonts/CeraPro-Medium.ce3fb62acd24.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Cera Pro";
-  src: url("../fonts/CeraPro-Italic.woff2") format("woff2"), url("../fonts/CeraPro-Italic.woff") format("woff");
+  src: url("../fonts/CeraPro-Italic.4792877de175.woff2") format("woff2"), url("../fonts/CeraPro-Italic.50f10b42aa4c.woff") format("woff");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Myriad Pro";
-  src: url("../fonts/MyriadPro-Bold.woff2") format("woff2"), url("../fonts/MyriadPro-Bold.woff") format("woff");
+  src: url("../fonts/MyriadPro-Bold.8e7f5144617c.woff2") format("woff2"), url("../fonts/MyriadPro-Bold.9804d6a1d022.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Myriad Pro";
-  src: url("../fonts/MyriadPro-Light.woff2") format("woff2"), url("../fonts/MyriadPro-Light.woff") format("woff");
+  src: url("../fonts/MyriadPro-Light.0cc70f10348b.woff2") format("woff2"), url("../fonts/MyriadPro-Light.7b1d6fea7471.woff") format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Myriad Pro";
-  src: url("../fonts/MyriadPro-Regular.woff2") format("woff2"), url("../fonts/MyriadPro-Regular.woff") format("woff");
+  src: url("../fonts/MyriadPro-Regular.2707c22ff7b4.woff2") format("woff2"), url("../fonts/MyriadPro-Regular.bfabcd4de659.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -1017,7 +1017,7 @@ body {
   color: #000;
   font-size: 20px;
   font-weight: normal;
-  line-height: 20px;
+  line-height: 26px;
 }
 
 .hpStaffPicks-pick .link {
@@ -1489,7 +1489,7 @@ body {
 }
 @media (min-width: 1405px) {
   .tbBookList .tbSlick-track {
-    height: 445px;
+    height: 435px;
   }
 
   .tbBookList .tbSlick-slide {
@@ -2177,7 +2177,7 @@ mark {
 }
 
 .seeMore-btn {
-  color: red !important;
+  color: red;
     font-family: "Open sans", sans-serif;
     padding: 7px;
     padding-left: 10px;
@@ -2197,7 +2197,7 @@ mark {
   text-decoration: none;
   border-radius: 20px;
   background-color: #fa6563;
-  color: white !important;
+  color: white;
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
@@ -2206,7 +2206,6 @@ mark {
 
 .dropdowns-menu {
   text-decoration: none;
-  font-family: Roboto, sans-serif;
   font-size: 15px;
   color: #343a40;
   font-weight: 700;
@@ -2222,22 +2221,6 @@ mark {
   font-size: 14px;
 }
 
-.get-card:hover {
-  text-decoration: none;
-}
-
-.hours-location:hover {
-  text-decoration: none;
-}
-
-.my-account:hover {
-  text-decoration: none;
-}
-
-p {
-  margin-bottom: 0;
-}
-
-a:hover {
+get-card:hover {
   text-decoration: none;
 }

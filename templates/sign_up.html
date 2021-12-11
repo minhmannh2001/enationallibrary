@@ -29,7 +29,7 @@
 
   <div class="container">
     <div class="row d-flex">
-      <a href="./homepage.html" style="margin-left: -60px; margin-top: 30px">
+      <a href="{% url 'home:homepage' %}" style="margin-left: -60px; margin-top: 30px">
         <svg class="nplLogo svgIcon" width="256px" height="123px" viewBox="0 0 256 123" focusable="false">
           <g class="nplLogo-icon">
             <image id="logo-2" data-name="logo" x="1" y="26" width="104" height="91"
@@ -81,13 +81,23 @@
                         <div style="color: #f66e84">Người dùng đã tồn tại.</div>
                 </div>
                   {% endif %}
+              {% if username_null %}
+                      <div class="form-group">
+                        <div style="color: #f66e84">Bạn cần điền đầy đủ thông tin.</div>
+                </div>
+                  {% endif %}
+               {% if email_invalid %}
+                      <div class="form-group">
+                        <div style="color: #f66e84">Địa chỉ email không hợp lệ.</div>
+                </div>
+                  {% endif %}
                 <div class="form-group first">
                   <label for="username">Tên đăng nhập</label>
                   <input type="text" class="form-control" id="username" name="username" value="{{ username }}">
                 </div>
                 <div class="form-group second">
                   <label for="email">Email</label>
-                  <input type="email" class="form-control" id="email" name="email" value="{{ email }}">
+                  <input class="form-control" id="email" name="email" value="{{ email }}">
                 </div>
                 <div class="form-group third mb-4">
                   <label for="password">Mật khẩu</label>

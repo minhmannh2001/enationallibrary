@@ -934,31 +934,8 @@ body {
   display: block;
   position: relative;
   height: 65px;
-  width: 100%;
   margin: 0;
   text-align: center;
-}
-
-.seeMore a {
-  text-decoration: none;
-}
-
-.label {
-  position: relative;
-  display: block;
-  height: 30px;
-  width: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-  outline-color: red;
-  outline-style: solid;
-  outline-width: 1px;
-  border-radius: 20px;
-  margin-left: -2%;
-  color: red;
-  font-family: "Open sans", sans-serif;
-  font-size: 13px;
-  font-weight: 600;
 }
 
 .label .text {
@@ -969,17 +946,6 @@ body {
   .seeMore {
     margin-top: 30px;
     padding-bottom: 30px;
-  }
-
-  .label {
-    height: 38px;
-    width: 126px;
-    font-size: 16px;
-    margin-left: 0;
-  }
-
-  .label .text {
-    padding: 7px;
   }
 }
 .staffPicks {
@@ -1051,7 +1017,7 @@ body {
   color: #000;
   font-size: 20px;
   font-weight: normal;
-  line-height: 26px;
+  line-height: 20px;
 }
 
 .hpStaffPicks-pick .link {
@@ -1523,7 +1489,7 @@ body {
 }
 @media (min-width: 1405px) {
   .tbBookList .tbSlick-track {
-    height: 435px;
+    height: 445px;
   }
 
   .tbBookList .tbSlick-slide {
@@ -2210,3 +2176,68 @@ mark {
   }
 }
 
+.seeMore-btn {
+  color: red !important;
+    font-family: "Open sans", sans-serif;
+    padding: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 20px;
+    outline-color: red;
+    outline-style: solid;
+    outline-width: 1px;
+    height: 38px;
+}
+
+.seeMore-btn:hover {
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 20px;
+  background-color: #fa6563;
+  color: white !important;
+  -webkit-transition: .3s all ease;
+  -o-transition: .3s all ease;
+  transition: .3s all ease;
+}
+
+
+.dropdowns-menu {
+  text-decoration: none;
+  font-family: Roboto, sans-serif;
+  font-size: 15px;
+  color: #343a40;
+  font-weight: 700;
+}
+
+.dropdowns-menu:hover {
+  text-decoration: none;
+  color: #343a40;
+  font-weight: 700;
+}
+
+.dropdowns-menu-item {
+  font-size: 14px;
+}
+
+.get-card:hover {
+  text-decoration: none;
+}
+
+.hours-location:hover {
+  text-decoration: none;
+}
+
+.my-account:hover {
+  text-decoration: none;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+a:hover {
+  text-decoration: none;
+}

@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <title>Trang chủ | Thư viện số quốc gia</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital@0;1&family=Oswald&display=swap');
+</style>
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Lato:wght@300;600;700;800&display=swap"
     rel="stylesheet" />
@@ -21,8 +24,9 @@
     type="image/png" sizes="32x32">
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  <!-- <link rel="stylesheet" href="./css/reset.css"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static 'home/css/homepage.css' %}">
+
 </head>
 
 <body>
@@ -79,19 +83,32 @@
                 VIÊN</a>
             </li>
             <li>
-              <div class="my-account-wapper"
+                {% if is_login %}
+                    <div class="dropdown show">
+                  <a class="dropdowns-menu dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ user }}
+                  </a>
+
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item dropdowns-menu-item" href="#">Trang cá nhân</a>
+                      {% if is_staff %}
+                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'admin:index' %}">Trang quản trị</a>
+                          {% endif %}
+                    <a class="dropdown-item dropdowns-menu-item" href="#">Giỏ sách</a>
+                    <a class="dropdown-item dropdowns-menu-item" href="#">Gói dịch vụ</a>
+                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'login:log-out' %}">Đăng xuất</a>
+                  </div>
+                </div>
+                {% else %}
+                    <div class="my-account-wapper"
                 style="font-family:Roboto, sans-serif;color: #343a40!important;font-size: 16px">
                 <a href="{% url 'login:sign-in' %}" class="my-account"
                   style="font-family:Roboto, sans-serif;color: #343a40!important;font-size: 16px">
                   ĐĂNG NHẬP
-                  <svg xmlns="http://www.w3.org/2000/svg" class="drop-down" width="18px" height="18px"
-                    viewBox="0 -100 512 512">
-                    <title>Drop Down</title>
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="48" d="M112 184l144 144 144-144" />
-                  </svg>
                 </a>
               </div>
+                {% endif %}
+
             </li>
           </ul>
         </nav>
@@ -105,7 +122,7 @@
                 d="M338.29 338.29L448 448" />
             </svg>
           </i>
-          <input type="text" class="search-bar-field" placeholder="Search...">
+          <input type="text" class="search-bar-field" style="width: 750px;" placeholder="Tìm kiếm...">
         </div>
       </div>
       <div class="header-navMenu">
@@ -148,7 +165,7 @@
       <div class="container-fullWidth">
         <div class="leftColumn">
           <h2 class="title">
-            <a href="">TIN MỚI</a>
+            <a href="">Tin mới</a>
           </h2>
         </div>
         <div class="rightColumn">
@@ -158,8 +175,8 @@
               <a href="" class="hotNews-link">
                 <img src="{{ i.image.url }}" alt="" width="828px">
                 <div class="hotNews-detail">
-                  <div class="hotNews-title first">{{ i.title }}</div>
-                  <div class="hotNews-summary first">{{ i.summary }}</div>
+                  <div class="hotNews-title first" style="font-family: 'Oswald', sans-serif; color: #343a40">{{ i.title }}</div>
+                  <div class="hotNews-summary first" style="font-family: 'Lora', serif;">{{ i.summary }}</div>
                 </div>
               </a>
             </li>
@@ -170,8 +187,8 @@
               <a href="" class="hotNews-link-2nd">
                 <img src="{{ i.image.url }}" alt="">
                 <div class="hotNews-detail">
-                  <div class="hotNews-title">{{ i.title }}</div>
-                  <div class="hotNews-summary">{{ i.summary }}</div>
+                  <div class="hotNews-title" style="font-family: 'Oswald', sans-serif; color: #343a40">{{ i.title }}</div>
+                  <div class="hotNews-summary" style="font-family: 'Lora', serif;">{{ i.summary }}</div>
                 </div>
               </a>
               {% endfor %}
@@ -179,8 +196,8 @@
               <a href="" class="hotNews-link">
                 <img src="{{ i.image.url }}" alt="">
                 <div class="hotNews-detail">
-                  <div class="hotNews-title">{{ i.title }}</div>
-                  <div class="hotNews-summary">{{ i.summary }}</div>
+                  <div class="hotNews-title" style="font-family: 'Oswald', sans-serif; color: #343a40">{{ i.title }}</div>
+                  <div class="hotNews-summary" style="font-family: 'Lora', serif;">{{ i.summary }}</div>
                 </div>
               </a>
               {% endfor %}
@@ -189,11 +206,7 @@
           </ul>
         </div>
         <div class="seeMore">
-          <a href="../news/index.html" class="fromHome-seeMore">
-            <div class="label">
-              <p class="text">... XEM THÊM</p>
-            </div>
-          </a>
+          <a class="seeMore-btn">... XEM THÊM</a>
         </div>
       </div>
     </div>
@@ -212,7 +225,7 @@
                   <div class="quoteBackground">
 
                   </div>
-                  <p class="description" style="font-size: 22px !important;">
+                  <p class="description" style="font-style: italic !important;font-family: 'Lora', serif;font-size: 20px!important;">
                     {{ staff_picks_1.brief_sum }}
                   </p>
                   <a href="" class="link">
@@ -221,8 +234,8 @@
                 </div>
                 <div class="hpStaffPicks-staff">
                   <img src="{{ staff_picks_1.creator_image.url }}" alt="" class="staffIcon">
-                  <p class="name">{{ staff_picks_1.creator }}</p>
-                  <p class="title">{{ staff_picks_1.creator_role }}</p>
+                  <p class="name" style="font-family: 'Lora';">{{ staff_picks_1.creator }}</p>
+                  <p class="title" style="font-family: 'Open Sans';">{{ staff_picks_1.creator_role }}</p>
                 </div>
               </div>
               <div class="hpStaffPicks-wrapper">
@@ -230,7 +243,7 @@
                   <div class="quoteBackground">
 
                   </div>
-                  <p class="description" style="font-size: 22px !important;">
+                  <p class="description" style="font-style: italic !important;font-family: 'Lora', serif;font-size: 20px!important;">
                     {{ staff_picks_2.brief_sum }}
                   </p>
                   <a href="" class="link">
@@ -239,19 +252,15 @@
                 </div>
                 <div class="hpStaffPicks-staff">
                   <img src="{{ staff_picks_2.creator_image.url }}" alt="" class="staffIcon">
-                  <p class="name">{{ staff_picks_2.creator }}</p>
-                  <p class="title">{{ staff_picks_2.creator_role }}</p>
+                  <p class="name" style="font-family: 'Lora';">{{ staff_picks_2.creator }}</p>
+                  <p class="title" style="font-family: 'Open Sans';">{{ staff_picks_2.creator_role }}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="seeMore">
-          <a href="" class="fromHome-seeMore">
-            <div class="label">
-              <p class="text">... XEM THÊM</p>
-            </div>
-          </a>
+          <a class="seeMore-btn">... XEM THÊM</a>
         </div>
       </div>
     </div>
@@ -269,120 +278,110 @@
               <div class="tbSlick-track">
                 <div class="tbSlick-slide" data-index="0" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ top_borrow_books_1.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                      <div style="background-image: url({{ top_borrow_books_1.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ top_borrow_books_1.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_1.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ top_borrow_books_1.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_1.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="tbSlick-slide" data-index="1" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ top_borrow_books_2.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                      <div style="background-image: url({{ top_borrow_books_2.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ top_borrow_books_2.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_2.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ top_borrow_books_2.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_2.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="tbSlick-slide" data-index="2" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ top_borrow_books_3.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                      <div style="background-image: url({{ top_borrow_books_3.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ top_borrow_books_3.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_3.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ top_borrow_books_3.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_3.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="tbSlick-slide" data-index="3" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ top_borrow_books_4.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                      <div style="background-image: url({{ top_borrow_books_4.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ top_borrow_books_4.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_4.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ top_borrow_books_4.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_4.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="tbSlick-slide" data-index="4" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ top_borrow_books_5.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                      <div style="background-image: url({{ top_borrow_books_5.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ top_borrow_books_5.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_5.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ top_borrow_books_5.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_5.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="tbSlick-slide" data-index="5" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ top_borrow_books_6.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                      <div style="background-image: url({{ top_borrow_books_6.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ top_borrow_books_6.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_6.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ top_borrow_books_6.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_6.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="tbSlick-slide" data-index="6" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ top_borrow_books_7.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                      <div style="background-image: url({{ top_borrow_books_7.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ top_borrow_books_7.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_7.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ top_borrow_books_7.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_7.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="tbSlick-slide" data-index="7" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ top_borrow_books_8.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                      <div style="background-image: url({{ top_borrow_books_8.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ top_borrow_books_8.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_8.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ top_borrow_books_8.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_8.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="tbSlick-slide" data-index="8" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ top_borrow_books_9.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                      <div style="background-image: url({{ top_borrow_books_9.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ top_borrow_books_9.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_9.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ top_borrow_books_9.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_9.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="tbSlick-slide" data-index="9" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ top_borrow_books_10.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                      <div style="background-image: url({{ top_borrow_books_10.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ top_borrow_books_10.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_10.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ top_borrow_books_10.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_10.author.first }}</p>
                       </div>
                     </div>
                   </a>
@@ -393,11 +392,7 @@
           </div>
         </div>
         <div class="seeMore">
-          <a href="" class="fromHome-seeMore">
-            <div class="label">
-              <p class="text">... XEM THÊM</p>
-            </div>
-          </a>
+          <a class="seeMore-btn">... XEM THÊM</a>
         </div>
       </div>
     </div>
@@ -415,120 +410,110 @@
               <div class="naSlick-track">
                 <div class="naSlick-slide" data-index="0" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ new_arrival_books_1.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                      <div style="background-image: url({{ new_arrival_books_1.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ new_arrival_books_1.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_1.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ new_arrival_books_1.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_1.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="naSlick-slide" data-index="1" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ new_arrival_books_2.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                    <div style="background-image: url({{ new_arrival_books_2.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ new_arrival_books_2.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_2.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ new_arrival_books_2.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_2.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="naSlick-slide" data-index="2" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ new_arrival_books_3.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                    <div style="background-image: url({{ new_arrival_books_3.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="text-overflow: ellipsis !important;">{{ new_arrival_books_3.title }}</p>
+                      <p class="title"  style="width: 212px;">{{ new_arrival_books_3.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ new_arrival_books_3.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_3.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="naSlick-slide" data-index="3" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ new_arrival_books_4.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                    <div style="background-image: url({{ new_arrival_books_4.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ new_arrival_books_4.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_4.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ new_arrival_books_4.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_4.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="naSlick-slide" data-index="4" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ new_arrival_books_5.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                    <div style="background-image: url({{ new_arrival_books_5.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ new_arrival_books_5.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_5.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ new_arrival_books_5.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_5.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="naSlick-slide" data-index="5" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ new_arrival_books_6.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                    <div style="background-image: url({{ new_arrival_books_6.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ new_arrival_books_6.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_6.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ new_arrival_books_6.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_6.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="naSlick-slide" data-index="6" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ new_arrival_books_7.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                    <div style="background-image: url({{ new_arrival_books_7.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ new_arrival_books_7.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_7.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ new_arrival_books_7.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_7.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="naSlick-slide" data-index="7" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ new_arrival_books_8.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                    <div style="background-image: url({{ new_arrival_books_8.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ new_arrival_books_8.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_8.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ new_arrival_books_8.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_8.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="naSlick-slide" data-index="8" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ new_arrival_books_9.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                    <div style="background-image: url({{ new_arrival_books_9.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ new_arrival_books_9.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_9.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ new_arrival_books_9.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_9.author.first }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="naSlick-slide" data-index="9" tabindex="-1">
                   <a href="" class="book-cover">
-                    <img src="{{ new_arrival_books_10.image.url }}" alt="" id="cover-item-0" class title="Carry"
-                      alt="Carry by Toni Jensen">
+                    <div style="background-image: url({{ new_arrival_books_10.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title">{{ new_arrival_books_10.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_10.title }}</p>
                       <div class="details">
-                        <p class="details-author">{{ new_arrival_books_10.author.first }}</p>
+                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_10.author.first }}</p>
                       </div>
                     </div>
                   </a>
@@ -539,19 +524,15 @@
           </div>
         </div>
         <div class="seeMore">
-          <a href="" class="fromHome-seeMore">
-            <div class="label">
-              <p class="text">... XEM THÊM</p>
-            </div>
-          </a>
+          <a class="seeMore-btn">... XEM THÊM</a>
         </div>
       </div>
     </div>
     <div class="startTrial">
       <div class="container">
-        <div class="startTrial-headline">Đầu tư khôn ngoan nhất là đầu tư vào sách. Khi chúng ta giàu về tri thức thì
+        <div class="startTrial-headline" style="font-family: 'Oswald';">Đầu tư khôn ngoan nhất là đầu tư vào sách. Khi chúng ta giàu về tri thức thì
           mới biết làm giàu vật chất, làm giàu thể chất</div>
-        <div class="startTrial-subheader">
+        <div class="startTrial-subheader" style="font-family: 'Lora';">
           Tiếp cận kho tàng hơn 10,000 đầu sách khác nhau
           <span class="startTrial-totalWorth">
             <mark class="startTrial-totalWorth-text">
@@ -571,7 +552,7 @@
                   <div class="timeline_bullet"></div>
                   <div class="timeline_line"></div>
                 </div>
-                <p class="timeline_text">Đăng ký dùng thử thẻ thành viên<br> của eNational Public Library miễn phí</p>
+                <p class="timeline_text" style="font-family: system-ui;">Đăng ký dùng thử thẻ thành viên<br> của eNational Public Library miễn phí</p>
               </li>
               <li class="timeline-stepLast">
                 <h3 class="timeline_label">7 ngày sau</h3>
@@ -581,10 +562,10 @@
                     <i class="fa fa-angle-right arrow-head"></i>
                   </div>
                 </div>
-                <p class="timeline_text">Kết thúc chương trình dùng thử. <br> Bạn có thể hủy vào thời điểm bất kì trước
+                <p class="timeline_text" style="font-family: system-ui;">Kết thúc chương trình dùng thử. <br> Bạn có thể hủy vào thời điểm bất kì trước
                   đó.</p>
               </li>
-              <li class="timeline-finish">
+              <li class="timeline-finish" style="font-family: system-ui;">
                 Gia hạn và tiếp tục khám phá cùng
                 <br>
                 eNational Public Library!
@@ -595,7 +576,7 @@
         <div class="startTrial-trialMessage">
           <div class="trialMessage-background">
             <div class="trialMessage-inner">
-              <div class="trialMessage-description">
+              <div class="trialMessage-description" style="font-family: 'Open Sans';">
                 Hãy trải nghiệm chương trình khuyến mãi trong 7 ngày của chúng tôi. Nếu yêu thích, bạn có thể gia hạn
                 chỉ với
                 <b>
@@ -609,7 +590,7 @@
                 </b>
               </div>
               <div class="trialMessage-wrapper">
-                <a href="" class="trialMessage-button">Đăng ký dùng thử!</a>
+                <a href="" class="trialMessage-button" style="font-family: system-ui;">Đăng ký dùng thử!</a>
               </div>
             </div>
           </div>
@@ -691,7 +672,7 @@
         </li>
         <li>
           <ul class="linkItemList timeVisit">
-            <p class="footerTitleRight">Thời gian mở cửa</p>
+            <p class="footerTitleRight" style="">Thời gian mở cửa</p>
             <li>
               <p class="footerLink" href="">Thứ hai - Thứ năm: 9 A.M - 9 P.M</p>
             </li>
@@ -716,7 +697,9 @@
 
   </footer>
   <script src="{% static 'home/js/homepage.js' %}"></script>
-
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 
