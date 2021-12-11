@@ -943,6 +943,16 @@ body {
   text-decoration: none;
 }
 
+.seeMore a:hover div p {
+  text-decoration: none;
+  border-radius: 20px;
+  background-color: #fa6563;
+  color: white;
+  -webkit-transition: .3s all ease;
+  -o-transition: .3s all ease;
+  transition: .3s all ease;
+}
+
 .label {
   position: relative;
   display: block;
@@ -1523,7 +1533,7 @@ body {
 }
 @media (min-width: 1405px) {
   .tbBookList .tbSlick-track {
-    height: 435px;
+    height: 440px;
   }
 
   .tbBookList .tbSlick-slide {
@@ -1820,12 +1830,16 @@ body {
 
 .startTrial-headline {
   font-family: "Cera Pro";
-  font-size: 1.5rem;
   font-weight: 700;
   font-style: normal;
   line-height: 32px;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+  font-size: 26px;
+  line-height: 36px;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .startTrial-subheader {

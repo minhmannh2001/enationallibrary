@@ -18,11 +18,14 @@
   <link rel="stylesheet" href="{% static 'login/css/style.css' %}">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <title>Đăng nhập</title>
+  <link rel="icon"
+    href="https://res.cloudinary.com/enationallibrary/image/upload/v1638580740/media/favicon-32x32_unmryt.png"
+    type="image/png" sizes="32x32">
+  <title>Đăng nhập | Thư viện số quốc gia</title>
 </head>
 
-<body  style="background-image: url('https://res.cloudinary.com/enationallibrary/image/upload/v1637605432/media/sign-in-theme_nn2m5v.png'); background-size: cover; background-position: -45px 15%;">
+<body
+  style="background-image: url('https://res.cloudinary.com/enationallibrary/image/upload/v1637605432/media/sign-in-theme_nn2m5v.png'); background-size: cover; background-position: -45px 15%;">
 
   <div class="container">
     <div class="row d-flex">
@@ -50,21 +53,23 @@
         </li>
       </ul>
     </div>
-</div>
+  </div>
 
   <div class="content" style="padding-top: 45px">
     <div class="container-fluid">
 
       <div class="row">
         <div class="col-md-7">
-          <img src="https://res.cloudinary.com/enationallibrary/image/upload/v1637605433/media/books_orbxvg.png" alt="Image" width="600px" class="img-fluid">
+          <img src="https://res.cloudinary.com/enationallibrary/image/upload/v1637605433/media/books_orbxvg.png"
+            alt="Image" width="600px" class="img-fluid">
         </div>
         <div class="col-md-5 contents">
           <div class="row justify-content-center">
             <div class="col-md-8">
               <div class="mb-4">
                 <h3><strong>Discover the best books</strong></h3>
-                <p class="mb-4">Cuộc đời ta thay đổi theo hai cách: Qua những người ta gặp và qua những cuốn sách ta đọc.</p>
+                <p class="mb-4">Cuộc đời ta thay đổi theo hai cách: Qua những người ta gặp và qua những cuốn sách ta
+                  đọc.</p>
               </div>
               <form action="#" method="post">
                 <div class="form-group first">
@@ -83,7 +88,8 @@
                     <input type="checkbox" checked="checked" />
                     <div class="control__indicator"></div>
                   </label>
-                  <span class="ml-auto"><a href="{% url 'login:email-verification' %}" class="forgot-pass">Quên mật khẩu</a></span>
+                  <span class="ml-auto"><a href="{% url 'login:email-verification' %}" class="forgot-pass">Quên mật
+                      khẩu</a></span>
                 </div>
 
                 <input type="submit" value="Đăng nhập" class="btn text-white btn-block btn-primary">
@@ -111,4 +117,3 @@
 </body>
 
 </html>
-

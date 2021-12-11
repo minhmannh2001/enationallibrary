@@ -31,10 +31,11 @@ class MemberCard(models.Model):
         verbose_name_plural = 'Quản lý thẻ thành viên'
 
 
-class User(models.Model):
+class Customer(models.Model):
     lastName = models.CharField(max_length=30, null=True, blank=True, verbose_name='Họ')
     firstName = models.CharField(max_length=30, null=True, blank=True, verbose_name='Tên')
     username = models.CharField(max_length=50, verbose_name='Tên đăng nhập', unique=True)
+    user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
     password = models.CharField(max_length=50, verbose_name='Mật khẩu')
     dateOfBirth = models.DateField(null=True, blank=True, verbose_name='Ngày sinh')
     emailAddress = models.CharField(max_length=50, null=True, blank=True, verbose_name='Địa chỉ email', unique=True)

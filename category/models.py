@@ -12,6 +12,7 @@ class Book(models.Model):
         (BOOK, 'Sách giấy')
     ]
     type = models.CharField(max_length=10, choices=bookType, verbose_name='Loại sách')
+    createdAt = models.DateTimeField(auto_now_add=True)
     author = models.ManyToManyField(Author, verbose_name='Tác giả')
     publisher = models.ManyToManyField(Publisher, verbose_name='Nhà xuất bản')
     language = models.CharField(max_length=20, verbose_name='Ngôn ngữ')
