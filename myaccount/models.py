@@ -24,7 +24,7 @@ class MemberCard(models.Model):
     registerDate = models.DateTimeField(null=True, verbose_name='Ngày đăng ký')
 
     def __str__(self):
-        return self.servicePlan + ' mã số ' + self.id
+        return f'{self.servicePlan} mã số {self.id}'
 
     class Meta:
         verbose_name = 'thẻ thành viên'
@@ -44,7 +44,7 @@ class Customer(models.Model):
     memberCard = models.OneToOneField(MemberCard, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Thẻ đã đăng ký', unique=True)
 
     def __str__(self):
-        return self.lastName + ' ' + self.firstName
+        return f'{self.lastName} {self.firstName}'
 
     class Meta:
         verbose_name = 'người dùng'

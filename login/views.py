@@ -46,15 +46,10 @@ class sign_up(View):
             return render(request, 'sign_up.html', {'username_already_exist': True})
         # After register user member successfully
         Customer.objects.create(username=username, user=user, emailAddress=email)
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
         return redirect(reverse('home:homepage'))
-
-
-def email_verification(request):
-    return render(request, 'registration/email_verification.html')
-
-
-def reset_password(request):
-    return render(request, 'registration/reset_password.html')
 
 
 def log_out(request):
