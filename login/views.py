@@ -50,11 +50,11 @@ class sign_up(View):
 
 
 def email_verification(request):
-    return render(request, 'email_verification.html')
+    return render(request, 'registration/email_verification.html')
 
 
 def reset_password(request):
-    return render(request, 'reset_password.html')
+    return render(request, 'registration/reset_password.html')
 
 
 def log_out(request):
