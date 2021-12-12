@@ -8,6 +8,8 @@ class MemberCardAdmin(admin.ModelAdmin):
 
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('id', 'lastName', 'firstName', 'username', 'emailAddress')
+    fields = ('lastName', 'firstName', 'username', 'dateOfBirth', 'emailAddress', 'address', 'identificationCard',
+              'phoneNumber', 'memberCard')
     search_fields = ('id', 'lastName', 'firstName', 'username', 'emailAddress')
 
 

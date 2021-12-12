@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.contrib.auth import authenticate, login, logout
+from myaccount.models import Customer
 
 
 class sign_in(View):
@@ -43,6 +44,8 @@ class sign_up(View):
             return render(request, 'sign_up.html', {'username_null': True})
         except IntegrityError:
             return render(request, 'sign_up.html', {'username_already_exist': True})
+        # After register user member successfully
+        Customer.objects.create(username=username, user=user, emailAddress=email)
         return redirect(reverse('home:homepage'))
 
 

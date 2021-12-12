@@ -74,7 +74,7 @@
         <nav class="header-buttons" style="font-family:Roboto, sans-serif;color: #343a40!important;font-size: 16px">
           <ul>
             <li>
-              <a href="/location" class="hours-location"
+              <a href="{% url 'support:hour_location' %}" class="hours-location"
                 style="font-family:Roboto, sans-serif;color: #343a40!important;font-size: 16px">THỜI GIAN & ĐỊA CHỈ</a>
             </li>
             <li>
@@ -89,7 +89,7 @@
                     {{ user }}
                   </a>
 
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink" style="top: 10px">
                     <a class="dropdown-item dropdowns-menu-item" href="#">Trang cá nhân</a>
                       {% if is_staff %}
                     <a class="dropdown-item dropdowns-menu-item" href="{% url 'admin:index' %}">Trang quản trị</a>
@@ -280,7 +280,7 @@
                   <a href="" class="book-cover">
                       <div style="background-image: url({{ top_borrow_books_1.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_1.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_1.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ top_borrow_books_1.author.first }}</p>
                       </div>
@@ -291,7 +291,7 @@
                   <a href="" class="book-cover">
                       <div style="background-image: url({{ top_borrow_books_2.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_2.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_2.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ top_borrow_books_2.author.first }}</p>
                       </div>
@@ -302,7 +302,7 @@
                   <a href="" class="book-cover">
                       <div style="background-image: url({{ top_borrow_books_3.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_3.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_3.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ top_borrow_books_3.author.first }}</p>
                       </div>
@@ -313,7 +313,7 @@
                   <a href="" class="book-cover">
                       <div style="background-image: url({{ top_borrow_books_4.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_4.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_4.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ top_borrow_books_4.author.first }}</p>
                       </div>
@@ -324,7 +324,7 @@
                   <a href="" class="book-cover">
                       <div style="background-image: url({{ top_borrow_books_5.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_5.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_5.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ top_borrow_books_5.author.first }}</p>
                       </div>
@@ -335,7 +335,7 @@
                   <a href="" class="book-cover">
                       <div style="background-image: url({{ top_borrow_books_6.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_6.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_6.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ top_borrow_books_6.author.first }}</p>
                       </div>
@@ -346,7 +346,7 @@
                   <a href="" class="book-cover">
                       <div style="background-image: url({{ top_borrow_books_7.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_7.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_7.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ top_borrow_books_7.author.first }}</p>
                       </div>
@@ -357,7 +357,7 @@
                   <a href="" class="book-cover">
                       <div style="background-image: url({{ top_borrow_books_8.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_8.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_8.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ top_borrow_books_8.author.first }}</p>
                       </div>
@@ -368,7 +368,7 @@
                   <a href="" class="book-cover">
                       <div style="background-image: url({{ top_borrow_books_9.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_9.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_9.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ top_borrow_books_9.author.first }}</p>
                       </div>
@@ -379,7 +379,7 @@
                   <a href="" class="book-cover">
                       <div style="background-image: url({{ top_borrow_books_10.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_10.title }}</p>
+                      <p class="title" style="width: 212px;">{{ top_borrow_books_10.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ top_borrow_books_10.author.first }}</p>
                       </div>
@@ -412,7 +412,7 @@
                   <a href="" class="book-cover">
                       <div style="background-image: url({{ new_arrival_books_1.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_1.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_1.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ new_arrival_books_1.author.first }}</p>
                       </div>
@@ -423,7 +423,7 @@
                   <a href="" class="book-cover">
                     <div style="background-image: url({{ new_arrival_books_2.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_2.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_2.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ new_arrival_books_2.author.first }}</p>
                       </div>
@@ -434,7 +434,7 @@
                   <a href="" class="book-cover">
                     <div style="background-image: url({{ new_arrival_books_3.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title"  style="width: 212px;">{{ new_arrival_books_3.title }}</p>
+                      <p class="title"  style="width: 212px;">{{ new_arrival_books_3.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ new_arrival_books_3.author.first }}</p>
                       </div>
@@ -445,7 +445,7 @@
                   <a href="" class="book-cover">
                     <div style="background-image: url({{ new_arrival_books_4.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_4.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_4.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ new_arrival_books_4.author.first }}</p>
                       </div>
@@ -456,7 +456,7 @@
                   <a href="" class="book-cover">
                     <div style="background-image: url({{ new_arrival_books_5.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_5.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_5.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ new_arrival_books_5.author.first }}</p>
                       </div>
@@ -467,7 +467,7 @@
                   <a href="" class="book-cover">
                     <div style="background-image: url({{ new_arrival_books_6.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_6.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_6.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ new_arrival_books_6.author.first }}</p>
                       </div>
@@ -478,7 +478,7 @@
                   <a href="" class="book-cover">
                     <div style="background-image: url({{ new_arrival_books_7.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_7.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_7.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ new_arrival_books_7.author.first }}</p>
                       </div>
@@ -489,7 +489,7 @@
                   <a href="" class="book-cover">
                     <div style="background-image: url({{ new_arrival_books_8.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_8.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_8.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ new_arrival_books_8.author.first }}</p>
                       </div>
@@ -500,7 +500,7 @@
                   <a href="" class="book-cover">
                     <div style="background-image: url({{ new_arrival_books_9.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_9.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_9.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ new_arrival_books_9.author.first }}</p>
                       </div>
@@ -511,7 +511,7 @@
                   <a href="" class="book-cover">
                     <div style="background-image: url({{ new_arrival_books_10.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
                     <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_10.title }}</p>
+                      <p class="title" style="width: 212px;">{{ new_arrival_books_10.title|truncatechars:40 }}</p>
                       <div class="details">
                         <p class="details-author" style="width: 212px;">{{ new_arrival_books_10.author.first }}</p>
                       </div>
