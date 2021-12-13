@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^2%g&ft_rhc@x4my)k8@#b$al2o(6=&mp%f-n0iy0jgh2#*x!o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['enationallibrary.herokuapp.com']
 
@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['enationallibrary.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    # 'django_forest',
     'admin_interface',
     'colorfield',
     'django.contrib.admin',
@@ -167,5 +168,12 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'enationallibrary@gmail.com'
 EMAIL_HOST_PASSWORD = 'enationallibrary123'
 
+FOREST = {
+   'FOREST_URL': 'https://api.forestadmin.com',
+   'APPLICATION_URL': 'https://enationallibrary.herokuapp.com',
+   'FOREST_ENV_SECRET': '5070e20c09fa74a92398e2b92abc9a56c9201e4cd4af83b1ab9b10466b9e701c',
+   'FOREST_AUTH_SECRET': '24abe697094bcdcc7047af2317d239288a0efde5fe4294e5'
+}
 
+APPEND_SLASH = False
 

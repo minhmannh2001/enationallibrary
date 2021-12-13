@@ -101,3 +101,5 @@ class Collection(models.Model):
     class Meta:
         verbose_name = 'bộ sưu tập'
         verbose_name_plural = 'Quản lý bộ sưu tập'
+
+

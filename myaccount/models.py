@@ -50,3 +50,25 @@ class Customer(models.Model):
         verbose_name = 'người dùng'
         verbose_name_plural = 'Quản lý người dùng'
 
+
+class OrderedBooks(models.Model):
+    book = models.ForeignKey(Book, related_name='ordered_list', verbose_name='Sách mượn', on_delete=models.CASCADE) # use ForeignKey or ManyToManyField?
+    customer = models.ForeignKey(Customer, related_name='customer_list', verbose_name='Người mượn', on_delete=models.CASCADE)
+    ordered_date = models.DateTimeField(auto_now_add=True, verbose_name='Ngày mượn')
+    expired_date = models.DateTimeField(verbose_name='Ngày hết hạn mượn')
+    normal = 'Bình thường'
+    expired_5days = 'Quá hạn mức 1'
+    expried_30days = 'Quá hạn mức 2'
+    order_status = [
+        (normal, 'Bình thường'),
+        (expired_5days, 'Quá hạn mức 1'),
+        (expried_30days, 'Quá hạn mức 2'),
+    ]
+    status = models.CharField(max_length=30, choices=order_status, verbose_name='Trạng thái mượn')
+
+    class Meta:
+        verbose_name = 'Danh sách sách đã mượn'
+        verbose_name_plural = 'Quản lý danh sách sách đã mượn'
+
+    def __str__(self):
+        return f'{self.book}'

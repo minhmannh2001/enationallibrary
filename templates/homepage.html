@@ -90,7 +90,7 @@
                   </a>
 
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink" style="top: 10px">
-                    <a class="dropdown-item dropdowns-menu-item" href="#">Trang cá nhân</a>
+                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'my_account:my_profile' %}">Trang cá nhân</a>
                       {% if is_staff %}
                     <a class="dropdown-item dropdowns-menu-item" href="{% url 'admin:index' %}">Trang quản trị</a>
                           {% endif %}
