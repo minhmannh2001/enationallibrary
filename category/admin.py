@@ -4,7 +4,7 @@ from .models import Book, Magazine, New, Collection
 
 
 class BookAdmin(admin.ModelAdmin):
-    fields = ('title', 'type', 'author', 'publisher', 'language', 'description', 'summary', 'image', 'show_image',
+    fields = ('title', 'type', 'author', 'publisher', 'publishYear', 'language', 'description', 'summary', 'image', 'show_image',
               'quantity', 'beingBorrowedQuantity', 'genre', 'rating')
     readonly_fields = ('show_image',)
     list_display = ('title', 'show_image2', 'quantity', 'beingBorrowedQuantity')

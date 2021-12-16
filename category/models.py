@@ -15,6 +15,7 @@ class Book(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     author = models.ManyToManyField(Author, verbose_name='Tác giả')
     publisher = models.ManyToManyField(Publisher, verbose_name='Nhà xuất bản')
+    publishYear = models.DateField(verbose_name='Năm xuất bản')
     language = models.CharField(max_length=20, verbose_name='Ngôn ngữ')
     description = models.CharField(max_length=255, verbose_name='Mô tả')
     summary = RichTextField(verbose_name='Tóm tắt nội dung')
