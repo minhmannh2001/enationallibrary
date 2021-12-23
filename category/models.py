@@ -7,11 +7,14 @@ class Book(models.Model):
     title = models.CharField(max_length=100, verbose_name='Tiêu đề')
     EBOOK = 'Bản điện tử'
     BOOK = 'Bản giấy'
+    BOTH = 'Cả hai'
     bookType = [
         (EBOOK, 'Sách điện tử'),
-        (BOOK, 'Sách giấy')
+        (BOOK, 'Sách giấy'),
+        (BOTH, 'Cả hai'),
     ]
     type = models.CharField(max_length=20, choices=bookType, verbose_name='Loại sách')
+    slug = models.CharField(max_length=255)
     isRare = models.BooleanField(default=False, verbose_name='Sách hiếm')
     createdAt = models.DateTimeField(auto_now_add=True)
     author = models.ManyToManyField(Author, verbose_name='Tác giả')
