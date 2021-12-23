@@ -2,14 +2,13 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <title>Trang chủ | Thư viện số quốc gia</title>
+  <title>{{ book.title }} | Thư viện số quốc gia</title>
     <style>
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital@0;1&family=Oswald&display=swap');
 </style>
@@ -25,12 +24,40 @@
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="{% static 'home/css/homepage.css' %}">
-
+  <link rel="stylesheet" href="{% static 'category/css/category.css' %}">
+    <style>
+        .book-title {
+            color: #2b5c78;
+            font-size: 18px;
+            font-family: "Open sans", sans-serif;
+            font-weight: 700;
+        }
+        .book-details-genre {
+            font-size: 14px;
+            line-height: 40px;
+            color: #71818b;
+            font-family: "Open sans", sans-serif;
+        }
+        .add-book-to-cart-btn:hover {
+            cursor: pointer;
+              text-decoration: none;
+             box-shadow: 2px 2px 2px #c3c8c8;
+              -webkit-transition: .3s all ease;
+              -o-transition: .3s all ease;
+              transition: .3s all ease;
+        }
+        .hold-book-btn:hover {
+            cursor: pointer;
+              text-decoration: none;
+               box-shadow: 2px 2px 2px #c3c8c8;
+              -webkit-transition: .3s all ease;
+              -o-transition: .3s all ease;
+              transition: .3s all ease;
+        }
+    </style>
 </head>
-
 <body>
-  <header class="header">
+<header class="header mb-5">
     <div class="container">
       <div class="headerMobile">
         <a href="./homepage.html">
@@ -58,7 +85,7 @@
         </div>
       </div>
       <div class="header-topWrapper">
-        <a href="./homepage.html" class="header-logo">
+        <a href="{% url 'home:homepage' %}" class="header-logo">
           <svg class="nplLogo svgIcon" width="256px" height="123px" viewBox="0 0 256 123" focusable="false">
             <title>The eNational Public Library</title>
             <g class="nplLogo-icon">
@@ -136,464 +163,338 @@
       </div>
     </div>
   </header>
-  <main class="nplHomepage">
-    <div class="homeBanner">
-      <i class="homeBanner-prev">
-        <ion-icon class="prevIcon" name="chevron-back-outline"></ion-icon>
-      </i>
-      <ul class="homeBanner-dots">
-        <li class="homeBanner-dot-item active" data-index="0"></li>
-        <li class="homeBanner-dot-item" data-index="1"></li>
-        <li class="homeBanner-dot-item" data-index="2"></li>
-        <li class="homeBanner-dot-item" data-index="3"></li>
-        <li class="homeBanner-dot-item" data-index="4"></li>
-      </ul>
-      <div class="homeBanner-wrapper">
-        <div class="homeBanner-main">
-          {% for event in events %}
-          <div class="homeBanner-item">
-            <img src="{{ event.banner.url }}" alt="" class="loaded">
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      <i class="homeBanner-next">
-        <ion-icon class="nextIcon" name="chevron-forward-outline"></ion-icon>
-      </i>
-    </div>
-    <div class="whatOn firstBackgroundColor">
-      <div class="container-fullWidth">
-        <div class="leftColumn">
-          <h2 class="title">
-            <a href="">Tin mới</a>
-          </h2>
-        </div>
-        <div class="rightColumn">
-          <ul class="hotNews">
-            {% for i in top_hot_news %}
-            <li class="hotNews-wrapper main">
-              <a href="" class="hotNews-link">
-                <img src="{{ i.image.url }}" alt="" width="828px">
-                <div class="hotNews-detail">
-                  <div class="hotNews-title first" style="font-family: 'Oswald', sans-serif; color: #343a40">{{ i.title }}</div>
-                  <div class="hotNews-summary first" style="font-family: 'Lora', serif;">{{ i.summary }}</div>
-                </div>
-              </a>
-            </li>
-            {% endfor %}
-
-            <li class="hotNews-wrapper">
-              {% for i in second_hot_news %}
-              <a href="" class="hotNews-link-2nd">
-                <img src="{{ i.image.url }}" alt="">
-                <div class="hotNews-detail">
-                  <div class="hotNews-title" style="font-family: 'Oswald', sans-serif; color: #343a40">{{ i.title }}</div>
-                  <div class="hotNews-summary" style="font-family: 'Lora', serif;">{{ i.summary }}</div>
-                </div>
-              </a>
-              {% endfor %}
-              {% for i in third_hot_news %}
-              <a href="" class="hotNews-link">
-                <img src="{{ i.image.url }}" alt="">
-                <div class="hotNews-detail">
-                  <div class="hotNews-title" style="font-family: 'Oswald', sans-serif; color: #343a40">{{ i.title }}</div>
-                  <div class="hotNews-summary" style="font-family: 'Lora', serif;">{{ i.summary }}</div>
-                </div>
-              </a>
-              {% endfor %}
-
-            </li>
-          </ul>
-        </div>
-        <div class="seeMore">
-          <a class="seeMore-btn">... XEM THÊM</a>
-        </div>
-      </div>
-    </div>
-    <div class="staffPicks secondBackgroundColor">
-      <div class="container-fullWidth">
-        <div class="leftColumn">
-          <h2 class="title">
-            <a href="">Tuyển tập</a>
-          </h2>
-        </div>
-        <div class="rightColumn">
-          <div class="staffPicksTrack">
-            <div class="hpStaffPicks">
-              <div class="hpStaffPicks-wrapper">
-                <div class="hpStaffPicks-pick">
-                  <div class="quoteBackground">
-
-                  </div>
-                  <p class="description" style="font-style: italic !important;font-family: 'Lora', serif;font-size: 20px!important;">
-                    {{ staff_picks_1.brief_sum }}
-                  </p>
-                  <a href="" class="link">
-                    <img src="{{ staff_picks_1.image.url }}" alt="Knights vs Dinosaurs">
-                  </a>
-                </div>
-                <div class="hpStaffPicks-staff">
-                  <img src="{{ staff_picks_1.creator_image.url }}" alt="" class="staffIcon">
-                  <p class="name" style="font-family: 'Lora';">{{ staff_picks_1.creator }}</p>
-                  <p class="title" style="font-family: 'Open Sans';">{{ staff_picks_1.creator_role }}</p>
-                </div>
-              </div>
-              <div class="hpStaffPicks-wrapper">
-                <div class="hpStaffPicks-pick">
-                  <div class="quoteBackground">
-
-                  </div>
-                  <p class="description" style="font-style: italic !important;font-family: 'Lora', serif;font-size: 20px!important;">
-                    {{ staff_picks_2.brief_sum }}
-                  </p>
-                  <a href="" class="link">
-                    <img src="{{ staff_picks_2.image.url }}" alt="">
-                  </a>
-                </div>
-                <div class="hpStaffPicks-staff">
-                  <img src="{{ staff_picks_2.creator_image.url }}" alt="" class="staffIcon">
-                  <p class="name" style="font-family: 'Lora';">{{ staff_picks_2.creator }}</p>
-                  <p class="title" style="font-family: 'Open Sans';">{{ staff_picks_2.creator_role }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="seeMore">
-          <a class="seeMore-btn">... XEM THÊM</a>
-        </div>
-      </div>
-    </div>
-    <div class="topBorrow thirdBackgroundColor">
-      <div class="container-fullWidth">
-        <div class="leftColumn">
-          <h2 class="title">
-            <a href="">Mượn nhiều</a>
-          </h2>
-        </div>
-        <div class="rightColumn">
-          <div class="tbBookList">
-            <i class="fa fa-angle-left tbSlider-prev"></i>
-            <div class="tbSlick-list">
-              <div class="tbSlick-track">
-                <div class="tbSlick-slide" data-index="0" tabindex="-1">
-                  <a href="{% url 'category:book-detail' top_borrow_books_1.slug %}" class="book-cover">
-                      <div style="background-image: url({{ top_borrow_books_1.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_1.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_1.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="tbSlick-slide" data-index="1" tabindex="-1">
-                  <a href="{% url 'category:book-detail' top_borrow_books_2.slug %}" class="book-cover">
-                      <div style="background-image: url({{ top_borrow_books_2.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_2.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_2.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="tbSlick-slide" data-index="2" tabindex="-1">
-                  <a href="{% url 'category:book-detail' top_borrow_books_3.slug %}" class="book-cover">
-                      <div style="background-image: url({{ top_borrow_books_3.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_3.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_3.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="tbSlick-slide" data-index="3" tabindex="-1">
-                  <a href="{% url 'category:book-detail' top_borrow_books_4.slug %}" class="book-cover">
-                      <div style="background-image: url({{ top_borrow_books_4.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_4.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_4.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="tbSlick-slide" data-index="4" tabindex="-1">
-                  <a href="{% url 'category:book-detail' top_borrow_books_5.slug %}" class="book-cover">
-                      <div style="background-image: url({{ top_borrow_books_5.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_5.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_5.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="tbSlick-slide" data-index="5" tabindex="-1">
-                  <a href="{% url 'category:book-detail' top_borrow_books_6.slug %}" class="book-cover">
-                      <div style="background-image: url({{ top_borrow_books_6.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_6.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_6.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="tbSlick-slide" data-index="6" tabindex="-1">
-                  <a href="{% url 'category:book-detail' top_borrow_books_7.slug %}" class="book-cover">
-                      <div style="background-image: url({{ top_borrow_books_7.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_7.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_7.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="tbSlick-slide" data-index="7" tabindex="-1">
-                  <a href="{% url 'category:book-detail' top_borrow_books_8.slug %}" class="book-cover">
-                      <div style="background-image: url({{ top_borrow_books_8.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_8.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_8.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="tbSlick-slide" data-index="8" tabindex="-1">
-                  <a href="{% url 'category:book-detail' top_borrow_books_9.slug %}" class="book-cover">
-                      <div style="background-image: url({{ top_borrow_books_9.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_9.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_9.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="tbSlick-slide" data-index="9" tabindex="-1">
-                  <a href="{% url 'category:book-detail' top_borrow_books_10.slug %}" class="book-cover">
-                      <div style="background-image: url({{ top_borrow_books_10.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ top_borrow_books_10.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ top_borrow_books_10.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <i class="fa fa-angle-right tbSlider-next"></i>
-          </div>
-        </div>
-        <div class="seeMore">
-          <a class="seeMore-btn">... XEM THÊM</a>
-        </div>
-      </div>
-    </div>
-    <div class="newArrival thirdBackgroundColor">
-      <div class="container-fullWidth">
-        <div class="leftColumn">
-          <h2 class="title">
-            <a href="">Sách mới</a>
-          </h2>
-        </div>
-        <div class="rightColumn">
-          <div class="naBookList">
-            <i class="fa fa-angle-left naSlider-prev"></i>
-            <div class="naSlick-list">
-              <div class="naSlick-track">
-                <div class="naSlick-slide" data-index="0" tabindex="-1">
-                  <a href="{% url 'category:book-detail' new_arrival_books_1.slug %}" class="book-cover">
-                      <div style="background-image: url({{ new_arrival_books_1.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_1.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_1.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="naSlick-slide" data-index="1" tabindex="-1">
-                  <a href="{% url 'category:book-detail' new_arrival_books_2.slug %}" class="book-cover">
-                    <div style="background-image: url({{ new_arrival_books_2.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_2.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_2.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="naSlick-slide" data-index="2" tabindex="-1">
-                  <a href="{% url 'category:book-detail' new_arrival_books_3.slug %}" class="book-cover">
-                    <div style="background-image: url({{ new_arrival_books_3.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title"  style="width: 212px;">{{ new_arrival_books_3.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_3.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="naSlick-slide" data-index="3" tabindex="-1">
-                  <a href="{% url 'category:book-detail' new_arrival_books_4.slug %}" class="book-cover">
-                    <div style="background-image: url({{ new_arrival_books_4.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_4.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_4.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="naSlick-slide" data-index="4" tabindex="-1">
-                  <a href="{% url 'category:book-detail' new_arrival_books_5.slug %}" class="book-cover">
-                    <div style="background-image: url({{ new_arrival_books_5.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_5.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_5.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="naSlick-slide" data-index="5" tabindex="-1">
-                  <a href="{% url 'category:book-detail' new_arrival_books_6.slug %}" class="book-cover">
-                    <div style="background-image: url({{ new_arrival_books_6.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_6.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_6.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="naSlick-slide" data-index="6" tabindex="-1">
-                  <a href="{% url 'category:book-detail' new_arrival_books_7.slug %}" class="book-cover">
-                    <div style="background-image: url({{ new_arrival_books_7.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_7.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_7.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="naSlick-slide" data-index="7" tabindex="-1">
-                  <a href="{% url 'category:book-detail' new_arrival_books_8.slug %}" class="book-cover">
-                    <div style="background-image: url({{ new_arrival_books_8.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_8.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_8.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="naSlick-slide" data-index="8" tabindex="-1">
-                  <a href="{% url 'category:book-detail' new_arrival_books_9.slug %}" class="book-cover">
-                    <div style="background-image: url({{ new_arrival_books_9.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_9.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_9.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="naSlick-slide" data-index="9" tabindex="-1">
-                  <a href="{% url 'category:book-detail' new_arrival_books_10.slug %}" class="book-cover">
-                    <div style="background-image: url({{ new_arrival_books_10.image.url }}); width: 212px; height: 340px; background-size: cover; background-position: center"></div>
-                    <div class="itemOverlay">
-                      <p class="title" style="width: 212px;">{{ new_arrival_books_10.title|truncatechars:40 }}</p>
-                      <div class="details">
-                        <p class="details-author" style="width: 212px;">{{ new_arrival_books_10.author.first }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <i class="fa fa-angle-right naSlider-next"></i>
-          </div>
-        </div>
-        <div class="seeMore">
-          <a class="seeMore-btn">... XEM THÊM</a>
-        </div>
-      </div>
-    </div>
-    <div class="startTrial">
+  <main class="category7">
+    <div class="main-category">
       <div class="container">
-        <div class="startTrial-headline" style="font-family: 'Oswald';">Đầu tư khôn ngoan nhất là đầu tư vào sách. Khi chúng ta giàu về tri thức thì
-          mới biết làm giàu vật chất, làm giàu thể chất</div>
-        <div class="startTrial-subheader" style="font-family: 'Lora';">
-          Tiếp cận kho tàng hơn 10,000 đầu sách khác nhau
-          <span class="startTrial-totalWorth">
-            <mark class="startTrial-totalWorth-text">
-              với giá trị lên đến
-              10 tỷ
-              <span class="usd">VND</span>
-
-            </mark>
-          </span>
-        </div>
-        <div class="startTrial-timeline">
-          <div class="trial-timeline">
-            <ul class="timeline timeline-smallInvestment">
-              <li class="timeline-stepFirst">
-                <h3 class="timeline_label">Hôm nay</h3>
-                <div class="timeLine_axis">
-                  <div class="timeline_bullet"></div>
-                  <div class="timeline_line"></div>
+        <div class="resume">
+            <div class="top-resume">
+                <div class="left-top-resume">
+                  <h3>{{ book.title }}</h3>
+                  <button class="ml-3 mt-1 mb-3">Có sẵn</button>
+                  <h6 style="color:#9c9c9c ;">{{ book.author.first }}</h6>
+                  <ul class="tag-book-in-rusume">
+                      <a href="">{{ book.type }}</a>
+                      <H6>|</H6>
+                      <a href="">{{ book.publisher.first }}</a>
+                      <H6>|</H6>
+                      <a href="">{{ book.publishYear }}</a>
+                  </ul>
+                  <div>
+                      <span style='font-size:15PX; color:#ff9600;'>&#9733;</span>
+                      <span style='font-size:15PX; color:#ff9600;'>&#9733;</span>
+                      <span style='font-size:15PX; color:#ff9600;'>&#9733;</span>
+                      <span style='font-size:15PX; color:#ff9600;'>&#9733;</span>
+                      <span style='font-size:15PX; color:#ff9600;'>&#9733;</span>
+                      <h6 style="display: inline-block;">51 đánh giá</h6>
+                  </div>
+                  <hr>
+                  <ul>
+                    <li>
+                      <h6 class="title-in-left-rusume" style="float: left;">Tiêu đề</h6>
+                      <h6 class="information-in-left-rusume">{{ book.title }}</h6>
+                    </li>
+                    <li>
+                      <h6 class="title-in-left-rusume">Tác giả</h6>
+                      <span class="information-in-left-rusume">
+                        <a href="">{{ book.author.first }}</a>
+                      </span>
+                    </li>
+                    <li>
+                      <h6 class="title-in-left-rusume">Ngôn ngữ</h6>
+                      <a href="" class="information-in-left-rusume book-language">{{ book.language }}</a>
+                    </li>
+                    <li>
+                      <h6 class="title-in-left-rusume">Nhà xuất bản</h6>
+                      <span class="information-in-left-rusume">
+                        <a href="">{{ book.publisher.first }}</a>
+                      </span>
+                    </li>
+                    <li>
+                      <h6 class="title-in-left-rusume">Năm xuất bản</h6>
+                      <h6 class="information-in-left-rusume">{{ book.publishYear|date }}</h6>
+                    </li>
+                    <li>
+                      <h6 class="title-in-left-rusume">Mô tả</h6>
+                      <h6 class="information-in-left-rusume">{{ book.description }}</h6>
+                    </li>
+                    <li>
+                      <h6 class="title-in-left-rusume" style="float: left;">Tóm lược nội dung</h6>
+                      <h6 class="information-in-left-rusume">{{ book.summary|safe }}</h6>
+                    </li>
+                    <li>
+                      <h6 class="title-in-left-rusume" style="float: left;">Thể loại</h6>
+                      <span class="information-in-left-rusume">
+                        <a href="">{{ book.type }}</a><br>
+                        <a href="">{{ book.genre }}</a><br>
+                      </span>
+                    </li>
+                  </ul>
                 </div>
-                <p class="timeline_text" style="font-family: system-ui;">Đăng ký dùng thử thẻ thành viên<br> của eNational Public Library miễn phí</p>
-              </li>
-              <li class="timeline-stepLast">
-                <h3 class="timeline_label">7 ngày sau</h3>
-                <div class="timeLine_axis">
-                  <div class="timeline_bullet"></div>
-                  <div class="timeline_line">
-                    <i class="fa fa-angle-right arrow-head"></i>
+                <div class="right-top-resume">
+                  <div style="background-image: url({{ book.image.url }}); width: 500px; height: 700px; background-size: cover; position: center;"></div>
+                  <div>
+                    <button class="add-book-to-cart-btn">Đặt sách</button>
+                    <button style="float: right;" class="hold-book-btn">Giữ sách</button>
                   </div>
                 </div>
-                <p class="timeline_text" style="font-family: system-ui;">Kết thúc chương trình dùng thử. <br> Bạn có thể hủy vào thời điểm bất kì trước
-                  đó.</p>
-              </li>
-              <li class="timeline-finish" style="font-family: system-ui;">
-                Gia hạn và tiếp tục khám phá cùng
-                <br>
-                eNational Public Library!
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="startTrial-trialMessage">
-          <div class="trialMessage-background">
-            <div class="trialMessage-inner">
-              <div class="trialMessage-description" style="font-family: 'Open Sans';">
-                Hãy trải nghiệm chương trình khuyến mãi trong 7 ngày của chúng tôi. Nếu yêu thích, bạn có thể gia hạn
-                chỉ với
-                <b>
-                  150.000
-                  <span class="usd">VND</span>
+            </div>
 
-                </b>
-                / tháng, hoặc
-                <b>
-                  có thể dễ dàng hủy trước thời hạn và không hề mất phí.
-                </b>
-              </div>
-              <div class="trialMessage-wrapper">
-                <a href="" class="trialMessage-button" style="font-family: system-ui;">Đăng ký dùng thử!</a>
-              </div>
+        </div>
+        <div class="author-in-category7">
+            <hr>
+          <h5 style="font-size: 110%;">Tác giả</h5>
+          <div style="display: block;">
+              <span>
+              <div style="background-image: url({{ book.author.first.image.url }}); border-radius: 50%; width: 150px; height: 150px; background-size: cover;"></div>
+            </span>
+                  <div class="information-author-category7 ml-3">
+              <h5>{{ book.author.first.name }}</h5>
+              <h6 class="mt-3" style="min-width: 100vw;">{{ book.author.first.description }}</h6>
             </div>
           </div>
+        </div>
+        <div class="ralavant-books-in-category7">
+          <hr>
+          <h4 class="mb-5">Cùng thể loại</h4>
+        {% if same_genre_books_lt_6 %}
+          <div class="rbBookList">
+            <i class="fa fa-angle-left rbSlider-prev"></i>
+            <div class="rbSlick-list">
+              <div class="rbSlick-track">
+                  {% for book in same_genre_books %}
+                      <div class="rbSlick-slide" data-index="{{ forloop.counter }}" tabindex="-1">
+                  <a href="{% url 'category:book-detail' book.slug %}" class="book-cover">
+                    <div style="background-image: url({{ book.image.url }}); width: 180px; height: 250px; background-size: cover; background-position: center"></div>
+                    <div class="itemOverlay">
+                      <p class="title" style="width: 180px;">{{ book.title|truncatechars:30 }}</p>
+                      <div class="details">
+                        <p class="details-genre" style="width: 180px;">{{ book.author.first }}</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                  {% endfor %}
+              </div>
+            </div>
+            <i class="fa fa-angle-right rbSlider-next"></i>
+
+          </div>
+            {% else %}
+            <div>
+                <ul class="d-flex flex-row justify-items-start align-items-start">
+                    {% for book in same_genre_books %}
+                        <li>
+                          <a href="{% url 'category:book-detail' book.slug %}">
+                            <div style="background-image: url({{ book.image.url }}); width: 180px; height: 250px; background-size: cover; background-position: center"></div>
+                            <div class="book-description mt-3">
+                              <p class="book-title" style="width: 180px;">{{ book.title|truncatechars:30 }}</p>
+                              <div class="book-details">
+                                <p class="book-details-genre" style="width: 180px;">{{ book.author.first }}</p>
+                              </div>
+                            </div>
+                          </a>
+                        </li>
+                  {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        </div>
+        <div class="ralavant-books-in-category7">
+          <hr style="margin-top: -20px;">
+          <h4 class="mb-5">Cùng tác giả</h4>
+          <div class="faBookList">
+          {% if same_author_books_lt_6  %}
+              <i class="fa fa-angle-left faSlider-prev"></i>
+
+
+            <div class="faSlick-list">
+              <div class="faSlick-track">
+                  {% for book in same_author_books %}
+                      <div class="faSlick-slide" data-index="{{ forloop.counter }}" tabindex="-1">
+                  <a href="{% url 'category:book-detail' book.slug %}" class="book-cover">
+                    <div style="background-image: url({{ book.image.url }}); width: 180px; height: 250px; background-size: cover; background-position: center"></div>
+                    <div class="itemOverlay">
+                      <p class="title" style="width: 180px;">{{ book.title|truncatechars:30 }}</p>
+                      <div class="details">
+                        <p class="details-genre" style="width: 180px;">{{ book.genre }}</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                  {% endfor %}
+              </div>
+            </div>
+              <i class="fa fa-angle-right faSlider-next"></i>
+              {% else %}
+                <div style="margin-top: -20px; margin-bottom: -20px;">
+                <ul class="d-flex flex-row justify-items-start align-items-start">
+                    {% for book in same_author_books %}
+                        <li>
+                          <a href="{% url 'category:book-detail' book.slug %}">
+                            <div style="background-image: url({{ book.image.url }}); width: 180px; height: 250px; background-size: cover; background-position: center"></div>
+                            <div class="book-description mt-3">
+                              <p class="book-title" style="width: 180px;">{{ book.title|truncatechars:30 }}</p>
+                              <div class="book-details">
+                                <p class="book-details-genre" style="width: 180px;">{{ book.author.first }}</p>
+                              </div>
+                            </div>
+                          </a>
+                        </li>
+                  {% endfor %}
+                </ul>
+            </div>
+          {% endif %}
+
+          </div>
+        </div>
+      {% if same_author_books_lt_6 %}
+          <hr>
+      {% else %}
+        <hr style="margin-top: -20px;">
+      {% endif %}
+        <div class="leftColumn" style="width: 25%;">
+          <div class="customre-reviews">
+            <h4>Đánh giá của khách hàng</h4>
+            <div>
+                <span style='font-size:25px; color:#ff9600;'>&#9733;</span>
+                <span style='font-size:25px; color:#ff9600;'>&#9733;</span>
+                <span style='font-size:25px; color:#ff9600;'>&#9733;</span>
+                <span style='font-size:25px; color:#ff9600;'>&#9733;</span>
+                <span style='font-size:25px; color:#ff9600;'>&#9733;</span>
+                <h6 style="display: inline-block;">4.9/5</h6>
+            </div>
+            <h6>224 đánh giá</h6>
+            <div>
+              <div class="vote-5-star">
+                <h6>5 sao</h6>
+                <div class="percent-vote-5-star">
+                  <span></span>
+                </div>
+                <h6>91%</h6>
+              </div>
+              <div class="vote-4-star">
+                <h6>4 sao</h6>
+                <div class="percent-vote-5-star">
+                  <span style="width: 7%;"></span>
+                </div>
+                <h6>7%</h6>
+              </div>
+              <div class="vote-3-star">
+                <h6>3 sao</h6>
+                <div class="percent-vote-5-star">
+                  <span style="width:2%;"></span>
+                </div>
+                <h6>2%</h6>
+              </div>
+              <div class="vote-2-star">
+                <h6>2 sao</h6>
+                <div class="percent-vote-5-star">
+                  <span style="width: 0%;"></span>
+                </div>
+                <h6>0%</h6>
+              </div>
+              <div class="vote-1-star">
+                <h6>1 sao</h6>
+                <div class="percent-vote-5-star">
+                  <span  style="width: 0%;"></span>
+                </div>
+                <h6>0%</h6>
+              </div>
+            </div>
+            <hr>
+            <h5>Đánh giá sản phẩm</h5>
+            <h6>Chia sẻ cảm nhận cùng các khách hàng khác</h6>
+            <button>Bấm vào để viết đánh giá</button>
+            <hr>
+          </div>
+
+        </div>
+
+        <div class="rightColumn" style="margin-top: 10px; margin-right: -300px;">
+           <div class="top-reviews">
+             <h4>Các bình luận từ khách hàng</h4>
+              <div class="top-review-1">
+                <ul>
+                  <li class="reviewer-in-top-review">
+                    <span></span>
+                    <h5>Kiều Bách</h5>
+                  </li>
+                  <li>
+                    <div>
+                      <span style='font-size:20PX; color:#ff9600;'>&#9733;</span>
+                      <span style='font-size:20PX; color:#ff9600;'>&#9733;</span>
+                      <span style='font-size:20PX; color:#ff9600;'>&#9733;</span>
+                      <span style='font-size:20PX; color:#ff9600;'>&#9733;</span>
+                      <span style='font-size:20PX; color:#ff9600;'>&#9733;</span>
+                    </div>
+                  </li>
+                  <li>
+                    <h6 style="color: #565959;">September 16, 2020</h6>
+                    <h6 style="color: #c85500;font-weight: bold;">Đã thuê sách</h6>
+                    <h6 style="display: block; width: 50%;">
+                        Một lời nhắn đặc biệt cho những ai nói nhận xét của tôi làm họ ngưng đọc cuốn sách này lại: Không không không! Đọc đi! Tôi thực sự đã đọc lại toàn bộ series vào hè năm ngoái và thích nó ngay lập tức. Hãy đọc vì nó: lố bịch, viết hay, hài hước, VÔ LÍ một cách thú vị. Đừng mong nó là cuốn tiểu thuyết tuyệt vời nhất và bạn sẽ ổn thôi.
+                    </h6>
+                  </li>
+                  <li>
+                    <h6 style="color: #565959;">16 người thấy bình luận này tích cực</h6>
+                  </li>
+                  <li >
+                    <button style="
+                        width: 10%;
+                        border-radius: 10px;
+                        background-color: white;
+                        border: 1.5px solid #d5d9d9;
+                        box-shadow: 2px 2px 2px #c3c8c8;
+                        display: inline-block;
+                    ">Tích cực</button>
+                    <h6 style="display: inline-block; margin-left: 15px;">|</h6>
+                    <a href="" style="margin-left: 15px; font-size: 90%;">Báo cáo</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="top-review-1">
+                <ul>
+                  <li class="reviewer-in-top-review">
+                    <span></span>
+                    <h5>Nguyễn Mạnh</h5>
+                  </li>
+                  <li>
+                    <div>
+                      <span style='font-size:20PX; color:#ff9600;'>&#9733;</span>
+                      <span style='font-size:20PX; color:#ff9600;'>&#9733;</span>
+                      <span style='font-size:20PX; color:#ff9600;'>&#9733;</span>
+                      <span style='font-size:20PX; color:#ff9600;'>&#9733;</span>
+                      <span style='font-size:20PX; color:#ff9600;'>&#9733;</span>
+                      <h5 style="display: inline-block; margin-left: 10px;
+                      font-weight: bold;">Đã đánh giá!</h5>
+                    </div>
+                  </li>
+                  <li>
+                      <h6 style="color: #565959;">September 16, 2020</h6>
+                    <h6 style="color: #c85500;font-weight: bold;">Đã thuê sách</h6>
+                    <h6 style="display: block; width: 50%;">
+                        Một lời nhắn đặc biệt cho những ai nói nhận xét của tôi làm họ ngưng đọc cuốn sách này lại: Không không không! Đọc đi! Tôi thực sự đã đọc lại toàn bộ series vào hè năm ngoái và thích nó ngay lập tức. Hãy đọc vì nó: lố bịch, viết hay, hài hước, VÔ LÍ một cách thú vị. Đừng mong nó là cuốn tiểu thuyết tuyệt vời nhất và bạn sẽ ổn thôi.
+                    </h6>
+                  </li>
+                  <li>
+                    <h6 style="color: #565959;">16 người thấy bình luận này tích cực</h6>
+                  </li>
+                  <li >
+                    <button style="
+                        width: 10%;
+                        border-radius: 10px;
+                        background-color: white;
+                        border: 1.5px solid #d5d9d9;
+                        box-shadow: 2px 2px 2px #c3c8c8;
+                        display: inline-block;
+                    ">Tích cực</button>
+                    <h6 style="display: inline-block; margin-left: 15px;">|</h6>
+                    <a href="" style="margin-left: 15px; font-size: 90%;">Báo cáo</a>
+                  </li>
+                </ul>
+              </div>
+
+           </div>
         </div>
       </div>
     </div>
@@ -696,7 +597,7 @@
     </div>
 
   </footer>
-  <script src="{% static 'home/js/homepage.js' %}"></script>
+<script src="{% static 'category/js/category.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
