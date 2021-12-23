@@ -8,7 +8,7 @@ from category.models import Collection
 
 
 def home(request):
-    # print(request.user.customer.all().first().lastName)
+    print(request.user.customer.all().first().lastName)
     is_login = False
     is_staff = False
     if not request.user.is_anonymous:

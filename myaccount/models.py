@@ -37,8 +37,15 @@ class Customer(models.Model):
     username = models.CharField(max_length=50, verbose_name='Tên đăng nhập', unique=True)
     user = models.ForeignKey(User, related_name='customer', on_delete=models.CASCADE)
     dateOfBirth = models.DateField(null=True, blank=True, verbose_name='Ngày sinh')
+    gender_choice = [
+        ('Nam', 'Nam'),
+        ('Nữ', 'Nữ'),
+        ('Không xác định', 'Không xác định'),
+    ]
+    gender = models.CharField(max_length=50, null=True, blank=True, verbose_name='Giới tính')
     emailAddress = models.CharField(max_length=50, null=True, blank=True, verbose_name='Địa chỉ email', unique=True)
     address = models.CharField(max_length=50, null=True, blank=True, verbose_name='Địa chỉ nhà')
+    city = models.CharField(max_length=50, null=True, blank=True, verbose_name='Thành phố')
     identificationCard = models.CharField(max_length=40, null=True, blank=True, verbose_name='Số CMND', unique=True)
     phoneNumber = models.CharField(max_length=10, null=True, blank=True, verbose_name='Số điện thoại', unique=True)
     memberCard = models.OneToOneField(MemberCard, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Thẻ đã đăng ký', unique=True)
@@ -56,13 +63,16 @@ class OrderedBooks(models.Model):
     customer = models.ForeignKey(Customer, related_name='customer_list', verbose_name='Người mượn', on_delete=models.CASCADE)
     ordered_date = models.DateTimeField(auto_now_add=True, verbose_name='Ngày mượn')
     expired_date = models.DateTimeField(verbose_name='Ngày hết hạn mượn')
+    return_date = models.DateTimeField(verbose_name='Ngày trả sách')
     normal = 'Bình thường'
     expired_5days = 'Quá hạn mức 1'
     expried_30days = 'Quá hạn mức 2'
+    returned = 'Đã trả'
     order_status = [
         (normal, 'Bình thường'),
         (expired_5days, 'Quá hạn mức 1'),
         (expried_30days, 'Quá hạn mức 2'),
+        (returned, 'Đã trả')
     ]
     status = models.CharField(max_length=30, choices=order_status, verbose_name='Trạng thái mượn')
 

@@ -5,13 +5,14 @@ from ckeditor.fields import RichTextField
 
 class Book(models.Model):
     title = models.CharField(max_length=100, verbose_name='Tiêu đề')
-    EBOOK = 'EB'
-    BOOK = 'NB'
+    EBOOK = 'Bản điện tử'
+    BOOK = 'Bản giấy'
     bookType = [
         (EBOOK, 'Sách điện tử'),
         (BOOK, 'Sách giấy')
     ]
-    type = models.CharField(max_length=10, choices=bookType, verbose_name='Loại sách')
+    type = models.CharField(max_length=20, choices=bookType, verbose_name='Loại sách')
+    isRare = models.BooleanField(default=False, verbose_name='Sách hiếm')
     createdAt = models.DateTimeField(auto_now_add=True)
     author = models.ManyToManyField(Author, verbose_name='Tác giả')
     publisher = models.ManyToManyField(Publisher, verbose_name='Nhà xuất bản')
