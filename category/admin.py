@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Book, Magazine, New, Collection
+from .models import Book, Magazine, New, Review, Collection
 
 
 class BookAdmin(admin.ModelAdmin):
@@ -35,8 +35,14 @@ class CollectionAdmin(admin.ModelAdmin):
     search_fields = ('title',)
 
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+    search_fields = ('title',)
+
+
 # Register your models here.
 admin.site.register(Book, BookAdmin)
 admin.site.register(Magazine, MagazineAdmin)
 admin.site.register(New, NewAdmin)
+admin.site.register(Review, ReviewAdmin)
 admin.site.register(Collection, CollectionAdmin)
