@@ -90,6 +90,22 @@ class New(models.Model):
         verbose_name_plural = 'Quản lý tin tức'
 
 
+class Review(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Tiêu đề')
+    summary = models.TextField(verbose_name='Tóm tắt nội dung')
+    createdAt = models.DateTimeField(verbose_name='Ngày tạo')
+    author = models.CharField(max_length=50, verbose_name='Tác giả')
+    image = models.ImageField(verbose_name='Hình ảnh')
+    content = RichTextField(verbose_name='Nội dung bài viết')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'bài đánh giá'
+        verbose_name_plural = 'Quản lý bài đánh giá'
+
+
 class Collection(models.Model):
     title = models.CharField(max_length=255, verbose_name='Tiêu đề')
     brief_sum = models.CharField(max_length=255, verbose_name='Tóm tắt ngắn gọn', default='abc')
