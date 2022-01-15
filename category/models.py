@@ -14,7 +14,8 @@ class Book(models.Model):
         (BOTH, 'Cả hai'),
     ]
     type = models.CharField(max_length=20, choices=bookType, verbose_name='Loại sách')
-    slug = models.CharField(max_length=255)
+    # slug = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, null=True, blank=True)
     isRare = models.BooleanField(default=False, verbose_name='Sách hiếm')
     createdAt = models.DateTimeField(auto_now_add=True)
     author = models.ManyToManyField(Author, verbose_name='Tác giả')
@@ -26,16 +27,16 @@ class Book(models.Model):
     image = models.ImageField(verbose_name='Ảnh bìa')
     quantity = models.IntegerField(verbose_name='Số lượng')
     beingBorrowedQuantity = models.IntegerField(default=0, verbose_name='Số lượng đã mượn')
-    Chinhtriphapluat = 'CTPL'
-    KhoahocCongngheKinhte = 'KHCNKT'
-    Vanhocnghethuat = 'VHNT'
-    VanhoaxahoiLichsu = 'VHXHLS'
-    Truyentieuthuyet = 'TTT'
-    TamlinhTongiao = 'TLTG'
-    Sachthieunhi = 'STN'
-    Truyentranh = 'TT'
-    Giaoduc = 'GD'
-    Tamly = 'TL'
+    Chinhtriphapluat = 'Chính trị pháp luật'
+    KhoahocCongngheKinhte = 'Khoa học công nghệ - Kinh tế'
+    Vanhocnghethuat = 'Văn học nghệ thuật'
+    VanhoaxahoiLichsu = 'Văn hóa xã hội - Lịch sử'
+    Truyentieuthuyet = 'Truyện, tiểu thuyết'
+    TamlinhTongiao = 'Tâm linh, tôn giáo'
+    Sachthieunhi = 'Sách thiếu nhi'
+    Truyentranh = 'Truyện tranh'
+    Giaoduc = 'Giáo dục'
+    Tamly = 'Tâm lý'
     bookGenre = [
         (Chinhtriphapluat, 'Chính trị pháp luật'),
         (KhoahocCongngheKinhte, 'Khoa học công nghệ - Kinh tế'),
@@ -48,12 +49,22 @@ class Book(models.Model):
         (Sachthieunhi, 'Sách thiếu nhi'),
         (Truyentranh, 'Truyện tranh'),
     ]
-    genre = models.CharField(max_length=20, choices=bookGenre, verbose_name='Thể loại')
+    genre = models.CharField(max_length=50, choices=bookGenre, verbose_name='Thể loại')
     rating = models.IntegerField(verbose_name='Đánh giá')
     # comments
 
     def __str__(self):
         return self.title
+
+    def as_json(self):
+        return { "image" : self.image.url,
+                    "genre" : self.genre,
+                    "title" :  self.title,
+                    "author" : self.author.first().name,
+                    "type" : self.type,
+                    "summary" : self.summary,
+                    "slug" : self.slug,
+                    }
 
     class Meta:
         verbose_name = 'sách'
@@ -65,6 +76,18 @@ class Magazine(models.Model):
     summary = models.TextField(verbose_name='Tóm tắt nội dung')
     pdfFile = models.FileField(verbose_name='File PDF')
     image = models.ImageField(verbose_name='Ảnh bìa')
+    magazineGenre = [
+        ('Time', 'Time'),
+        ('Money', 'Money'),
+        ('Economist', 'Economist'),
+        ('Forbes', 'Forbes'),
+        ('GQ', 'GQ'),
+        ('Entrepreneur', 'Entrepreneur'),
+        ('TheNewYorker', 'TheNewYorker'),
+        ('Elle', 'Elle'),
+    ]
+    genre = models.CharField(max_length=50, choices=magazineGenre, verbose_name='Thể loại')
+    publishYear = models.DateField(verbose_name='Năm xuất bản')
 
     def __str__(self):
         return self.title
@@ -81,6 +104,7 @@ class New(models.Model):
     author = models.CharField(max_length=50, verbose_name='Tác giả')
     image = models.ImageField(verbose_name='Hình ảnh')
     content = RichTextField(verbose_name='Nội dung bài viết')
+    slug = models.SlugField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -97,6 +121,7 @@ class Review(models.Model):
     author = models.CharField(max_length=50, verbose_name='Tác giả')
     image = models.ImageField(verbose_name='Hình ảnh')
     content = RichTextField(verbose_name='Nội dung bài viết')
+    slug = models.SlugField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.title

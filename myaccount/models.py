@@ -59,7 +59,7 @@ class Customer(models.Model):
 
 
 class OrderedBooks(models.Model):
-    book = models.ForeignKey(Book, related_name='ordered_list', verbose_name='Sách mượn', on_delete=models.CASCADE) # use ForeignKey or ManyToManyField?
+    book = models.ForeignKey(Book, related_name='ordered_list', verbose_name='Sách mượn', on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, related_name='customer_list', verbose_name='Người mượn', on_delete=models.CASCADE)
     ordered_date = models.DateTimeField(auto_now_add=True, verbose_name='Ngày mượn')
     expired_date = models.DateTimeField(verbose_name='Ngày hết hạn mượn')

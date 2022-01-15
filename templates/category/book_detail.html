@@ -154,11 +154,11 @@
       </div>
       <div class="header-navMenu">
         <ul class="header-navMenuList">
-          <li class="navMenuItem"><a href="../news/index.html" class="navMenuItem-link">Tin tức/ Đánh giá</a></li>
-          <li class="navMenuItem"><a href="" class="navMenuItem-link">Danh mục</a></li>
-          <li class="navMenuItem"><a href="" class="navMenuItem-link">Dịch vụ</a></li>
-          <li class="navMenuItem"><a href="" class="navMenuItem-link">Hỗ trợ</a></li>
-          <li class="navMenuItem"><a href="" class="navMenuItem-link">Liên hệ</a></li>
+          <li class="navMenuItem"><a href="{% url 'news:news-reviews-wrapper' %}" class="navMenuItem-link">Tin tức/ Đánh giá</a></li>
+          <li class="navMenuItem"><a href="{% url 'category:category_wrapper' %}" class="navMenuItem-link">Danh mục</a></li>
+          <li class="navMenuItem"><a href="{% url 'events:events' %}" class="navMenuItem-link">Sự kiện</a></li>
+          <li class="navMenuItem"><a href="{% url 'services:services_wrapper' %}" class="navMenuItem-link">Dịch vụ</a></li>
+          <li class="navMenuItem"><a href="{% url 'support:support_wrapper' %}" class="navMenuItem-link">Hỗ trợ</a></li>
         </ul>
       </div>
     </div>

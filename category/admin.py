@@ -46,3 +46,4 @@ admin.site.register(Magazine, MagazineAdmin)
 admin.site.register(New, NewAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Collection, CollectionAdmin)
+

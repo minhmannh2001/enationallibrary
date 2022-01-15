@@ -9,6 +9,8 @@ class Event(models.Model):
     endDate = models.DateTimeField(verbose_name='Ngày kết thúc')
     content = models.TextField(verbose_name='Nội dung khuyến mãi')
     banner = models.ImageField(verbose_name='Banner sự kiện')
+    image = models.ImageField(verbose_name='Ảnh sự kiện', default='image.jpg')
+    slug = models.SlugField(max_length=255, null=True, blank=True)
     discountFactor = models.IntegerField(
         default=50,
         validators=[
@@ -17,9 +19,6 @@ class Event(models.Model):
         ],
         verbose_name='Tỷ lệ giảm giá(%)'
     )
-    appliedBooks = models.ManyToManyField(Book, verbose_name='Sách được áp dụng', blank=True)
-    appliedAuthors = models.ManyToManyField(Author, verbose_name='Tác giả được áp dụng', blank=True)
-    appliedPublisher = models.ManyToManyField(Publisher, verbose_name='NXB được áp dụng', blank=True)
 
     class Meta:
         verbose_name = 'Sự kiện'

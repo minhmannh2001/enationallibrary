@@ -33,7 +33,7 @@
   <header class="header">
     <div class="container">
       <div class="headerMobile">
-        <a href="./homepage.html">
+        <a href="{% url 'home:homepage' %}">
           <svg class="headerMobileLogo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             viewBox="0 0 108 117">
             <g id="Logo">
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="header-topWrapper">
-        <a href="./homepage.html" class="header-logo">
+        <a href="{% url 'home:homepage' %}" class="header-logo">
           <svg class="nplLogo svgIcon" width="256px" height="123px" viewBox="0 0 256 123" focusable="false">
             <title>The eNational Public Library</title>
             <g class="nplLogo-icon">
@@ -122,16 +122,30 @@
                 d="M338.29 338.29L448 448" />
             </svg>
           </i>
-          <input type="text" class="search-bar-field" style="width: 750px;" placeholder="Tìm kiếm...">
+            <form class="search" action="{% url 'category:category_search' %}" method='post'>
+            {{ form.as_p }}
+            {% csrf_token %}
+                <i class="search-bar-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="search-bar-icon" width="16px" height="16px"
+              viewBox="0 0 512 512">
+              <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none"
+                stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"
+                d="M338.29 338.29L448 448" />
+            </svg>
+          </i>
+          <input type="text" name="content_key" class="search-bar-field input-search-form" style="width: 750px;" placeholder="Tìm kiếm...">
+          </form>
+
         </div>
       </div>
       <div class="header-navMenu">
         <ul class="header-navMenuList">
-          <li class="navMenuItem"><a href="../news/index.html" class="navMenuItem-link">Tin tức/ Đánh giá</a></li>
-          <li class="navMenuItem"><a href="" class="navMenuItem-link">Danh mục</a></li>
-          <li class="navMenuItem"><a href="" class="navMenuItem-link">Dịch vụ</a></li>
-          <li class="navMenuItem"><a href="" class="navMenuItem-link">Hỗ trợ</a></li>
-          <li class="navMenuItem"><a href="" class="navMenuItem-link">Liên hệ</a></li>
+          <li class="navMenuItem"><a href="{% url 'news:news-reviews-wrapper' %}" class="navMenuItem-link">Tin tức/ Đánh giá</a></li>
+          <li class="navMenuItem"><a href="{% url 'category:category_wrapper' %}" class="navMenuItem-link">Danh mục</a></li>
+          <li class="navMenuItem"><a href="{% url 'events:events' %}" class="navMenuItem-link">Sự kiện</a></li>
+          <li class="navMenuItem"><a href="{% url 'services:services_wrapper' %}" class="navMenuItem-link">Dịch vụ</a></li>
+          <li class="navMenuItem"><a href="{% url 'support:support_wrapper' %}" class="navMenuItem-link">Hỗ trợ</a></li>
         </ul>
       </div>
     </div>
@@ -172,7 +186,7 @@
           <ul class="hotNews">
             {% for i in top_hot_news %}
             <li class="hotNews-wrapper main">
-              <a href="" class="hotNews-link">
+              <a href="{% url 'news:news-detail' i.slug %}" class="hotNews-link">
                 <img src="{{ i.image.url }}" alt="" width="828px">
                 <div class="hotNews-detail">
                   <div class="hotNews-title first" style="font-family: 'Oswald', sans-serif; color: #343a40">{{ i.title }}</div>
@@ -184,7 +198,7 @@
 
             <li class="hotNews-wrapper">
               {% for i in second_hot_news %}
-              <a href="" class="hotNews-link-2nd">
+              <a href="{% url 'news:news-detail' i.slug %}" class="hotNews-link-2nd">
                 <img src="{{ i.image.url }}" alt="">
                 <div class="hotNews-detail">
                   <div class="hotNews-title" style="font-family: 'Oswald', sans-serif; color: #343a40">{{ i.title }}</div>
@@ -193,7 +207,7 @@
               </a>
               {% endfor %}
               {% for i in third_hot_news %}
-              <a href="" class="hotNews-link">
+              <a href="{% url 'news:news-detail' i.slug %}" class="hotNews-link">
                 <img src="{{ i.image.url }}" alt="">
                 <div class="hotNews-detail">
                   <div class="hotNews-title" style="font-family: 'Oswald', sans-serif; color: #343a40">{{ i.title }}</div>
@@ -206,7 +220,7 @@
           </ul>
         </div>
         <div class="seeMore">
-          <a class="seeMore-btn">... XEM THÊM</a>
+          <a class="seeMore-btn" href="{% url 'news:news' 1 %}">... XEM THÊM</a>
         </div>
       </div>
     </div>
@@ -260,7 +274,7 @@
           </div>
         </div>
         <div class="seeMore">
-          <a class="seeMore-btn">... XEM THÊM</a>
+          <a class="seeMore-btn" href="{% url 'category:category_staffpicks_all' %}">... XEM THÊM</a>
         </div>
       </div>
     </div>
@@ -268,7 +282,7 @@
       <div class="container-fullWidth">
         <div class="leftColumn">
           <h2 class="title">
-            <a href="">Mượn nhiều</a>
+            <a href="">Sách hay</a>
           </h2>
         </div>
         <div class="rightColumn">
@@ -392,7 +406,7 @@
           </div>
         </div>
         <div class="seeMore">
-          <a class="seeMore-btn">... XEM THÊM</a>
+          <a class="seeMore-btn" href="{% url 'category:category_bestbook_all' %}">... XEM THÊM</a>
         </div>
       </div>
     </div>
@@ -524,7 +538,7 @@
           </div>
         </div>
         <div class="seeMore">
-          <a class="seeMore-btn">... XEM THÊM</a>
+          <a class="seeMore-btn" href="{% url 'category:category_newarrivals_all' %}">... XEM THÊM</a>
         </div>
       </div>
     </div>
