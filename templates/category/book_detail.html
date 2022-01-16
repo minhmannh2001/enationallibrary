@@ -253,6 +253,7 @@
                 <div class="right-top-resume">
                   <div style="background-image: url({{ book.image.url }}); width: 500px; height: 700px; background-size: cover; position: center;"></div>
                   <div>
+                  {% if is_login %}
                     {% if isAvailable %}
                         <a class="add-book-to-cart-btn" style="margin-top: 40px;
                     margin-left: 120px;
@@ -274,6 +275,7 @@
     float: left;
     text-align: center; color: black" type="button" data-toggle="modal" data-target="#remind-me-later-modal">Nhắc tôi khi có sách</a>
                     {% endif %}
+                  {% endif %}
                   </div>
                 </div>
             </div>

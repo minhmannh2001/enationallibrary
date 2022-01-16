@@ -208,11 +208,13 @@
                    <h6>Tác giả: {{ book.author }}</h6>
                  </div>
 {#                 <a class="add-to-cart-btn" href="{% url 'myaccount:add-to-cart' book.id %}">Thêm sách vào giỏ</a>#}
+                     {% if is_login %}
                  {% if book.isAvailable %}
                         <a class="add-to-cart-btn" type="button" data-toggle="modal" data-target="#add-to-cart-modal{{ book.id }}">Thêm sách vào giỏ</a>
                     {% else %}
                         <a class="add-to-cart-btn" data-toggle="modal" data-target="#remind-me-later-modal{{ book.id }}">Nhắc tôi khi có sách</a>
                     {% endif %}
+                     {% endif %}
                  <hr>
                  <h6>{{ book.summary|safe|truncatechars:150 }}</h6>
                </div>

@@ -42,6 +42,9 @@
             cursor: pointer;
             box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
         }
+        a {
+            color: black;
+        }
     </style>
 
 </head>
@@ -239,7 +242,9 @@
                    <h6 style="font-weight: bold;">{{ magazine.title }}</h6>
                    <h6>{{ magazine.summary }}</h6>
                  </div>
+                   {% if is_login %}
                  <a class="add-to-cart-btn" href="{{ magazine.pdfFile.url }}">Đọc ấn phẩm</a>
+                   {% endif %}
                  <hr>
                </div>
              </li>
