@@ -1,0 +1,232 @@
+.newArrival {
+    position: relative;
+    left: 0;
+    height: auto;
+    width: 100%;
+    padding-top: 15px;
+    min-height: 545px; } 
+  .newArrival .leftColumn {
+    margin-top: -10px;
+    border-top: 2px solid red; }
+  .newArrival .container-fullWidth {
+    border-top: 1px solid #e3e3e3;
+  }
+    @media only screen and (min-width: 768px) {
+    .newArrival .leftColumn {
+        margin-top: 25px;
+    }
+    .newArrival {
+        min-height: 455px; } }
+    @media only screen and (min-width: 1024px) {
+    .newArrival {
+        min-height: 555px; } }
+    @media only screen and (min-width: 1313px) {
+    .newArrival {
+        min-height: 600px; } }
+    .newArrival .seeMoreWrapper {
+        margin-top: 30px; }
+
+.newArrival .rightColumn {
+    //margin-top: 40px;
+    margin-bottom: 30px;
+    color: #FFFFFF; }
+    @media only screen and (min-width: 768px) {
+        .newArrival .rightColumn {
+        margin-top: 40px;
+        margin-bottom: 10px; } }
+    @media only screen and (min-width: 1024px) {
+        .newArrival .rightColumn {
+        margin-top: 25px; } }
+    @media only screen and (min-width: 1313px) {
+        .newArrival .rightColumn {
+        margin-top: 36px; } }
+
+.naBookList{
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none; }
+    .naBookList .naSlick-list {
+    position: relative;
+    overflow: hidden;
+    }
+    
+    .naSlider-next,
+    .naSlider-prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 100rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 10;
+    }
+    .naSlider-next {
+    top: 93%;
+    right: 35%;
+    }
+    .naSlider-prev {
+    top: 93%;
+    left: 35%;
+    }
+    
+    .naBookList .naSlick-track {
+    height: 360px;
+    display: flex;
+    transition: transform 0.25s linear;
+    }
+    .naBookList .naSlick-slide {
+    flex: 1 0 34%;
+    }
+    .naBookList .naSlick-slide img {
+    width: auto;
+    height: 200px;
+    }
+    
+    .naBookList .itemOverlay {
+    font-family: $primary-font;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 20px;
+    }
+    .details-author {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 30px;
+    }
+    .details-genre {
+    font-weight: 600;
+    font-size: 9px;
+    text-transform: uppercase;
+    line-height: 8px;
+    }
+    .naBookList .title {
+    color: #2b5c78;
+    }
+    
+    .naBookList .details{
+    color: #71818b
+    }
+    @media (min-width: 540px) {
+    .naSlider-next,
+    .naSlider-prev {
+        width: 45px;
+        height: 45px;
+    }
+    .naBookList .naSlick-slide {
+        flex: 1 0 25%;
+    }
+    .naBookList .naSlick-slide img {
+        width: auto;
+        height: 200px;
+    }
+    }
+    @media (min-width: 768px) {
+    .naSlider-next,
+    .naSlider-prev {
+        width: 50px;
+        height: 50px;
+    }
+    .naSlider-next {
+        top: 40%;
+        right: -40px;
+    }
+    .naSlider-prev {
+        top: 40%;
+        left: -70px;
+    }
+    .naBookList .naSlick-track {
+        height: 300px;
+    }
+    .naBookList .naSlick-slide {
+        flex: 1 0 25%;
+    }
+    .naBookList .naSlick-slide img {
+        width: auto;
+        height: 220px;
+    }
+    .naBookList .itemOverlay {
+        margin-top: 15px;
+        font-size: 16px;
+    }
+    .details-author {
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 30px;
+    }
+    .details-genre {
+        font-weight: 600;
+        font-size: 10px;
+        text-transform: uppercase;
+        line-height: 8px;
+    }
+    }
+    
+    @media (min-width: 1024px) {
+    .naBookList .naSlick-track {
+        height: 400px;
+    }
+    .naBookList .naSlick-slide {
+        flex: 1 0 25%;
+    }
+    .naBookList .naSlick-slide img {
+        width: auto;
+        height: 320px;
+    }
+    }
+    
+    @media (min-width: 1095px) {
+    .naBookList .naSlick-slide {
+        flex: 1 0 22.5%;
+    }}
+    
+    @media (min-width: 1313px) {
+    .naBookList .naSlick-track {
+        height: 425px;
+    }
+    .naBookList .naSlick-slide {
+        flex: 1 0 21%;
+    }
+    .naBookList .naSlick-slide img {
+        width: auto;
+        height: 330px;
+    }
+    .naBookList .itemOverlay {
+        margin-top: 15px;
+        font-size: 18px;
+    }
+    .details-author {
+        font-size: 16px;
+        line-height: 40px;
+    }
+    .details-genre {
+        font-size: 12px;
+        text-transform: uppercase;
+        line-height: 10px;
+    }
+    }
+    
+    @media (min-width: 1405px) {
+    .naBookList .naSlick-track {
+        height: 435px;
+    }
+    .naBookList .naSlick-slide {
+        flex: 1 0 20%;
+    }
+    .naBookList .naSlick-slide img {
+        width: auto;
+        height: 340px;
+    }
+    }

@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import update_session_auth_hash
 from .models import MemberCard, Customer, OrderedBooks
 from . import models
-from flask import request
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.views import View

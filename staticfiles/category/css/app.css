@@ -1524,7 +1524,7 @@ a {
 .category3 .div-best-book-1 h6 {
   margin-bottom: 10px;
 }
-.category3 .div-best-book-1 button {
+.category3 .div-best-book-1 .add-to-cart-btn {
   display: flex;
   margin: auto;
   justify-content: center;

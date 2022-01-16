@@ -1,0 +1,287 @@
+.header {
+  position: relative;
+  .header-topWrapper {
+    display: none; 
+  }
+  @media only screen and (min-width: 769px) {
+    .headerMobile {
+      height: 0px;
+      display: none;
+    }
+    .header-topWrapper {
+      display: block; 
+    }
+  }  
+}
+
+.headerMobile {
+  padding-left: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.headerMobileLogo {
+  width: 60px;
+  height: 65px;
+}
+.navigation {
+  padding-top: 10px;
+  gap: 0 40px;
+}
+.headerIcon {
+  width: 28px;
+  height: 28px;
+}
+@media only screen and (min-width: 540px) {
+  .headerMobileLogo {
+    width: 72px;
+    height: 78px;
+  }
+  .navigation {
+    gap: 0 60px;
+  }
+  .headerIcon {
+    width: 30px;
+    height: 30px;
+  }
+}
+  @media only screen and (min-width: 769px) {
+    .header-topWrapper {
+      display: block;
+      max-width: 1450px;
+      margin: 0px 20px;
+      min-height: 160px; } }
+  @media only screen and (min-width: 1025px) {
+    .header-topWrapper {
+      margin: 0px auto; } }
+  .header-logo {
+    overflow: hidden; }
+    @media only screen and (min-width: 769px) {
+      .header-logo {
+        display: block;
+        position: relative;
+        margin: 0;
+        max-width: 104px; } }
+    @media only screen and (min-width: 1025px) {
+      .header-logo {
+        max-width: 260px;
+        left: 50px;
+        top: 20px; } }
+    .header-logo .nplLogo {
+      width: 256px;
+      height: 126px; }
+      @media only screen and (min-width: 1025px) {
+        .header-logo .nplLogo {
+          width: 256px;
+          height: 126px; } }
+      @media only screen and (min-width: 769px) {
+        .header-logo .nplLogo-text {
+        display: none; } }
+      @media only screen and (min-width: 1025px) {
+        .header-logo .nplLogo-text {
+        display: block; } 
+      }
+  .header-buttons {
+    position: absolute;
+    top: 25px;
+    right: 15px;
+    text-transform: uppercase;
+    display: block;
+  }
+  .header-buttons ul {
+    margin: 0;
+    list-style-type: none; }
+    .header-buttons ul li {
+      display: inline-block;
+      margin-right: 2em; }
+  .header-buttons li > a,
+  .header-buttons > a {
+    font-family: 'Microsoft New Tai Lue';
+    font-weight: 700;
+    font-size: 15px;
+    color: #000;
+    letter-spacing: .04em;
+    margin: 0 10px 0 0; }
+    .header-buttons li > a:visited,
+    .header-buttons > a:visited {
+      color: #000; }
+    .header-buttons li > a:last-child,
+    .header-buttons > a:last-child {
+      margin: 0; }
+    .header-buttons li > a:focus,
+    .header-buttons > a:focus {
+      box-shadow: 1px 1px 1px 1px #135772;
+      -webkit-outline-color: #135772;
+      -moz-outline-color: #135772;
+      -ms-outline-color: #135772;
+      -o-outline-color: #135772;
+      outline-color: #135772;
+      outline-style: solid;
+      outline-width: 0.1875em;
+      padding: 12px; }
+  @media only screen and (min-width: 769px) {
+    .header-buttons {
+      right: 0px; } }
+  @media only screen and (min-width: 1025px) {
+    .header-buttons {
+      right: 20px; } }
+  
+  .header-buttons .my-account {
+    font-family: 'Microsoft New Tai Lue';
+    font-weight: 700;
+    font-size: 15px;
+    color: #000;
+    background-color: #FFF;
+    letter-spacing: .04em; }
+    .header-buttons .my-account.active {
+      -webkit-transition: background-color 0.2s linear 0s, color 0.2s linear 0s;
+      -moz-transition: background-color 0.2s linear 0s, color 0.2s linear 0s;
+      -ms-transition: background-color 0.2s linear 0s, color 0.2s linear 0s;
+      -o-transition: background-color 0.2s linear 0s, color 0.2s linear 0s;
+      transition: background-color 0.2s linear 0s, color 0.2s linear 0s;
+      background-color: #135772;
+      color: #FFF; }
+    .header-buttons .my-account.active:visited {
+      color: #FFF; }
+      .header-buttons .my-account:focus {
+        box-shadow: 1px 1px 1px 1px #135772;
+        -webkit-outline-color: #135772;
+        -moz-outline-color: #135772;
+        -ms-outline-color: #135772;
+        -o-outline-color: #135772;
+        outline-color: #135772;
+        outline-style: solid;
+        outline-width: 0.1875em; }
+      .header-buttons .my-account:visited {
+        color: #000; }
+      .header-buttons .my-account .icon {
+        opacity: 0.8;
+        filter: alpha(opacity=80); }
+
+.header-navMenu {
+    display: block;
+    text-align: center;
+    margin: 5px 0 0 0;
+}
+.header-navMenuList {
+    display: inline-table;
+    list-style-type: none;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 0 6px 0;
+    background-color: #FFF;
+    padding: 0; }
+// .header-navMenuList .navMenuItem-link {
+//     font-size: 16px;
+// } 
+    .header-navMenuList .navMenuItem {
+        display: inline-block;
+        padding: 0;
+        line-height: normal !important;
+        margin: 5px 0 0 20px; 
+      }
+        .header-navMenuList .navMenuItem:first-child {
+        margin-left: 0px; }
+        .header-navMenuList .navMenuItem-link {
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        font-size: 12.5px;
+        font-family: "system-ui", "Segoe UI", Tahoma, "Helvetica", "arial";
+        font-weight: 350;
+        color: #000;
+        padding: 2px 0;
+        border-bottom: 3px solid transparent;
+        -webkit-transition: border-color 0.1s linear 0.05s, color 0.1s linear 0.05s;
+        -moz-transition: border-color 0.1s linear 0.05s, color 0.1s linear 0.05s;
+        -ms-transition: border-color 0.1s linear 0.05s, color 0.1s linear 0.05s;
+        -o-transition: border-color 0.1s linear 0.05s, color 0.1s linear 0.05s;
+        transition: border-color 0.1s linear 0.05s, color 0.1s linear 0.05s; }
+        .header-navMenuList .navMenuItem-link:hover {
+            cursor: pointer; }
+        .header-navMenuList .navMenuItem-link:visited, .header-navMenuList .navMenuItem-link:active, .header-navMenuList .navMenuItem-link:focus, .header-navMenuList .navMenuItem-link:hover {
+            text-decoration: none; }
+        .header-navMenuList .navMenuItem-link:active, .header-navMenuList .navMenuItem-link:hover, .header-navMenuList .navMenuItem-link:focus {
+            border-color: #E32B31;
+            color: #E32B31; 
+    }
+    @media only screen and (min-width: 460px) {
+      .header-navMenu {
+        margin: 5px 42px 0 0;
+        text-align: right;
+      }
+      .header-navMenuList .navMenuItem {
+        margin: 5px 0 0 20px; 
+      }
+      .header-navMenuList .navMenuItem-link {
+        font-size: 14px;
+      }
+    }
+    @media only screen and (min-width: 556px) {
+      .header-navMenu {
+        margin: 5px 42px 0 0;
+      }
+      .header-navMenuList .navMenuItem-link {
+        font-size: 15px;
+      }
+      .header-navMenuList .navMenuItem {
+        margin: 0 0 0 30px; }
+    }
+    @media only screen and (min-width: 769px) {
+      .header-navMenuList {
+        margin: 0 0 11px 0;
+        display: inline-table; 
+      } 
+      .header-navMenuList .navMenuItem-link {
+        font-size: 18px;
+      }
+      .header-navMenuList .navMenuItem {
+        margin: 0 0 0 50px; }
+    }
+
+.header-search{
+  position: absolute;
+  height: 36px;
+  top: 105px;
+  left: 20%;
+  right: 14%;
+  background:#FFF;
+  outline-color: #838282;
+  outline-style: solid;
+  outline-width: 1px;
+  border-radius: 40px;
+  @media only screen and (min-width: 1025px) {
+    left: 27%;
+    right: 17%;
+  }
+}
+.header-search .search-bar-icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 7px;
+  top: 4px;
+  color: #838282;
+}
+.header-search .search-bar-field {
+  position: absolute;
+  border: none;
+  height: 26px;
+  left: 48px;
+  right: 48px;
+  top: 4px;
+  font-family: $primary-font;
+  font-size: 17px;
+  font-weight: 300;
+  color: #838282;
+}
+
+.navigation {
+    font-family: 'Microsoft New Tai Lue';
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0 40px;
+
+}
