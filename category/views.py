@@ -20,6 +20,10 @@ def BookDetail(request, slug):
     if request.user.is_staff:
         is_staff = True
     book = Book.objects.get(slug=slug)
+    numRest = book.quantity - book.beingBorrowedQuantity
+    print(numRest)
+    isAvailable = numRest > 0
+    print(isAvailable)
     genre = book.genre
     author = book.author.first()
     same_genre_books = list(Book.objects.filter(genre=genre))
@@ -35,6 +39,7 @@ def BookDetail(request, slug):
         'same_genre_books': same_genre_books,
         'same_author_books_lt_6': same_author_books_lt_6,
         'same_author_books': same_author_books,
+        'isAvailable': isAvailable,
     })
 
 
@@ -108,10 +113,46 @@ def category_wrapper(request):
         is_login = True
     if request.user.is_staff:
         is_staff = True
+    top_borrow_books = list(Book.objects.all().order_by('-rating')[0:10])
+    top_borrow_books_1 = top_borrow_books[0]
+    rating_1 = top_borrow_books_1.rating
+    rating_1 = [i for i in range(rating_1)]
+    isAvailable_1 = (top_borrow_books_1.quantity - top_borrow_books_1.beingBorrowedQuantity) > 0
+    top_borrow_books_2 = top_borrow_books[1]
+    isAvailable_2 = (top_borrow_books_2.quantity - top_borrow_books_2.beingBorrowedQuantity) > 0
+    rating_2 = top_borrow_books_2.rating
+    rating_2 = [i for i in range(rating_2)]
+    top_borrow_books_3 = top_borrow_books[2]
+    isAvailable_3 = (top_borrow_books_3.quantity - top_borrow_books_3.beingBorrowedQuantity) > 0
+    rating_3 = top_borrow_books_3.rating
+    rating_3 = [i for i in range(rating_3)]
+    top_borrow_books_4 = top_borrow_books[3]
+    isAvailable_4 = (top_borrow_books_4.quantity - top_borrow_books_4.beingBorrowedQuantity) > 0
+    rating_4 = top_borrow_books_4.rating
+    rating_4 = [i for i in range(rating_4)]
+    top_borrow_books_5 = top_borrow_books[4]
+    isAvailable_5 = (top_borrow_books_5.quantity - top_borrow_books_5.beingBorrowedQuantity) > 0
+    rating_5 = top_borrow_books_5.rating
+    rating_5 = [i for i in range(rating_5)]
     return render(request, 'category/category-wrapper.html', {
         'is_login': is_login,
         'is_staff': is_staff,
         'user': request.user,
+        'isAvailable_1': isAvailable_1,
+        'rating_1': rating_1,
+        'isAvailable_2': isAvailable_2,
+        'rating_2': rating_2,
+        'rating_3': rating_3,
+        'rating_4': rating_4,
+        'rating_5': rating_5,
+        'isAvailable_3': isAvailable_3,
+        'isAvailable_4': isAvailable_4,
+        'isAvailable_5': isAvailable_5,
+        'top_borrow_books_1': top_borrow_books_1,
+        'top_borrow_books_2': top_borrow_books_2,
+        'top_borrow_books_3': top_borrow_books_3,
+        'top_borrow_books_4': top_borrow_books_4,
+        'top_borrow_books_5': top_borrow_books_5,
     })
 
 
@@ -123,7 +164,8 @@ def category_bestBook_all(request):
     if request.user.is_staff:
         is_staff = True
     genreFitler = [i[0] for i in Book.bookGenre]
-    books = Book.objects.all()
+    books_origin = Book.objects.all()
+    books_count = books_origin.count()
     has_slug = False
     publishYear = request.GET.get('publish-year')
     if publishYear == 'None':
@@ -135,7 +177,8 @@ def category_bestBook_all(request):
     isNone = True
     has_slug = False
     if publishYear is not None:
-        books = books.filter(publishYear__year=publishYear)
+        books_origin = books_origin.filter(publishYear__year=publishYear)
+        books_count = books_origin.count()
         if publishYear == '2020':
             is2021 = False
             is2020 = True
@@ -160,6 +203,12 @@ def category_bestBook_all(request):
             is2019 = False
             is2018 = True
             isNone = False
+    books = []
+    for book in books_origin:
+        isAvailable = (book.quantity - book.beingBorrowedQuantity) > 0
+        books.append({'isAvailable': isAvailable, 'title': book.title, 'id': book.id, 'author': book.author.first(),
+                      'summary': book.summary, 'slug': book.slug, 'url': book.image.url})
+
     return render(request, 'category/category-bestBook.html', {
         'is_login': is_login,
         'is_staff': is_staff,
@@ -172,6 +221,7 @@ def category_bestBook_all(request):
         'is2019': is2019,
         'is2018': is2018,
         'isNone': isNone,
+        'books_count': books_count,
     })
 
 
@@ -183,8 +233,11 @@ def category_bestBook(request, slug):
     if request.user.is_staff:
         is_staff = True
     genreFitler = [i[0] for i in Book.bookGenre]
-    books = Book.objects.all()
-    books = books.filter(genre=slug)
+    books_origin = Book.objects.all()
+    books_origin = books_origin.filter(genre=slug)
+    books_count = books_origin.count()
+
+
     publishYear = request.GET.get('publish-year')
     if publishYear == 'None':
         publishYear = None
@@ -195,7 +248,8 @@ def category_bestBook(request, slug):
     isNone = True
     has_slug = True
     if publishYear is not None:
-        books = books.filter(publishYear__year=publishYear)
+        books_origin = books_origin.filter(publishYear__year=publishYear)
+        books_count = books_origin.count()
         if publishYear == '2020':
             is2021 = False
             is2020 = True
@@ -220,6 +274,11 @@ def category_bestBook(request, slug):
             is2019 = False
             is2018 = True
             isNone = False
+    books = []
+    for book in books_origin:
+        isAvailable = (book.quantity - book.beingBorrowedQuantity) > 0
+        books.append({'isAvailable': isAvailable, 'title': book.title, 'id': book.id, 'author': book.author.first(),
+                      'summary': book.summary, 'slug': book.slug, 'url': book.image.url})
     return render(request, 'category/category-bestBook.html', {
         'is_login': is_login,
         'is_staff': is_staff,
@@ -233,6 +292,7 @@ def category_bestBook(request, slug):
         'is2018': is2018,
         'isNone': isNone,
         'has_slug': has_slug,
+        'books_count': books_count,
     })
 
 
@@ -321,6 +381,10 @@ def category_staffPicks(request, slug):
     collections = Collection.objects.all()
     collection = collections.get(title=slug)
     isAllCollections = False
+    books = []
+    for book in collection.books.all():
+        isAvailable = (book.quantity - book.beingBorrowedQuantity) > 0
+        books.append({'isAvailable': isAvailable, 'title': book.title, 'id': book.id, 'author': book.author.first(), 'summary': book.summary, 'slug': book.slug, 'url': book.image.url})
     return render(request, 'category/category-staffPicks.html', {
         'is_login': is_login,
         'is_staff': is_staff,
@@ -328,6 +392,7 @@ def category_staffPicks(request, slug):
         'collections': collections,
         'collection': collection,
         'isAllCollections': isAllCollections,
+        'books': books,
     })
 
 
@@ -339,15 +404,23 @@ def category_newArrivals(request, slug):
     if request.user.is_staff:
         is_staff = True
     genreFitler = [i[0] for i in Book.bookGenre]
-    books = Book.objects.all()
-    books = books.filter(createdAt__gte=timezone.now() - timedelta(days=30))
-    books = books.filter(genre=slug)
+    books_origin = Book.objects.all()
+    books_origin = books_origin.filter(createdAt__gte=timezone.now() - timedelta(days=30))
+    books_origin = books_origin.filter(genre=slug)
+    books_count = books_origin.count()
+    books = []
+    for book in books_origin:
+        isAvailable = (book.quantity - book.beingBorrowedQuantity) > 0
+        books.append({'isAvailable': isAvailable, 'title': book.title, 'id': book.id, 'author': book.author.first(),
+                      'summary': book.summary, 'slug': book.slug, 'url': book.image.url})
+
     return render(request, 'category/category-newArrivals.html', {
         'is_login': is_login,
         'is_staff': is_staff,
         'user': request.user,
         'genreFilter': genreFitler,
         'books': books,
+        'books_count': books_count,
     })
 
 
@@ -359,14 +432,22 @@ def category_newArrivals_all(request):
     if request.user.is_staff:
         is_staff = True
     genreFitler = [i[0] for i in Book.bookGenre]
-    books = Book.objects.all()
-    books = books.filter(createdAt__gte=timezone.now() - timedelta(days=30))
+    books_origin = Book.objects.all()
+    books_origin = books_origin.filter(createdAt__gte=timezone.now() - timedelta(days=30))
+    books_count = books_origin.count()
+    books = []
+    for book in books_origin:
+        isAvailable = (book.quantity - book.beingBorrowedQuantity) > 0
+        books.append({'isAvailable': isAvailable, 'title': book.title, 'id': book.id, 'author': book.author.first(),
+                      'summary': book.summary, 'slug': book.slug, 'url': book.image.url})
+
     return render(request, 'category/category-newArrivals.html', {
         'is_login': is_login,
         'is_staff': is_staff,
         'user': request.user,
         'genreFilter': genreFitler,
         'books': books,
+        'books_count': books_count,
     })
 
 

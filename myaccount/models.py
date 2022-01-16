@@ -1,14 +1,16 @@
 from django.db import models
 from category.models import Book
 from django.contrib.auth.models import User
+from datetime import date
+from datetime import timedelta
 
 
 class MemberCard(models.Model):
-    NOT_EXTENSION = 'NE'  # Not extension
-    MONTHLY_BASIC = 'MB'  # Monthly Basic
-    ANNUAL_BASIC = 'AB'   # Annual Basic
-    MONTHLY_VIP = 'MV'    # Monthly VIP
-    ANNUAL_VIP = 'AV'     # Monthly VIP
+    NOT_EXTENSION = 'Chưa đăng ký'  # Not extension
+    MONTHLY_BASIC = 'Thẻ tháng thường'  # Monthly Basic
+    ANNUAL_BASIC = 'Thẻ năm thường'   # Annual Basic
+    MONTHLY_VIP = 'Thẻ tháng VIP'    # Monthly VIP
+    ANNUAL_VIP = 'Thẻ năm VIP'     # Monthly VIP
     servicesPlanChoices = [
         (NOT_EXTENSION, 'Chưa đăng ký'),
         (MONTHLY_BASIC, 'Thẻ tháng thường'),
@@ -22,6 +24,7 @@ class MemberCard(models.Model):
     nbOfBooksBeingBorrowed = models.IntegerField(verbose_name='Số lượng sách đang mượn')
     booksBeingBorrowed = models.ManyToManyField(Book, verbose_name='Những cuốn sách đang mượn')
     registerDate = models.DateTimeField(null=True, verbose_name='Ngày đăng ký')
+    expriedDate = models.DateTimeField(null=True, verbose_name='Ngày hết hạn')
 
     def __str__(self):
         return f'{self.servicePlan} mã số {self.id}'
@@ -46,8 +49,8 @@ class Customer(models.Model):
     emailAddress = models.CharField(max_length=50, null=True, blank=True, verbose_name='Địa chỉ email', unique=True)
     address = models.CharField(max_length=50, null=True, blank=True, verbose_name='Địa chỉ nhà')
     city = models.CharField(max_length=50, null=True, blank=True, verbose_name='Thành phố')
-    identificationCard = models.CharField(max_length=40, null=True, blank=True, verbose_name='Số CMND', unique=True)
-    phoneNumber = models.CharField(max_length=10, null=True, blank=True, verbose_name='Số điện thoại', unique=True)
+    identificationCard = models.CharField(max_length=40, null=True, blank=True, verbose_name='Số CMND')
+    phoneNumber = models.CharField(max_length=10, null=True, blank=True, verbose_name='Số điện thoại')
     memberCard = models.OneToOneField(MemberCard, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Thẻ đã đăng ký', unique=True)
 
     def __str__(self):
@@ -82,3 +85,21 @@ class OrderedBooks(models.Model):
 
     def __str__(self):
         return f'{self.book}'
+
+    @property
+    def is_status(self):
+        today=date.today
+        print(today)
+        t1=timedelta(days=5)
+        t2=timedelta(days=30)
+        t3 = self.expired_date+t2
+        t4 = self.expired_date+timedelta(days=30)
+        if today <= self.expired_date and self.status != 'Đã trả':
+            self.status=='Bình thường'
+            return 'Bình thường'
+        if self.status !='Đã trả' and today <= t3 and today > self.expired_date:
+            self.status=='Quá hạn mức 1'
+            return 'Quá hạn mức 1'
+        if self.status !='Đã trả' and today<=t4 and today >t3:
+            self.status ='Quá hạn mức 2'
+            return 'Quá hạn mức 2'

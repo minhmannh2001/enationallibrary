@@ -1,0 +1,232 @@
+.bestBook {
+  position: relative;
+  left: 0;
+  height: auto;
+  width: 100%;
+  padding-top: 15px;
+  min-height: 510px; } 
+.bestBook .leftColumn {
+  margin-top: 10px;
+  border-top: 2px solid red; }
+  @media only screen and (min-width: 768px) {
+    .bestBook .leftColumn {
+      margin-top: 13px;
+    }
+  .bestBook {
+      min-height: 432px; } }
+  @media only screen and (min-width: 1024px) {
+  .bestBook {
+      min-height: 560px; } }
+  @media only screen and (min-width: 1313px) {
+  .bestBook {
+      min-height: 600px; } }
+  .bestBook .seeMoreWrapper {
+      margin-top: 30px; }   
+
+.bestBook .rightColumn {
+  //margin-top: 40px;
+  margin-bottom: 30px;
+  color: #FFFFFF; }
+  @media only screen and (min-width: 768px) {
+    .bestBook .rightColumn {
+      margin-top: 30px;
+      margin-bottom: 10px; } }
+  @media only screen and (min-width: 1024px) {
+    .bestBook .rightColumn {
+      //margin-top: 40px;
+      margin-bottom: 30px; } }
+  @media only screen and (min-width: 1313px) {
+    .bestBook .rightColumn {
+      margin-top: 30px; } }
+
+.bbBookList{
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  float: right;
+  margin-left: 0;
+  margin-right: 0;
+  clear: none; }
+.bbBookList .bbSlick-list {
+  position: relative;
+  overflow: hidden;
+}
+
+.bbSlider-next,
+.bbSlider-prev {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 100rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #999;
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  //cursor: pointer;
+  font-size: 20px;
+  z-index: 10;
+}
+.bbSlider-next {
+  top: 90%;
+  right: 50%;
+  transform: translateX(150%);
+}
+.bbSlider-prev {
+  top: 90%;
+  left: 50%;
+  transform: translateX(-200%);
+}
+
+.bbBookList .bbSlick-track {
+  height: 360px;
+  display: flex;
+  transition: transform 0.25s linear;
+}
+.bbBookList .bbSlick-slide {
+  flex: 1 0 34%;
+}
+.bbBookList .bbSlick-slide img {
+  width: auto;
+  height: 200px;
+}
+
+.bbBookList .itemOverlay {
+  font-family: $primary-font;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+.details-author {
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 30px;
+}
+.details-genre {
+  font-weight: 600;
+  font-size: 9px;
+  text-transform: uppercase;
+  line-height: 8px;
+}
+.bbBookList .title {
+  color: #2b5c78;
+}
+
+.bbBookList .details{
+  color: #71818b
+}
+@media (min-width: 540px) {
+  .bbSlider-next,
+  .bbSlider-prev {
+    width: 45px;
+    height: 45px;
+  }
+  .bbBookList .bbSlick-slide {
+    flex: 1 0 25%;
+  }
+  .bbBookList .bbSlick-slide img {
+    width: auto;
+    height: 200px;
+  }
+}
+@media (min-width: 768px) {
+  .bbSlider-next,
+  .bbSlider-prev {
+    width: 50px;
+    height: 50px;
+  }
+  .bbSlider-next {
+    top: 35%;
+    right: 35px;
+  }
+  .bbSlider-prev {
+    top: 35%;
+    left: 30px;
+  }
+  .bbBookList .bbSlick-track {
+    height: 300px;
+  }
+  .bbBookList .bbSlick-slide {
+    flex: 1 0 25%;
+  }
+  .bbBookList .bbSlick-slide img {
+    width: auto;
+    height: 220px;
+  }
+  .bbBookList .itemOverlay {
+    margin-top: 15px;
+    font-size: 16px;
+  }
+  .details-author {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 30px;
+  }
+  .details-genre {
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
+    line-height: 8px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bbBookList .bbSlick-track {
+    height: 400px;
+  }
+  .bbBookList .bbSlick-slide {
+    flex: 1 0 25%;
+  }
+  .bbBookList .bbSlick-slide img {
+    width: auto;
+    height: 320px;
+  }
+}
+
+@media (min-width: 1095px) {
+  .bbBookList .bbSlick-slide {
+    flex: 1 0 22.5%;
+  }}
+
+@media (min-width: 1313px) {
+  .bbBookList .bbSlick-track {
+    height: 425px;
+  }
+  .bbBookList .bbSlick-slide {
+    flex: 1 0 21%;
+  }
+  .bbBookList .bbSlick-slide img {
+    width: auto;
+    height: 330px;
+  }
+  .bbBookList .itemOverlay {
+    margin-top: 15px;
+    font-size: 18px;
+  }
+  .details-author {
+    font-size: 16px;
+    line-height: 40px;
+  }
+  .details-genre {
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 10px;
+  }
+}
+
+@media (min-width: 1405px) {
+  .bbBookList .bbSlick-track {
+    height: 435px;
+  }
+  .bbBookList .bbSlick-slide {
+    flex: 1 0 20%;
+  }
+  .bbBookList .bbSlick-slide img {
+    width: auto;
+    height: 340px;
+  }
+}

@@ -1,0 +1,96 @@
+body {
+    font-family: $primary-font;
+    font-size: 16pt;
+    line-height: 1.5;
+    color: black;
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+.firstBackgroundColor {
+  background-color: white;
+}
+.secondBackgroundColor {
+  background-color: #f3f8f5;
+}
+.thirdBackgroundColor {
+  background-color: #dbebe2;
+}
+.fourthBackgroundColor {
+  background-color: #b7b7b7;
+}
+
+.container, .container-fullWidth{
+    display: block;
+    position: relative;
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 0 15px;
+    /* Mobile Layout (1 Column) */
+  /* Tablet Portrait Layout (7 Columns) */
+  /* Tablet Landscape Layout (9 Columns) */
+  /* Desktop Layout (9 Columns) */ }
+  @media only screen and (min-width: 768px) {
+    .container, .container-fullWidth {
+      padding: 0 36px; } }
+  @media only screen and (min-width: 1024px) {
+    .container, .container-fullWidth {
+      padding: 0 20px; } }
+  .container .leftColumn, .container-fullWidth .leftColumn {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none; }
+  .container .rightColumn, .container-fullWidth .rightColumn, .container .seeMore, .container-fullWidth .seeMore {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none; }
+  @media (min-width: 768px) {
+    .container .leftColumn, .container-fullWidth .leftColumn {
+      width: 11.36364%;
+      float: left;
+      margin-right: -100%;
+      margin-left: 0;
+      clear: none; }
+    .container .rightColumn, .container-fullWidth .rightColumn, .container .seeMore, .container-fullWidth .seeMore {
+      width: 85.22727%;
+      float: right;
+      margin-left: 0;
+      margin-right: 0;
+      clear: none; } }
+  @media (min-width: 1024px) {
+    .container .leftColumn, .container-fullWidth .leftColumn {
+      width: 8.8%;
+      float: left;
+      margin-right: -100%;
+      margin-left: 0;
+      clear: none; }
+    .container .rightColumn, .container-fullWidth .rightColumn, .container .seeMore, .container-fullWidth .seeMore {
+      width: 88.65314%;
+      float: right;
+      margin-left: 0;
+      margin-right: 0;
+      clear: none; } }
+  @media (min-width: 1450px) {
+    .container .leftColumn, .container-fullWidth .leftColumn {
+      width: 8.8%;
+      float: left;
+      margin-right: -100%;
+      margin-left: 3%;
+      clear: none; }
+    .container .rightColumn, .container-fullWidth .rightColumn, .container .seeMore, .container-fullWidth .seeMore {
+      width: 86.65314%;
+      float: right;
+      margin-left: 0;
+      margin-right: 0;
+      clear: none; } }
+
+.container {
+  margin: 15px auto; }
+  .container-fullWidth {
+    margin: 0 auto; }
+
+

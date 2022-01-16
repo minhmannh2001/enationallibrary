@@ -55,3 +55,7 @@ class sign_up(View):
 def log_out(request):
     logout(request)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def require_login(request):
+    return render(request, 'require_login.html')

@@ -103,7 +103,7 @@
                 style="font-family:Roboto, sans-serif;color: #343a40!important;font-size: 16px">THỜI GIAN & ĐỊA CHỈ</a>
             </li>
             <li>
-              <a href="/enationallibrary" class="get-card"
+              <a href="{% url 'myaccount:registerPlan' %}" class="get-card"
                 style="font-family:Roboto, sans-serif;color: #343a40!important;font-size: 16px">ĐĂNG KÝ THẺ THÀNH
                 VIÊN</a>
             </li>
@@ -115,12 +115,12 @@
                   </a>
 
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink" style="top: 10px">
-                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'my_account:my_profile' %}">Trang cá nhân</a>
+                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'myaccount:profile' %}">Trang cá nhân</a>
                       {% if is_staff %}
                     <a class="dropdown-item dropdowns-menu-item" href="{% url 'admin:index' %}">Trang quản trị</a>
                           {% endif %}
-                    <a class="dropdown-item dropdowns-menu-item" href="#">Giỏ sách</a>
-                    <a class="dropdown-item dropdowns-menu-item" href="#">Gói dịch vụ</a>
+                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'myaccount:my-cart' %}">Giỏ sách</a>
+                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'myaccount:my_plan' %}">Gói dịch vụ</a>
                     <a class="dropdown-item dropdowns-menu-item" href="{% url 'login:log-out' %}">Đăng xuất</a>
                   </div>
                 </div>
@@ -364,22 +364,23 @@
               <li>
                 <div class="top-borrow-1" >
                   <div style="display: block; float: left;">
-                    <a href="" class="bookLink">
-                      <img src="{% static 'category/images/Layer 69 copy.png' %}" alt="" style="position: absolute; margin-left: 50px; ">
+                    <a href="{% url 'category:book-detail' top_borrow_books_1.slug %}" class="bookLink">
+{#                      <img src="{% static 'category/images/Layer 69 copy.png' %}" alt="" style="position: absolute; margin-left: 50px; ">#}
+                      <div style="background-image: url({{ top_borrow_books_1.image.url }}); width: 125px; height: 200px; background-size: cover; background-position: center; position: absolute; margin-left: 50px; margin-top: -15px;"></div>
                     </a>
                     <img src="{% static 'category/images/1.png' %}" alt="" style="position: absolute;padding-top: 50px; ">
                   </div>                
                   <div style="display:flex; flex-direction: row; margin-left: 209px; width:83%;" class="bookLinkTitle">
                     <a href="" class="bookLink">
                       <ul style="width: 83%; margin-top: 10px;">
-                        <li><h5>SCINCE FICTION</h5></li>
-                        <li><h4>Breast And Eggs</h4></li>
-                        <li><h6>By Mieko Kawakami</h6></li>
+                        <li><h5>{{ top_borrow_books_1.genre }}</h5></li>
+                        <li><h4>{{ top_borrow_books_1.title }}</h4></li>
+                        <li><h6>Tác giả: {{ top_borrow_books_1.author.first }}</h6></li>
                         <li>
                           <div>
-                            <a href="">BOOK</a>
+                            <a href="">{{ top_borrow_books_1.type }}</a>
                             <p>|</p>
-                            <a>2019</a>
+                            <a>{{ top_borrow_books_1.publishYear }}</a>
                           </div>
                         </li>
                         <li><div>
@@ -388,13 +389,25 @@
                           <span style='font-size:15PX;'>&#9733;</span>
                           <span style='font-size:15PX;'>&#9733;</span>
                           <span style='font-size:15PX;'>&#9733;</span>
-                          <h6 style="display: inline-block;">275 ratings</h6>          
+                          <h6 style="display: inline-block;">{{ top_borrow_books_1.rating }} lượt mượn</h6>
                         </div></li>
                       </ul>
                     </a>
                     <div style="float: right; width: 17% ">
-                      <button class="available-top-borrow" style="background-color: #e87e81; margin-top: 20px;">Hết sách</button>
-                      <button class="book-top-borrow">GIỮ SÁCH</button>
+{#                      <button class="available-top-borrow" style="background-color: #e87e81; margin-top: 20px;">Hết sách</button>#}
+
+                      {% if isAvailable_1 %}
+                            <button class="available-top-borrow" style=" margin-top: 20px;">Còn sách</button>
+                          {% if is_login %}
+                            <button class="book-top-borrow" type="button" data-toggle="modal" data-target="#add-to-cart-modal{{ top_borrow_books_1.id }}">THÊM VÀO GIỎ</button>
+                            {% endif %}
+                          {% else %}
+                            <button class="available-top-borrow" style="background-color: #f54043; margin-top: 20px;">Hết sách</button>
+                          {% if is_login %}
+                          <button class="book-top-borrow" data-toggle="modal" data-target="#remind-me-later-modal{{ top_borrow_books_1.id }}">NHẬN THÔNG BÁO</button>
+                            {% endif %}
+                          {% endif %}
+
                     </div>
                   </div>
                 </div>
@@ -404,21 +417,21 @@
                 <div class="top-borrow-1" >
                   <div style="display: block; float: left;">
                     <a href="" class="bookLink">
-                      <img src="{% static 'category/images/Layer 69 copy.png' %}" alt="" style="position: absolute; margin-left: 50px; ">
+                      <div style="background-image: url({{ top_borrow_books_2.image.url }}); width: 125px; height: 200px; background-size: cover; background-position: center; position: absolute; margin-left: 50px; margin-top: -15px;"></div>
                     </a>
                     <img src="{% static 'category/images/2.png' %}" alt="" style="position: absolute;padding-top: 50px; ">
                   </div>                
                   <div style="display:flex; flex-direction: row; margin-left: 209px; width:83%;" class="bookLinkTitle">
                     <a href="" class="bookLink">
                       <ul style="width: 83%; margin-top: 10px;">
-                        <li><h5>SCINCE FICTION</h5></li>
-                        <li><h4>Breast And Eggs</h4></li>
-                        <li><h6>By Mieko Kawakami</h6></li>
+                        <li><h5>{{ top_borrow_books_2.genre }}</h5></li>
+                        <li><h4>{{ top_borrow_books_2.title }}</h4></li>
+                        <li><h6>Tác giả: {{ top_borrow_books_2.author.first }}</h6></li>
                         <li>
                           <div>
-                            <a href="">BOOK</a>
+                            <a href="">{{ top_borrow_books_2.type }}</a>
                             <p>|</p>
-                            <a>2019</a>
+                            <a>{{ top_borrow_books_2.publishYear }}</a>
                           </div>
                         </li>
                         <li><div>
@@ -427,13 +440,22 @@
                           <span style='font-size:15PX;'>&#9733;</span>
                           <span style='font-size:15PX;'>&#9733;</span>
                           <span style='font-size:15PX;'>&#9733;</span>
-                          <h6 style="display: inline-block;">275 ratings</h6>          
+                          <h6 style="display: inline-block;">{{ top_borrow_books_2.rating }} lượt mượn</h6>
                         </div></li>
                       </ul>
                     </a>
                     <div style="float: right; width: 17% ">
-                      <button class="available-top-borrow" style="margin-top: 20px;">Vẫn còn</button>
-                      <button class="book-top-borrow">  ĐẶT SÁCH  </button>
+                      {% if isAvailable_2 %}
+                            <button class="available-top-borrow" style=" margin-top: 20px;">Còn sách</button>
+                          {% if is_login %}
+                            <button class="book-top-borrow" type="button" data-toggle="modal" data-target="#add-to-cart-modal{{ top_borrow_books_2.id }}">THÊM VÀO GIỎ</button>
+                            {% endif %}
+                          {% else %}
+                            <button class="available-top-borrow" style="background-color: #f54043; margin-top: 20px;">Hết sách</button>
+                          {% if is_login %}
+                          <button class="book-top-borrow" data-toggle="modal" data-target="#remind-me-later-modal{{ top_borrow_books_2.id }}">NHẬN THÔNG BÁO</button>
+                      {% endif %}
+                          {% endif %}
                     </div>
                   </div>
                 </div>
@@ -443,21 +465,21 @@
                 <div class="top-borrow-1" >
                   <div style="display: block; float: left;">
                     <a href="" class="bookLink">
-                      <img src="{% static 'category/images/Layer 69 copy.png' %}" alt="" style="position: absolute; margin-left: 50px; ">
+                      <div style="background-image: url({{ top_borrow_books_3.image.url }}); width: 125px; height: 200px; background-size: cover; background-position: center; position: absolute; margin-left: 50px; margin-top: -15px;"></div>
                     </a>
                     <img src="{% static 'category/images/3.png' %}" alt="" style="position: absolute;padding-top: 50px; ">
                   </div>                
                   <div style="display:flex; flex-direction: row; margin-left: 209px; width:83%;" class="bookLinkTitle">
                     <a href="" class="bookLink">
                       <ul style="width: 83%; margin-top: 10px;">
-                        <li><h5>SCINCE FICTION</h5></li>
-                        <li><h4>Breast And Eggs</h4></li>
-                        <li><h6>By Mieko Kawakami</h6></li>
+                        <li><h5>{{ top_borrow_books_3.genre }}</h5></li>
+                        <li><h4>{{ top_borrow_books_3.title }}</h4></li>
+                        <li><h6>Tác giả: {{ top_borrow_books_3.author.first }}</h6></li>
                         <li>
                           <div>
-                            <a href="">BOOK</a>
+                            <a href="">{{ top_borrow_books_3.type }}</a>
                             <p>|</p>
-                            <a>2019</a>
+                            <a>{{ top_borrow_books_3.publishYear }}</a>
                           </div>
                         </li>
                         <li><div>
@@ -466,13 +488,22 @@
                           <span style='font-size:15PX;'>&#9733;</span>
                           <span style='font-size:15PX;'>&#9733;</span>
                           <span style='font-size:15PX;'>&#9733;</span>
-                          <h6 style="display: inline-block;">275 ratings</h6>          
+                          <h6 style="display: inline-block;">{{ top_borrow_books_3.rating }} lượt mượn</h6>
                         </div></li>
                       </ul>
                     </a>
                     <div style="float: right; width: 17% ">
-                      <button class="available-top-borrow" style="background-color: #e87e81; margin-top: 20px;">Hết sách</button>
-                      <button class="book-top-borrow">GIỮ SÁCH</button>
+                      {% if isAvailable_3 %}
+                            <button class="available-top-borrow" style=" margin-top: 20px;">Còn sách</button>
+                          {% if is_login %}
+                            <button class="book-top-borrow" type="button" data-toggle="modal" data-target="#add-to-cart-modal{{ top_borrow_books_3.id }}">THÊM VÀO GIỎ</button>
+                        {% endif %}
+                          {% else %}
+                            <button class="available-top-borrow" style="background-color: #f54043; margin-top: 20px;">Hết sách</button>
+                          {% if is_login %}
+                          <button class="book-top-borrow" data-toggle="modal" data-target="#remind-me-later-modal{{ top_borrow_books_3.id }}">NHẬN THÔNG BÁO</button>
+                      {% endif %}
+                          {% endif %}
                     </div>
                   </div>
                 </div>
@@ -482,21 +513,21 @@
                 <div class="top-borrow-1" >
                   <div style="display: block; float: left;">
                     <a href="" class="bookLink">
-                      <img src="{% static 'category/images/Layer 69 copy.png' %}" alt="" style="position: absolute; margin-left: 50px; ">
+                      <div style="background-image: url({{ top_borrow_books_4.image.url }}); width: 125px; height: 200px; background-size: cover; background-position: center; position: absolute; margin-left: 50px; margin-top: -15px;"></div>
                     </a>
                     <img src="{% static 'category/images/4.png' %}" alt="" style="position: absolute;padding-top: 50px; ">
                   </div>                
                   <div style="display:flex; flex-direction: row; margin-left: 209px; width:83%;" class="bookLinkTitle">
                     <a href="" class="bookLink">
                       <ul style="width: 83%; margin-top: 10px;">
-                        <li><h5>SCINCE FICTION</h5></li>
-                        <li><h4>Breast And Eggs</h4></li>
-                        <li><h6>By Mieko Kawakami</h6></li>
+                        <li><h5>{{ top_borrow_books_4.genre }}</h5></li>
+                        <li><h4>{{ top_borrow_books_4.title }}</h4></li>
+                        <li><h6>Tác giả: {{ top_borrow_books_4.author.first }}</h6></li>
                         <li>
                           <div>
-                            <a href="">BOOK</a>
+                            <a href="">{{ top_borrow_books_4.type }}</a>
                             <p>|</p>
-                            <a>2019</a>
+                            <a>{{ top_borrow_books_4.publishYear }}</a>
                           </div>
                         </li>
                         <li><div>
@@ -505,13 +536,22 @@
                           <span style='font-size:15PX;'>&#9733;</span>
                           <span style='font-size:15PX;'>&#9733;</span>
                           <span style='font-size:15PX;'>&#9733;</span>
-                          <h6 style="display: inline-block;">275 ratings</h6>          
+                          <h6 style="display: inline-block;">{{ top_borrow_books_4.rating }} lượt mượn</h6>
                         </div></li>
                       </ul>
                     </a>
                     <div style="float: right; width: 17% ">
-                      <button class="available-top-borrow" style="margin-top: 20px;">Vẫn còn</button>
-                      <button class="book-top-borrow">ĐẶT SÁCH</button>
+                      {% if isAvailable_4 %}
+                            <button class="available-top-borrow" style=" margin-top: 20px;">Còn sách</button>
+                          {% if is_login %}
+                            <button class="book-top-borrow" type="button" data-toggle="modal" data-target="#add-to-cart-modal{{ top_borrow_books_4.id }}">THÊM VÀO GIỎ</button>
+                      {% endif %}
+                          {% else %}
+                            <button class="available-top-borrow" style="background-color: #f54043; margin-top: 20px;">Hết sách</button>
+                          {% if is_login %}
+                          <button class="book-top-borrow" data-toggle="modal" data-target="#remind-me-later-modal{{ top_borrow_books_4.id }}">NHẬN THÔNG BÁO</button>
+                      {% endif %}
+                          {% endif %}
                     </div>
                   </div>
                 </div>
@@ -521,21 +561,21 @@
                 <div class="top-borrow-1" >
                   <div style="display: block; float: left;">
                     <a href="" class="bookLink">
-                      <img src="{% static 'category/images/Layer 69 copy.png' %}" alt="" style="position: absolute; margin-left: 50px; ">
+                      <div style="background-image: url({{ top_borrow_books_5.image.url }}); width: 125px; height: 200px; background-size: cover; background-position: center; position: absolute; margin-left: 50px; margin-top: -15px;"></div>
                     </a>
                     <img src="{% static 'category/images/5.png' %}" alt="" style="position: absolute;padding-top: 50px; ">
                   </div>                
                   <div style="display:flex; flex-direction: row; margin-left: 209px; width:83%;" class="bookLinkTitle">
                     <a href="" class="bookLink">
                       <ul style="width: 83%; margin-top: 10px;">
-                        <li><h5>SCINCE FICTION</h5></li>
-                        <li><h4>Breast And Eggs</h4></li>
-                        <li><h6>By Mieko Kawakami</h6></li>
+                        <li><h5>{{ top_borrow_books_5.genre }}</h5></li>
+                        <li><h4>{{ top_borrow_books_5.title }}</h4></li>
+                        <li><h6>Tác giả: {{ top_borrow_books_5.author.first }}</h6></li>
                         <li>
                           <div>
-                            <a href="">BOOK</a>
+                            <a href="">{{ top_borrow_books_5.type }}</a>
                             <p>|</p>
-                            <a>2019</a>
+                            <a>{{ top_borrow_books_5.publishYear }}</a>
                           </div>
                         </li>
                         <li><div>
@@ -544,13 +584,22 @@
                           <span style='font-size:15PX;'>&#9733;</span>
                           <span style='font-size:15PX;'>&#9733;</span>
                           <span style='font-size:15PX;'>&#9733;</span>
-                          <h6 style="display: inline-block;">275 ratings</h6>          
+                          <h6 style="display: inline-block;">{{ top_borrow_books_5.rating }} lượt mượn</h6>
                         </div></li>
                       </ul>
                     </a>
                     <div style="float: right; width: 17% ">
-                      <button class="available-top-borrow" style="background-color: #e87e81; margin-top: 20px;">Hết sách</button>
-                      <button class="book-top-borrow">GIỮ SÁCH</button>
+                      {% if isAvailable_5 %}
+                            <button class="available-top-borrow" style=" margin-top: 20px;">Còn sách</button>
+                          {% if is_login %}
+                          <button class="book-top-borrow" type="button" data-toggle="modal" data-target="#add-to-cart-modal{{ top_borrow_books_5.id }}">THÊM VÀO GIỎ</button>
+                      {% endif %}
+                          {% else %}
+                            <button class="available-top-borrow" style="background-color: #f54043; margin-top: 20px;">Hết sách</button>
+                          {% if is_login %}
+                          <button class="book-top-borrow" data-toggle="modal" data-target="#remind-me-later-modal{{ top_borrow_books_5.id }}">NHẬN THÔNG BÁO</button>
+                      {% endif %}
+                          {% endif %}
                     </div>
                   </div>
                 </div>
@@ -561,6 +610,191 @@
       </div>
     </div>
   </main>
+<div class="modal fade" id="add-to-cart-modal{{ top_borrow_books_1.id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #15c89e;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Thành công</h5>
+        <a type="button" class="close" href="{% url 'myaccount:add-to-cart' top_borrow_books_1.id %}" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body" style="font-size: 16px;">
+        Đã thêm thành công cuốn {{ top_borrow_books_1.title }} vào giỏ hàng. Bạn có thể vào giỏ hàng để thanh toán.
+      </div>
+      <div class="modal-footer">
+        <a type="button" style="height: 40px; background-color: #15c89e; color: white; border: none; border-radius: 15px;padding-top: 8px;" class="btn btn-primary" href="{% url 'myaccount:add-to-cart' top_borrow_books_1.id %}">Tôi đã hiểu</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="remind-me-later-modal{{ top_borrow_books_1.id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #15c89e;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Thông báo</h5>
+        <a  type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body" style="font-size: 16px;">
+        Hiện tại trong hệ thống đã hết cuốn {{ top_borrow_books_1.title }}. Bạn có muốn nhận thông báo khi sản phẩm này có thể mượn?
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="modal-a-btn" style="height: 40px; padding-left: 10px; padding-right: 10px; background-color: #6c757d; color: white; border: none; border-radius: 15px;padding-top: 8px; font-size: 17px;" data-dismiss="modal" aria-label="Close">Từ chối</a>
+        <a type="button" class="modal-a-btn" style="height: 40px; padding-left: 10px; padding-right: 10px; background-color: #15c89e; color: white; border: none; border-radius: 15px;padding-top: 8px; font-size: 17px;" data-dismiss="modal" aria-label="Close">Đồng ý</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="add-to-cart-modal{{ top_borrow_books_2.id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #15c89e;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Thành công</h5>
+        <a type="button" class="close" href="{% url 'myaccount:add-to-cart' top_borrow_books_2.id %}" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body" style="font-size: 16px;">
+        Đã thêm thành công cuốn {{ top_borrow_books_2.title }} vào giỏ hàng. Bạn có thể vào giỏ hàng để thanh toán.
+      </div>
+      <div class="modal-footer">
+        <a type="button" style="height: 40px; background-color: #15c89e; color: white; border: none; border-radius: 15px;padding-top: 8px;" class="btn btn-primary" href="{% url 'myaccount:add-to-cart' top_borrow_books_2.id %}">Tôi đã hiểu</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="remind-me-later-modal{{ top_borrow_books_2.id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #15c89e;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Thông báo</h5>
+        <a  type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body" style="font-size: 16px;">
+        Hiện tại trong hệ thống đã hết cuốn {{ top_borrow_books_2.title }}. Bạn có muốn nhận thông báo khi sản phẩm này có thể mượn?
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="modal-a-btn" style="height: 40px; padding-left: 10px; padding-right: 10px; background-color: #6c757d; color: white; border: none; border-radius: 15px;padding-top: 8px; font-size: 17px;" data-dismiss="modal" aria-label="Close">Từ chối</a>
+        <a type="button" class="modal-a-btn" style="height: 40px; padding-left: 10px; padding-right: 10px; background-color: #15c89e; color: white; border: none; border-radius: 15px;padding-top: 8px; font-size: 17px;" data-dismiss="modal" aria-label="Close">Đồng ý</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="add-to-cart-modal{{ top_borrow_books_3.id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #15c89e;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Thành công</h5>
+        <a type="button" class="close" href="{% url 'myaccount:add-to-cart' top_borrow_books_3.id %}" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body" style="font-size: 16px;">
+        Đã thêm thành công cuốn {{ top_borrow_books_3.title }} vào giỏ hàng. Bạn có thể vào giỏ hàng để thanh toán.
+      </div>
+      <div class="modal-footer">
+        <a type="button" style="height: 40px; background-color: #15c89e; color: white; border: none; border-radius: 15px;padding-top: 8px;" class="btn btn-primary" href="{% url 'myaccount:add-to-cart' top_borrow_books_3.id %}">Tôi đã hiểu</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="remind-me-later-modal{{ top_borrow_books_3.id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #15c89e;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Thông báo</h5>
+        <a  type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body" style="font-size: 16px;">
+        Hiện tại trong hệ thống đã hết cuốn {{ top_borrow_books_3.title }}. Bạn có muốn nhận thông báo khi sản phẩm này có thể mượn?
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="modal-a-btn" style="height: 40px; padding-left: 10px; padding-right: 10px; background-color: #6c757d; color: white; border: none; border-radius: 15px;padding-top: 8px; font-size: 17px;" data-dismiss="modal" aria-label="Close">Từ chối</a>
+        <a type="button" class="modal-a-btn" style="height: 40px; padding-left: 10px; padding-right: 10px; background-color: #15c89e; color: white; border: none; border-radius: 15px;padding-top: 8px; font-size: 17px;" data-dismiss="modal" aria-label="Close">Đồng ý</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="add-to-cart-modal{{ top_borrow_books_4.id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #15c89e;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Thành công</h5>
+        <a type="button" class="close" href="{% url 'myaccount:add-to-cart' top_borrow_books_4.id %}" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body" style="font-size: 16px;">
+        Đã thêm thành công cuốn {{ top_borrow_books_4.title }} vào giỏ hàng. Bạn có thể vào giỏ hàng để thanh toán.
+      </div>
+      <div class="modal-footer">
+        <a type="button" style="height: 40px; background-color: #15c89e; color: white; border: none; border-radius: 15px;padding-top: 8px;" class="btn btn-primary" href="{% url 'myaccount:add-to-cart' top_borrow_books_4.id %}">Tôi đã hiểu</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="remind-me-later-modal{{ top_borrow_books_4.id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #15c89e;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Thông báo</h5>
+        <a  type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body" style="font-size: 16px;">
+        Hiện tại trong hệ thống đã hết cuốn {{ top_borrow_books_4.title }}. Bạn có muốn nhận thông báo khi sản phẩm này có thể mượn?
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="modal-a-btn" style="height: 40px; padding-left: 10px; padding-right: 10px; background-color: #6c757d; color: white; border: none; border-radius: 15px;padding-top: 8px; font-size: 17px;" data-dismiss="modal" aria-label="Close">Từ chối</a>
+        <a type="button" class="modal-a-btn" style="height: 40px; padding-left: 10px; padding-right: 10px; background-color: #15c89e; color: white; border: none; border-radius: 15px;padding-top: 8px; font-size: 17px;" data-dismiss="modal" aria-label="Close">Đồng ý</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="add-to-cart-modal{{ top_borrow_books_5.id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #15c89e;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Thành công</h5>
+        <a type="button" class="close" href="{% url 'myaccount:add-to-cart' top_borrow_books_5.id %}" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body" style="font-size: 16px;">
+        Đã thêm thành công cuốn {{ top_borrow_books_5.title }} vào giỏ hàng. Bạn có thể vào giỏ hàng để thanh toán.
+      </div>
+      <div class="modal-footer">
+        <a type="button" style="height: 40px; background-color: #15c89e; color: white; border: none; border-radius: 15px;padding-top: 8px;" class="btn btn-primary" href="{% url 'myaccount:add-to-cart' top_borrow_books_5.id %}">Tôi đã hiểu</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="remind-me-later-modal{{ top_borrow_books_5.id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #15c89e;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Thông báo</h5>
+        <a  type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body" style="font-size: 16px;">
+        Hiện tại trong hệ thống đã hết cuốn {{ top_borrow_books_5.title }}. Bạn có muốn nhận thông báo khi sản phẩm này có thể mượn?
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="modal-a-btn" style="height: 40px; padding-left: 10px; padding-right: 10px; background-color: #6c757d; color: white; border: none; border-radius: 15px;padding-top: 8px; font-size: 17px;" data-dismiss="modal" aria-label="Close">Từ chối</a>
+        <a type="button" class="modal-a-btn" style="height: 40px; padding-left: 10px; padding-right: 10px; background-color: #15c89e; color: white; border: none; border-radius: 15px;padding-top: 8px; font-size: 17px;" data-dismiss="modal" aria-label="Close">Đồng ý</a>
+      </div>
+    </div>
+  </div>
+</div>
   <footer class="footer fourthBackgroundColor" style="margin-top: -100px;">
     <div class="footer-content">
       <!-- <span class="footerLogoTextHead">eNational <br> Public </span> <br> <span clas="footerLogoTextHead"> Library </span> -->
@@ -598,38 +832,35 @@
       <ul class="footerLinks">
         <li>
           <ul class="linkItemList">
-            <a class="footerTitleRight" href="">Thư viện số</a>
+            <a class="footerTitleRight" href="{% url 'home:homepage' %}">Thư viện số</a>
             <li>
-              <a class="footerLink" href="">Giới thiệu</a>
+              <a class="footerLink" href="{% url 'services:services_wrapper' %}">Giới thiệu</a>
             </li>
             <li>
-              <a class="footerLink" href="">Lịch sử</a>
+              <a class="footerLink" href="{% url 'services:services_historyRoom' %}">Lịch sử</a>
             </li>
             <li>
-              <a class="footerLink" href="">Nhân viên</a>
+              <a class="footerLink" href="{% url 'support:support_contactUs' %}">Nhân viên</a>
             </li>
             <li>
-              <a class="footerLink" href="">Bảng đánh giá</a>
+              <a class="footerLink" href="{% url 'events:events' %}">Sự kiện</a>
             </li>
           </ul>
         </li>
         <li>
           <ul class="linkItemList">
-            <a class="footerTitleRight" href="">Chức năng</a>
+            <a class="footerTitleRight" href="{% url 'services:services_wrapper' %}">Chức năng</a>
             <li>
-              <a class="footerLink" href="">Đăng ký thành viên</a>
+              <a class="footerLink" href="{% url 'myaccount:registerPlan' %}">Đăng ký thành viên</a>
             </li>
             <li>
-              <a class="footerLink" href="">Quản lý tài khoản</a>
+              <a class="footerLink" href="{% url 'myaccount:profile' %}">Quản lý tài khoản</a>
             </li>
             <li>
-              <a class="footerLink" href="">Tham gia sự kiện</a>
+              <a class="footerLink" href="{% url 'support:support_wrapper' %}">Nhận hỗ trợ</a>
             </li>
             <li>
-              <a class="footerLink" href="">Nhận hỗ trợ</a>
-            </li>
-            <li>
-              <a class="footerLink" href="">Ủng hộ</a>
+              <a class="footerLink" href="{% url 'support:support_contactUs' %}">Ủng hộ</a>
             </li>
           </ul>
         </li>

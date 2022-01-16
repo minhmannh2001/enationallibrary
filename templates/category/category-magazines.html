@@ -39,6 +39,7 @@
             cursor: pointer;
         }
         .add-to-cart-btn:hover {
+            cursor: pointer;
             box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
         }
     </style>
@@ -93,7 +94,7 @@
                 style="font-family:Roboto, sans-serif;color: #343a40!important;font-size: 16px">THỜI GIAN & ĐỊA CHỈ</a>
             </li>
             <li>
-              <a href="/enationallibrary" class="get-card"
+              <a href="{% url 'myaccount:registerPlan' %}" class="get-card"
                 style="font-family:Roboto, sans-serif;color: #343a40!important;font-size: 16px">ĐĂNG KÝ THẺ THÀNH
                 VIÊN</a>
             </li>
@@ -105,12 +106,12 @@
                   </a>
 
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink" style="top: 10px">
-                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'my_account:my_profile' %}">Trang cá nhân</a>
+                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'myaccount:profile' %}">Trang cá nhân</a>
                       {% if is_staff %}
                     <a class="dropdown-item dropdowns-menu-item" href="{% url 'admin:index' %}">Trang quản trị</a>
                           {% endif %}
-                    <a class="dropdown-item dropdowns-menu-item" href="#">Giỏ sách</a>
-                    <a class="dropdown-item dropdowns-menu-item" href="#">Gói dịch vụ</a>
+                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'myaccount:my-cart' %}">Giỏ sách</a>
+                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'myaccount:my_plan' %}">Gói dịch vụ</a>
                     <a class="dropdown-item dropdowns-menu-item" href="{% url 'login:log-out' %}">Đăng xuất</a>
                   </div>
                 </div>
@@ -238,7 +239,7 @@
                    <h6 style="font-weight: bold;">{{ magazine.title }}</h6>
                    <h6>{{ magazine.summary }}</h6>
                  </div>
-                 <button class="add-to-cart-btn">Thêm vào giỏ sách</button>
+                 <a class="add-to-cart-btn" href="{{ magazine.pdfFile.url }}">Đọc ấn phẩm</a>
                  <hr>
                </div>
              </li>
@@ -287,38 +288,35 @@
       <ul class="footerLinks">
         <li>
           <ul class="linkItemList">
-            <a class="footerTitleRight" href="">Thư viện số</a>
+            <a class="footerTitleRight" href="{% url 'home:homepage' %}">Thư viện số</a>
             <li>
-              <a class="footerLink" href="">Giới thiệu</a>
+              <a class="footerLink" href="{% url 'services:services_wrapper' %}">Giới thiệu</a>
             </li>
             <li>
-              <a class="footerLink" href="">Lịch sử</a>
+              <a class="footerLink" href="{% url 'services:services_historyRoom' %}">Lịch sử</a>
             </li>
             <li>
-              <a class="footerLink" href="">Nhân viên</a>
+              <a class="footerLink" href="{% url 'support:support_contactUs' %}">Nhân viên</a>
             </li>
             <li>
-              <a class="footerLink" href="">Bảng đánh giá</a>
+              <a class="footerLink" href="{% url 'events:events' %}">Sự kiện</a>
             </li>
           </ul>
         </li>
         <li>
           <ul class="linkItemList">
-            <a class="footerTitleRight" href="">Chức năng</a>
+            <a class="footerTitleRight" href="{% url 'services:services_wrapper' %}">Chức năng</a>
             <li>
-              <a class="footerLink" href="">Đăng ký thành viên</a>
+              <a class="footerLink" href="{% url 'myaccount:registerPlan' %}">Đăng ký thành viên</a>
             </li>
             <li>
-              <a class="footerLink" href="">Quản lý tài khoản</a>
+              <a class="footerLink" href="{% url 'myaccount:profile' %}">Quản lý tài khoản</a>
             </li>
             <li>
-              <a class="footerLink" href="">Tham gia sự kiện</a>
+              <a class="footerLink" href="{% url 'support:support_wrapper' %}">Nhận hỗ trợ</a>
             </li>
             <li>
-              <a class="footerLink" href="">Nhận hỗ trợ</a>
-            </li>
-            <li>
-              <a class="footerLink" href="">Ủng hộ</a>
+              <a class="footerLink" href="{% url 'support:support_contactUs' %}">Ủng hộ</a>
             </li>
           </ul>
         </li>

@@ -40,6 +40,13 @@
         }
         .add-to-cart-btn:hover {
             box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+            cursor: pointer;
+        }
+        a {
+            color: black;
+        }
+        .modal-a-btn:hover {
+            cursor: pointer;
         }
     </style>
 </head>
@@ -92,7 +99,7 @@
                 style="font-family:Roboto, sans-serif;color: #343a40!important;font-size: 16px">THỜI GIAN & ĐỊA CHỈ</a>
             </li>
             <li>
-              <a href="/enationallibrary" class="get-card"
+              <a href="{% url 'myaccount:registerPlan' %}" class="get-card"
                 style="font-family:Roboto, sans-serif;color: #343a40!important;font-size: 16px">ĐĂNG KÝ THẺ THÀNH
                 VIÊN</a>
             </li>
@@ -104,12 +111,12 @@
                   </a>
 
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink" style="top: 10px">
-                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'my_account:my_profile' %}">Trang cá nhân</a>
+                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'myaccount:profile' %}">Trang cá nhân</a>
                       {% if is_staff %}
                     <a class="dropdown-item dropdowns-menu-item" href="{% url 'admin:index' %}">Trang quản trị</a>
                           {% endif %}
-                    <a class="dropdown-item dropdowns-menu-item" href="#">Giỏ sách</a>
-                    <a class="dropdown-item dropdowns-menu-item" href="#">Gói dịch vụ</a>
+                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'myaccount:my-cart' %}">Giỏ sách</a>
+                    <a class="dropdown-item dropdowns-menu-item" href="{% url 'myaccount:my_plan' %}">Gói dịch vụ</a>
                     <a class="dropdown-item dropdowns-menu-item" href="{% url 'login:log-out' %}">Đăng xuất</a>
                   </div>
                 </div>
@@ -173,7 +180,6 @@
       <div class="container">
         <div class="top-in-category3">
             <h3>Sách mới trong tháng</h3>
-            
             <hr>
         </div>
         <div class="leftColumn" style="width: 15%;">
@@ -191,17 +197,22 @@
         </div>
           
         <div class="rightColumn" style="margin-top: 15px; margin-right: -98px;">
-           <h3 style="font-weight: bold;">{{ books.count }} kết quả</h3>
+           <h3 style="font-weight: bold;">{{ books_count }} kết quả</h3>
            <ul class="list-best-book d-flex flex-wrap">
                {% for book in books %}
                    <li>
                      <div class="div-best-book-1">
                  <div class="best-book-img">
-                     <div style="background-image: url({{ book.image.url }}); width: 255px; height: 385px; background-size: cover; background-position: center"></div>
-                   <h6 style="font-weight: bold;min-height: 40px;" class="mt-2">{{ book.title }}</h6>
-                   <h6>Tác giả: {{ book.author.first }}</h6>
+                     <div style="background-image: url({{ book.url }}); width: 255px; height: 385px; background-size: cover; background-position: center"></div>
+                   <h6 style="font-weight: bold;min-height: 40px;" class="mt-2"><a href="{% url 'category:book-detail' book.slug %}">{{ book.title }}</a></h6>
+                   <h6>Tác giả: {{ book.author }}</h6>
                  </div>
-                 <button class="add-to-cart-btn">Thêm sách vào giỏ</button>
+{#                 <a class="add-to-cart-btn" href="{% url 'myaccount:add-to-cart' book.id %}">Thêm sách vào giỏ</a>#}
+                 {% if book.isAvailable %}
+                        <a class="add-to-cart-btn" type="button" data-toggle="modal" data-target="#add-to-cart-modal{{ book.id }}">Thêm sách vào giỏ</a>
+                    {% else %}
+                        <a class="add-to-cart-btn" data-toggle="modal" data-target="#remind-me-later-modal{{ book.id }}">Nhắc tôi khi có sách</a>
+                    {% endif %}
                  <hr>
                  <h6>{{ book.summary|safe|truncatechars:150 }}</h6>
                </div>
@@ -252,38 +263,35 @@
       <ul class="footerLinks">
         <li>
           <ul class="linkItemList">
-            <a class="footerTitleRight" href="">Thư viện số</a>
+            <a class="footerTitleRight" href="{% url 'home:homepage' %}">Thư viện số</a>
             <li>
-              <a class="footerLink" href="">Giới thiệu</a>
+              <a class="footerLink" href="{% url 'services:services_wrapper' %}">Giới thiệu</a>
             </li>
             <li>
-              <a class="footerLink" href="">Lịch sử</a>
+              <a class="footerLink" href="{% url 'services:services_historyRoom' %}">Lịch sử</a>
             </li>
             <li>
-              <a class="footerLink" href="">Nhân viên</a>
+              <a class="footerLink" href="{% url 'support:support_contactUs' %}">Nhân viên</a>
             </li>
             <li>
-              <a class="footerLink" href="">Bảng đánh giá</a>
+              <a class="footerLink" href="{% url 'events:events' %}">Sự kiện</a>
             </li>
           </ul>
         </li>
         <li>
           <ul class="linkItemList">
-            <a class="footerTitleRight" href="">Chức năng</a>
+            <a class="footerTitleRight" href="{% url 'services:services_wrapper' %}">Chức năng</a>
             <li>
-              <a class="footerLink" href="">Đăng ký thành viên</a>
+              <a class="footerLink" href="{% url 'myaccount:registerPlan' %}">Đăng ký thành viên</a>
             </li>
             <li>
-              <a class="footerLink" href="">Quản lý tài khoản</a>
+              <a class="footerLink" href="{% url 'myaccount:profile' %}">Quản lý tài khoản</a>
             </li>
             <li>
-              <a class="footerLink" href="">Tham gia sự kiện</a>
+              <a class="footerLink" href="{% url 'support:support_wrapper' %}">Nhận hỗ trợ</a>
             </li>
             <li>
-              <a class="footerLink" href="">Nhận hỗ trợ</a>
-            </li>
-            <li>
-              <a class="footerLink" href="">Ủng hộ</a>
+              <a class="footerLink" href="{% url 'support:support_contactUs' %}">Ủng hộ</a>
             </li>
           </ul>
         </li>
@@ -313,6 +321,47 @@
     </div>
 
   </footer>
+{% for book in books %}
+    <div class="modal fade" id="add-to-cart-modal{{ book.id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #15c89e;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Thành công</h5>
+        <a type="button" class="close" href="{% url 'myaccount:add-to-cart' book.id %}" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body" style="font-size: 16px;">
+        Đã thêm thành công cuốn {{ book.title }} vào giỏ hàng. Bạn có thể vào giỏ hàng để thanh toán.
+      </div>
+      <div class="modal-footer">
+        <a type="button" style="height: 40px; background-color: #15c89e; color: white; border: none; border-radius: 15px;padding-top: 8px;" class="btn btn-primary" href="{% url 'myaccount:add-to-cart' book.id %}">Tôi đã hiểu</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% for book in books %}
+    <div class="modal fade" id="remind-me-later-modal{{ book.id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #15c89e;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Thông báo</h5>
+        <a  type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body" style="font-size: 16px;">
+        Hiện tại trong hệ thống đã hết cuốn {{ book.title }}. Bạn có muốn nhận thông báo khi sản phẩm này có thể mượn?
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="modal-a-btn" style="height: 40px; padding-left: 10px; padding-right: 10px; background-color: #6c757d; color: white; border: none; border-radius: 15px;padding-top: 8px; font-size: 17px;" data-dismiss="modal" aria-label="Close">Từ chối</a>
+        <a type="button" class="modal-a-btn" style="height: 40px; padding-left: 10px; padding-right: 10px; background-color: #15c89e; color: white; border: none; border-radius: 15px;padding-top: 8px; font-size: 17px;" data-dismiss="modal" aria-label="Close">Đồng ý</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
   <script src="{% static 'home/js/homepage.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

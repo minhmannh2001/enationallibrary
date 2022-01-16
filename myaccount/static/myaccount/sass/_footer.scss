@@ -1,0 +1,145 @@
+.footer {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    color: #ffffff;
+}
+.footer-content {
+    padding-left: 5%;
+    width: 50%;
+    font-family: 'Myriad Pro';
+    font-weight: normal;
+    font-size: 18px;
+}
+
+.footerLogo {
+    position: relative;
+    display: block;
+    padding-left: 1.5%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.cls-1 {
+    font-size: 14px;
+    fill: #fff;
+    font-family: Lato;
+    font-weight: 300;
+  }
+
+.cls-2 {
+    font-weight: 700;
+}
+.footerTitleLeft {
+    padding-left: 12%;
+}
+.socialMediaList {
+    position: relative;
+    display: flex;
+    list-style-type: none;
+    padding-top: 20px;
+    padding-left: 1%;
+    flex-direction: row;
+}
+.iconItem {
+    padding-right: 50px;
+}
+
+.footer-content--secondary {
+    padding-right: 5%;
+    padding-top: 20px;
+    width: 50%;
+}
+.footerLinks {
+    width: 100%;
+    position: relative;
+    display: flex;
+    float: right;
+    flex-direction: column;
+    list-style-type: none;
+    justify-content: space-between;
+}
+.footerTitleLeft, .footerTitleRight {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+.addressTitle {
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+.linkItemList {
+    //padding-right: 80px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    font-size: 15px;
+    line-height: 30px;
+    overflow: hidden;
+    padding-top: 10px;
+}
+.timeVisit {
+    height: 350px;
+}
+
+.footerLink {
+    color: white;
+}
+
+@media (min-width: 540px) {
+    .footer-content {
+        width: 50%;
+    }
+    .footer-content--secondary {
+        width: 50%;
+    }
+    .linkItemList {
+        height: 220px;
+        display: block;
+    }
+    .timeVisit {
+        height: 350px;
+    }
+    .addressTitle {
+        padding-top: 20px;
+    }
+    .footerTitleLeft {
+        padding-left: 7%;
+    }
+}
+
+@media (min-width: 768px) {
+    .footer-content {
+        width: 60%;
+    }
+    .footer-content--secondary {
+        width: 40%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .footer-content {
+        padding-left: 8%;
+        width: 50%;
+    }
+    .footer-content--secondary {
+        width: 50%;
+    }
+    .footerLinks {
+        width: 700px;
+        flex-direction: row;
+    }
+    .footerTitleLeft, .footerTitleRight {
+        padding-bottom: 20px;
+    }
+    .addressTitle {
+        padding-top: 70px;
+        padding-bottom: 20px;
+    }
+    .footerTitleLeft {
+        padding-left: 5%;
+    }
+}
