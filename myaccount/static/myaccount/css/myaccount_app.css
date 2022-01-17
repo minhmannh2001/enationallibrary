@@ -2190,10 +2190,6 @@ a {
   border-right: none;
 }
 
-.borrow-books {
-  padding-top: 5%;
-}
-
 .borrow-books-div {
   margin-top: 1%;
   border: 2px solid #e7e9f5;
@@ -2423,7 +2419,6 @@ a {
 }
 .changePW table td input {
   margin-top: 8px;
-  margin-left: 25px;
   margin-bottom: 8px;
   font-size: 18px;
   padding-left: 10px;

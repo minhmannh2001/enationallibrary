@@ -160,6 +160,7 @@
   <main class="my-account">
     <div class="main-my-account">
       <div class="container">
+          <hr>
         <div class="leftColumn">
           <div id="menu">
             <ul class="menu">
@@ -168,14 +169,26 @@
                 <li><a class="borrowBooks" href="{% url 'myaccount:borrowBooks' %}">Lịch sử mượn</a></li>
                 <li><a class="updatePlan" href="{% url 'myaccount:my_plan' %}">Các gói dịch vụ</a></li>
                 {% if hM %}
-                <li><a class="updatePlan" href="{% url 'myaccount:viewMyCard' %}">Gói đang dùng</a></li>
+                <li><a class="updatePlan" href="{% url 'myaccount:viewMyCard' %}">Thẻ thành viên</a></li>
                 {% endif %}
             </ul>
           </div>
         </div>
-        <div class="rightColumn">
-          <div class="returnBooks" style="margin-left: 260px; margin-top: 20px;padding-right: 46px;">
-              <h2 style="margin-left: 170px;">Đơn trả sách</h2>
+        <div class="rightColumn" style="
+            margin-bottom: 100px;
+            background-image: url(https://media.istockphoto.com/vectors/public-school-library-flat-vector-illustration-vector-id1182472424?k=20&m=1182472424&s=612x612&w=0&h=qGnFccAUcU8AAfQ4bRFy6qMDeRXQb_FsAogphdMdC-M=);
+            background-repeat: no-repeat;
+            background-size: 300px;
+            background-position-x: 900px;
+            background-position-y: 100px;
+            ">
+          <div class="returnBooks" style="margin-left: 260px;
+    margin-top: 20px;
+    padding-right: 46px;
+    border: 1px solid #e7e3e3;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;">
+              <h2 style="margin-left: 190px;">ĐƠN TRẢ SÁCH</h2>
             <form method="post" action="{% url 'myaccount:saveReturnBook' orderID bookID  %}" enctype="multipart/form-data">
               {% csrf_token %}
                 <table>
@@ -212,7 +225,7 @@
                 border-radius: 5px;
                 padding: 5px 20px;
                 /* margin: auto; */
-                margin-left: 180px;
+                margin-left: 230px;
                 margin-top: 24px;
                 font-size: 18px;">Trả Sách</button>
             </form>  

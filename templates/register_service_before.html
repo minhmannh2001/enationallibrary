@@ -1,17 +1,16 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lịch sử mượn sách | Thư viện số quốc gia</title>
+    <title>Yêu cầu đăng nhập | Thư viện số quốc gia</title>
     <link rel="icon"
     href="https://res.cloudinary.com/enationallibrary/image/upload/v1638580740/media/favicon-32x32_unmryt.png"
-    type="image/png" sizes="32x32">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    type="image/png" sizes="32x32"><link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Lato:wght@300;600;700;800&display=swap"
       rel="stylesheet"
@@ -31,16 +30,7 @@
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'myaccount/css/myaccount_app.css' %}">
-    <style>
-        .warning-borrow-books:hover {
-            cursor: default;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
-    </style>
+  <link rel="stylesheet" href="{% static 'news/css/app.css' %}">
 </head>
 <body>
   <header class="header">
@@ -163,236 +153,129 @@
       </div>
     </div>
   </header>
+  <main class="nplHomepage">
+    <div class="hero" style="width: 100%; height:185px;
+                            background-image: url({% static 'myaccount/images/hero.png' %});">
+      <div class="container-fullWidth">
+        <a href="../home/homepage.html" class="home"
+        style="color: white; margin-left: 15px; margin-top: 20px; font-size: 16px;">
+        Home</a>
+        <p style="color: white; font-size: 16px; width: 30%; margin-left: 50%; margin-top: 50px;">Chào mừng bạn tới với thư viện số quốc gia. Hãy đăng ký để nhận các khuyến mãi của chúng tôi! </p>
+      </div>
 
-  <main class="my-account d-flex justify-content-center" style="margin-bottom: 50px;">
+    </div>
+    <div class="plsSignIn" style="background-color: #dfdfdf;">
+      <div class="container-fullWidth" style="min-height: 450px;">
+        <div style="background-color: white; position: absolute; left: 50%; transform: translateX(-50%); margin-top: 100px; width: 1000px; height: 245px; border-radius: 10px ; text-align: center;">
+          <h2 style="font-family: 'Open sans'; font-size: 24px; font-weight: 700; margin-top: 30px;">Yêu cầu đăng ký dịch vụ trước khi sử dụng tính năng này</h2>
+          <h3 style="font-family: 'Open sans'; font-size: 16px; font-weight: 400; margin-top: 30px;">Hiện bạn bạn chưa đăng ký dịch vụ mượn trả sách của thư viện, <span style="color: #40A2DE;">hãy đăng ký dịch vụ,</span> để có thể vào xem giỏ hàng và lịch sử mượn trả sách.</h3>
 
-    <div class="main-my-account d-flex">
-
-      <div class="container" style="width: 1450px;">
-          <hr>
-        <div class="leftColumn">
-          <div id="menu">
-            <ul class="menu">
-                <li><a class="myProfile" href="{% url 'myaccount:profile' %}">Trang cá nhân</a></li>
-                <li><a class="myCart" href="{% url 'myaccount:my-cart' %}">Giỏ sách</a></li>
-                <li><a class="borrowBooks" style="border-bottom: #cc3333 2px solid" href="{% url 'myaccount:borrowBooks' %}">Lịch sử mượn</a></li>
-                <li><a class="updatePlan" href="{% url 'myaccount:my_plan' %}">Các gói dịch vụ</a></li>
-                {% if hM %}
-                <li><a class="updatePlan" href="{% url 'myaccount:viewMyCard' %}">Thẻ thành viên</a></li>
-                {% endif %}
-            </ul>
-          </div>
+          <button style="font-family: 'Open sans';color: white; font-size: 16px; font-weight: 600; margin-top: 40px; background-color: #40A2DE; border: none; width: 200px; height:35px; border-radius: 15px;">
+              <a href="{% url 'myaccount:my_plan' %}" style="color: white; text-decoration: none; border: none; width: 200px; height:35px; border-radius: 15px;">Đăng ký dịch vụ</a></button>
         </div>
-    
-
-<!--<script type="text/javascript">
-  if(count > 0){
-    document.write("<b>Qualifies for driving</b>");-->
-        {%if myOrder%}
-        {% for mO in myOrder%}
-        <div class="rightColumn">
-          <div class="borrow-books">
-            <div class="borrow-books-div">
-              <img src="{{ mO.book.image.url }}" alt="picture-1" class="picture-borrow-book">
-              <ul class="left-text-borrow-books" style=" margin-left: 20px;">
-                <li><div style="font-weight: 700; margin-top: 20px; margin-bottom: 10px; font-size: 20px; ">{{mO.book.title}}</div></li>
-                <h6 style=" margin-bottom: 10px;"><a style="text-decoration:none; color: #9ca1bc; font-size: 16px; font-weight: 400;" href="{% url 'myaccount:invoice' mO.id mO.book.id  %}" >Tải xuống hóa đơn</a></h6>
-{#                <h6><a style="text-decoration:none; color:black;" href="{% url 'myaccount:add-to-cart' mO.book.id  %}" >add in cart</a></h6>#}
-                <button  id="100000{{mO.id}}" style="border: 1px solid #b5b5b5; background-color: white; width: 100px; height: 30px; border-radius: 10px; margin-top: 10px">
-                    <h6>
-                        <a style="text-decoration:none; color:#403131;font-size: 16px; font-weight: 400; font-weight: 600;" href="{% url 'myaccount:returnBook' mO.id mO.book.id  %}" >Trả Sách</a>
-                    </h6>
-                </button>
-                
-      <!--          <li><h5>October 2021</h5></li>-->
-              </ul>
-              <ul class="right-text-borrow-books">
-                <li><h4 id="check-out">Ngày mượn sách: {{mO.ordered_date|date:"d-m-Y"}}</h4></li>
-                <li><h4 id="check-in">Ngày hết hạn: {{mO.expired_date|date:"d-m-Y"}}</h4></li>
-                <li><h4 id="check-in"><p id="1000{{mO.id}}"></p></h4></li>
-                <li><h4 id="check-in"><p id="10000{{mO.id}}"></p></h4></li>
-                <li><button class="warning-borrow-books" style="font-size: 15px;" id="100{{mO.id}}"><p id="{{mO.id}}"></p></button></li>
-   <!--             <script type="text/javascript">
-                  var c="{{mO.status}}";
-                  if(c==='Bình thường'){
-                    document.getElementById("{{mO.id}}").innerHTML = c;
-                    document.getElementById("100{{mO.id}}").style.backgroundColor="blue";
-                  }
-                  else{
-                      if(c==='Quá hạn mức 1'){
-                          document.getElementById("{{mO.id}}").innerHTML = c;
-                          document.getElementById("100{{mO.id}}").style.backgroundColor="red";
-                      }
-                      else{
-                        if(c==='Quá hạn mức 2'){
-                          document.getElementById("{{mO.id}}").innerHTML = c;
-                          document.getElementById("100{{mO.id}}").style.backgroundColor="red";
-                        }
-                      
-                      else{
-
-                      document.getElementById("{{mO.id}}").innerHTML = c;
-                      document.getElementById("100{{mO.id}}").style.backgroundColor="green";
-                    }}
-                  }
-                </script>-->
-                <script type="text/javascript">
-                  var c="{{mO.status}}";
-                  var today1 = new Date();
-                  var ep1 = new Date();
-                  var rt= new Date();
-                  today1.setDate(parseInt("{{today.day}}"));
-                  today1.setMonth(parseInt("{{today.month}}"));
-                  today1.setFullYear(parseInt("{{today.year}}"));
-                  today1.setHours(0);
-                  today1.setMinutes(0);
-                  ep1.setDate(parseInt("{{mO.expired_date.day}}"));
-                  ep1.setMonth(parseInt("{{mO.expired_date.month}}"));
-                  ep1.setFullYear(parseInt("{{mO.expired_date.year}}"));
-                  ep1.setHours(0);
-                  ep1.setMinutes(0);
-                  ep1.setSeconds(0);
-                  
-                  if (c==='Đã trả'){
-                      document.getElementById("100000{{mO.id}}").style.visibility = 'hidden';
-                      var d=0;
-                      rt.setDate(parseInt("{{mO.return_date.day}}"));
-                      rt.setMonth(parseInt("{{mO.return_date.month}}"));
-                      rt.setFullYear(parseInt("{{mO.return_date.year}}"));
-                      rt.setHours(0);
-                      rt.setMinutes(0);
-                      rt.setSeconds(0);
-                      if(rt>ep1){
-
-
-                      var datediff = Math.abs(rt.getTime() - ep1.getTime());
-                      d=parseInt(datediff / (24 * 60 * 60 * 1000), 10);
-                      if(d>365){
-                        d=d-365;
-                        }
-                      
-                      document.getElementById("1000{{mO.id}}").innerHTML = "quá hạn "+ d+" ngày";
-                      
-                      }
-                      document.getElementById("{{mO.id}}").innerHTML = c;
-                      document.getElementById("100{{mO.id}}").style.backgroundColor="green";
-                      document.getElementById("10000{{mO.id}}").innerHTML = "Ngày Trả:"+"{{mO.return_date|date:"d-m-Y"}}";
-                  }
-                  else{
-                      if(today1>ep1){
-                        var d=0;
-
-                        var datediff = Math.abs(today1.getTime() - ep1.getTime());
-                        d=parseInt(datediff / (24 * 60 * 60 * 1000), 10);
-                        if(d>365){
-                          d=d-365;
-                        }
-                        if(d<=5){
-                          document.getElementById("{{mO.id}}").innerHTML = "Quá hạn mức 1";
-                          document.getElementById("100{{mO.id}}").style.backgroundColor="red";
-                          document.getElementById("1000{{mO.id}}").innerHTML = "quá hạn "+ d+" ngày";
-                        }else{
-                          document.getElementById("{{mO.id}}").innerHTML = "Quá hạn mức 2";
-                          document.getElementById("100{{mO.id}}").style.backgroundColor="#fc3960";
-                          document.getElementById("1000{{mO.id}}").innerHTML = "quá hạn "+ d+" ngày";
-                        }
-                      }else{
-                        document.getElementById("{{mO.id}}").innerHTML = "Bình thường";
-                        document.getElementById("100{{mO.id}}").style.backgroundColor="#0e84f0";
-                      }
-                  }
-                </script>
-              </ul>
-            </div>
-          </div>
-        </div>
-        {%endfor%}
-        {%endif%}
-  <!--  }
-</script>-->
-<!--
-            <div class="borrow-books-div">
-              <img src="images/top-book-cover-1.png" alt="picture-1" class="picture-borrow-book">
-              <ul class="left-text-borrow-books">
-                <li><h3>{{b.title}}</h4></li>
-                <li><h5>Issue 41 - TUYỆT PHẨM DÀNH CHO QUÝ BÀ</h5></li>
-                <li><h4>Single Digital Issue</h4></li>
-                <li><a href="">Remove</a></li>
-              </ul>
-              <ul class="right-text-borrow-books">
-                <li><h4 id="check-out">{{order.order_date}}</h4></li>
-                <li><h4 id="check-in" >{{order.order_date1}}</h4></li>
-                <li><br></li>
-                <li>
-                  <div>
-                    <i class="fas fa-stopwatch"></i>
-                    <h4 id="overdue" style="margin-top: 50%;">Overdue: &emsp; &emsp; </h4>
-                  </div>
-                </li>
-              </ul>
-            </div>-->
-
-<!--
-            <div class="borrow-books-div">
-              <img src="images/top-book-cover-2.png" alt="picture-1" class="picture-borrow-book">
-              <ul class="left-text-borrow-books">
-                <li><h3>Brands & Bloggers Mag</h4></li>
-                <li><h5>Edition 8</h5></li>
-                <li><h4>Single Digital Issue</h4></li>
-                <li><a href="">Remove</a></li>
-              </ul>
-              <ul class="right-text-borrow-books">
-                <li><h4 id="check-out">Check out date: 02/09/2021</h4></li>
-                <LI><br></LI>
-                <li>
-                  <h4 id="check-out" style="text-align: center;margin-top: 60%;">Downloaded</h4>
-                </li>
-              </ul>
-            </div>
-            <div class="borrow-books-div">
-              <img src="images/top-book-cover-3.png" alt="picture-1" class="picture-borrow-book">
-              <ul class="left-text-borrow-books">
-                <li><h3>Hello! India</h4></li>
-                <li><h5>Monthly</h5></li>
-                <li><h4>1 Year Digital Subsciiption</h4></li>
-                <li><a href="">Remove</a></li>
-              </ul>
-              <ul class="right-text-borrow-books">
-                <li><h4 id="check-out">Check out date: 02/09/2021</h4></li>
-                <LI><br></LI>
-                <li>
-                  <h4 id="check-out" style="text-align: center;margin-top: 60%;">Time out: &nbsp; 54 days left</h4>
-                </li>
-              </ul>
-            </div>
-            <div class="borrow-books-div">
-              <img src="images/top-book-cover-4.png " alt="picture-1" class="picture-borrow-book">
-              <ul class="left-text-borrow-books">
-                <li><h3>Sake today</h4></li>
-                <li><h5>Issue 11 - Autumn 2016</h5></li>
-                <li><h4>Single Digital Issue</h4></li>
-                <li><a href="">Remove</a></li>
-              </ul>
-              <ul class="right-text-borrow-books">
-                <li><h4 id="check-out">Check out date: 25/10/2021</h4></li>
-                <li><h4 id="check-out" style="margin-top: 0%;">Check out date: 25/12/2021</h4></li>
-              -->
-        <!--        <LI><br></LI>
-                <li>-->
-             <!--     <button style="text-align: center;margin-top: 60%; background-color: #92cba9; padding: 4% 7%;"> On Delivery</button>
-                </li>
-              </ul>
-            </div>
-          </div>-->
-    <!--    </div>-->
       </div>
     </div>
   </main>
+  <footer class="footer fourthBackgroundColor">
+    <div class="footer-content">
+      <!-- <span class="footerLogoTextHead">eNational <br> Public </span> <br> <span clas="footerLogoTextHead"> Library </span> -->
+      <span class="footerLogo">
+        <svg class="footerLogoText" xmlns="http://www.w3.org/2000/svg" width="168" height="186" viewBox="0 0 224 248">
+          <text id="eNational_Public_Library" data-name="eNational Public Library" class="cls-1"
+            transform="matrix(3.746, 0.012, -0.012, 3.897, -2.512, 75.61)">eNational<tspan x="0" dy="18">Public</tspan>
+            <tspan class="cls-2" x="0" dy="18">Library</tspan>
+          </text>
+        </svg>
+      </span>
+      <p class="footerTitleLeft">Liên hệ</p>
+      <ul class="socialMediaList">
+        <li>
+          <a href="" class="iconItem">
+            <img src="https://res.cloudinary.com/enationallibrary/image/upload/v1638553663/media/fb-log_ghkhkr.png"
+              alt="">
+          </a>
+        </li>
+        <li>
+          <a href="" class="iconItem">
+            <img src="https://res.cloudinary.com/enationallibrary/image/upload/v1638553663/media/insta-logo_jdac2d.png"
+              alt="">
+          </a>
+        </li>
+        <li>
+          <a href="" class="iconItem">
+            <img src="https://res.cloudinary.com/enationallibrary/image/upload/v1638553663/media/gmail-logo_al9uef.png"
+              alt="">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="footer-content--secondary">
+      <ul class="footerLinks">
+        <li>
+          <ul class="linkItemList">
+            <a class="footerTitleRight" href="{% url 'home:homepage' %}">Thư viện số</a>
+            <li>
+              <a class="footerLink" href="{% url 'services:services_wrapper' %}">Giới thiệu</a>
+            </li>
+            <li>
+              <a class="footerLink" href="{% url 'services:services_historyRoom' %}">Lịch sử</a>
+            </li>
+            <li>
+              <a class="footerLink" href="{% url 'support:support_contactUs' %}">Nhân viên</a>
+            </li>
+            <li>
+              <a class="footerLink" href="{% url 'events:events' %}">Sự kiện</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <ul class="linkItemList">
+            <a class="footerTitleRight" href="{% url 'services:services_wrapper' %}">Chức năng</a>
+            <li>
+              <a class="footerLink" href="{% url 'myaccount:registerPlan' %}">Đăng ký thành viên</a>
+            </li>
+            <li>
+              <a class="footerLink" href="{% url 'myaccount:profile' %}">Quản lý tài khoản</a>
+            </li>
+            <li>
+              <a class="footerLink" href="{% url 'support:support_wrapper' %}">Nhận hỗ trợ</a>
+            </li>
+            <li>
+              <a class="footerLink" href="{% url 'support:support_contactUs' %}">Ủng hộ</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <ul class="linkItemList timeVisit">
+            <p class="footerTitleRight" style="">Thời gian mở cửa</p>
+            <li>
+              <p class="footerLink" href="">Thứ hai - Thứ năm: 9 A.M - 9 P.M</p>
+            </li>
+            <li>
+              <p class="footerLink" href="">Thứ sáu: 9 A.M - 6P.M</p>
+            </li>
+            <li>
+              <p class="footerLink" href="">Thứ bảy: 9 A.M - 5 P.M</p>
+            </li>
+            <li>
+              <p class="footerLink" href="">Chủ nhật: 12 A.M - 5 P.M</p>
+            </li>
+            <li>
+              <p class="addressTitle" href="">Địa chỉ
+              </p>
+              <p class="footerLink" href="">số 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội</p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
 
-<script src="{% static 'category/js/category.js' %}"></script>
+  </footer>
+  <script src="{% static 'home/js/homepage.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 
 </body>
 </html>

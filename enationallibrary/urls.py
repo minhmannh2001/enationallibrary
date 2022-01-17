@@ -32,6 +32,7 @@ urlpatterns = [
 ]
 
 handler404 = "enationallibrary.views.page_not_found_view"
+handler500 = "enationallibrary.views.server_error_view"
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

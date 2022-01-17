@@ -57,7 +57,7 @@ class formOrder(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Mã bưu chính', 'width': '196%'}))
     phoneNumber = forms.CharField(label='Phone Number', max_length=30, required=True, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Số điện thoại', 'width': '196%'}))
-    giftCartOrDiscount = forms.CharField(label='gift Cart Or Discount', max_length=10, required=True,
+    giftCartOrDiscount = forms.CharField(label='gift Cart Or Discount', max_length=10, required=False,
                                          widget=forms.TextInput(
                                              attrs={'class': 'form-control', 'placeholder': 'Mã giảm giá',
                                                     'width': '196%'}))

@@ -171,6 +171,7 @@
   <main >
     <div class="main-category">
       <div class="container">
+          <hr>
        <button  style="    border: none;
        padding: 5px 20px;
        color: white;
@@ -208,29 +209,29 @@
         <div class="rightColumn" style="display: inline-block;        margin-right: -480px;
         margin-top: 70px;
         ">
-            <div class="changePW d-flex flex-column justify-content-center" style="margin-left: 60px; margin-top: 40px;">
+            <div class="changePW d-flex flex-column justify-content-center" style="margin-left: 60px; margin-bottom: 100px;">
                     <h3 style="padding-left: 140px; margin-bottom: 20px;"><i class="fas fa-key"></i>
                     Đổi mật khẩu tại đây
                     </h3>
                 <form  method="post">
                   {% csrf_token %}
                     {% if old_pw_isvalid %}
-                    <h6> mật khẩu cũ không đúng  </h6>
+                    <h6 style="font-size: 18px; color: red;"> Mật khẩu cũ không đúng  </h6>
                     {% endif %}
                     {% if new_password_isvalid %}
-                    <h6> mật khẩu mới không đúng</h6>
+                    <h6 style="font-size: 18px; color: red;"> Mật khẩu mới không đúng</h6>
                     {% endif %}
                     {% if old_password_valid %}
-                    <h6> bạn cần điền mật khẩu cũ</h6>
+                    <h6 style="font-size: 18px; color: red;"> Bạn cần điền mật khẩu cũ</h6>
                     {% endif %}
                     {% if new_pw_isvalid %}
-                    <h6> bạn cần điền mật khẩu mới</h6>
+                    <h6 style="font-size: 18px; color: red;"> Bạn cần điền mật khẩu mới</h6>
                     {% endif %}
                     {% if new_pw_8 %}
-                    <h6> mật khẩu mới phải chứa ít nhất 8 kí tự</h6>
+                    <h6 style="font-size: 18px; color: red;"> Mật khẩu mới phải chứa ít nhất 8 kí tự</h6>
                     {% endif %}
                     {% if is_3 %}
-                    <h6> mật khẩu mới cần chứa cả chữ và số</h6>
+                    <h6 style="font-size: 18px; color: red;"> Mật khẩu mới cần chứa cả chữ và số</h6>
                     {% endif %}
                     <table>
                       <tr>

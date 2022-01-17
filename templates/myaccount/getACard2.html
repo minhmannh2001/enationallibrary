@@ -168,7 +168,7 @@
     </div>
       <div class="container-fullWidth" style="width: 60%">
         <h2 style="font-weight: 600; font-size: 24px; margin-left: -50px; margin-top: 20px;">Thông tin cá nhân</h2>
-        <form action="{% url 'myaccount:save_profile_plan' %}" method="post">
+        <form action="{% url 'myaccount:save_profile_plan' %}" method="post" style="margin-bottom: 50px;">
           {% csrf_token %}
           
         <table class="getCardTable">
@@ -202,10 +202,16 @@
             <td>
               {{rpf.email}}
               {{rpf.email.errors}}
+              {% if email_invalid %}
+                  <h6 style="color: red; font-size: 18px; margin-top: 5px;">Email đã tồn tại!</h6>
+              {% endif %}
             </td>
             <td>
               {{rpf.gender}}
               {{rpf.gender.errors}}
+                {% if email_invalid %}
+                  <h6 style="color: white; font-size: 18px; margin-top: 5px;">Email đã tồn tại!</h6>
+              {% endif %}
             </td>
           </tr>
           <tr>

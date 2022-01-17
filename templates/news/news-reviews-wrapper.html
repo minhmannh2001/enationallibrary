@@ -125,12 +125,26 @@
                 d="M338.29 338.29L448 448" />
             </svg>
           </i>
-          <input type="text" class="search-bar-field" style="width: 750px;" placeholder="Tìm kiếm...">
+            <form class="search" action="{% url 'category:category_search' %}" method='post'>
+            {{ form.as_p }}
+            {% csrf_token %}
+                <i class="search-bar-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="search-bar-icon" width="16px" height="16px"
+              viewBox="0 0 512 512">
+              <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none"
+                stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"
+                d="M338.29 338.29L448 448" />
+            </svg>
+          </i>
+          <input type="text" name="content_key" class="search-bar-field input-search-form" style="width: 750px;" placeholder="Tìm kiếm...">
+          </form>
+
         </div>
       </div>
       <div class="header-navMenu">
         <ul class="header-navMenuList">
-           <li class="navMenuItem"><a href="{% url 'news:news-reviews-wrapper' %}" class="navMenuItem-link">Tin tức/ Đánh giá</a></li>
+          <li class="navMenuItem"><a href="{% url 'news:news-reviews-wrapper' %}" class="navMenuItem-link">Tin tức/ Đánh giá</a></li>
           <li class="navMenuItem"><a href="{% url 'category:category_wrapper' %}" class="navMenuItem-link">Danh mục</a></li>
           <li class="navMenuItem"><a href="{% url 'events:events' %}" class="navMenuItem-link">Sự kiện</a></li>
           <li class="navMenuItem"><a href="{% url 'services:services_wrapper' %}" class="navMenuItem-link">Dịch vụ</a></li>

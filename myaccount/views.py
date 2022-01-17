@@ -1,3 +1,8 @@
+from django.http import HttpResponse
+from django.template import Context
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+import io
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
@@ -48,6 +53,13 @@ class MyProfile(LoginRequiredMixin, View):
 @login_required(login_url='/login/require-login/')
 def change_profile(request):
     customer = request.user.customer.all().first()
+    is_login = False
+    is_staff = False
+
+    if not request.user.is_anonymous:
+        is_login = True
+    if request.user.is_staff:
+        is_staff = True
     cP = UpdateProfileForm(initial={'lastName': customer.lastName, 'firstName': customer.firstName,
                                     'dateOfBirth': customer.dateOfBirth,
                                     'address': customer.address,
@@ -56,7 +68,12 @@ def change_profile(request):
                                     'identificationCard': customer.identificationCard,
                                     'email': customer.emailAddress,
                                     'phoneNumber': customer.phoneNumber})
-    return render(request, 'myaccount/changeInfomation.html', {'cP': cP})
+    return render(request, 'myaccount/changeInfomation.html',
+                  {'cP': cP,
+                   'is_login': is_login,
+                   'is_staff': is_staff,
+                   'user': request.user.customer.all().first(),
+                   })
 
 
 @login_required(login_url='/login/require-login/')
@@ -71,13 +88,26 @@ def save_profile(request):
             customer.dateOfBirth = cP.cleaned_data['dateOfBirth']
             customer.address = cP.cleaned_data['address']
             customer.gender = cP.cleaned_data['gender']
-            customer.emailAddress = cP.cleaned_data['city']
+            customer.city = cP.cleaned_data['city']
             customer.identificationCard = cP.cleaned_data['identificationCard']
-            customer.email = cP.cleaned_data['email']
-            customer.phoneNumber = cP.cleaned_data['phoneNumber']
-            customer.save()
-            user.save()
-            return HttpResponseRedirect(reverse('myaccount:profile'))
+            email = cP.cleaned_data['email']
+            if Customer.objects.filter(emailAddress=email).exists() and customer != Customer.objects.get(emailAddress=email):
+                is_login = False
+                is_staff = False
+                if not request.user.is_anonymous:
+                    is_login = True
+                if request.user.is_staff:
+                    is_staff = True
+                return render(request, 'myaccount/changeInfomation.html', {'cP': cP, 'email_invalid': True,
+                                                                           'is_login': is_login,
+                                                                           'is_staff': is_staff, })
+            else:
+                customer.emailAddress = cP.cleaned_data['email']
+                user.email = customer.emailAddress
+                customer.phoneNumber = cP.cleaned_data['phoneNumber']
+                customer.save()
+                user.save()
+                return HttpResponseRedirect(reverse('myaccount:profile'))
         else:
             is_login = False
             is_staff = False
@@ -105,7 +135,8 @@ def save_password(request):
             user.set_password(form.cleaned_data['new_password1'])
             user.save()
             update_session_auth_hash(request, user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
+            messages.success(
+                request, 'Your password was successfully updated!')
             return render(request, 'myAccount-profile.html')
         else:
 
@@ -188,7 +219,7 @@ class change_password(LoginRequiredMixin, View):
 def add_to_cart_view(request, pk):
     customer = request.user.customer.all().first()
     if customer.memberCard == None:
-        return HttpResponseRedirect(reverse('myaccount:registerPlan'))
+        return HttpResponseRedirect(reverse('myaccount:register_before'))
     else:
         memberCard = customer.memberCard
         book = models.Book.objects.get(id=pk)
@@ -221,7 +252,7 @@ def cart_view(request):
     if customer.memberCard != None:
         hM = True
     else:
-        return HttpResponseRedirect(reverse('myaccount:registerPlan'))
+        return HttpResponseRedirect(reverse('myaccount:register_before'))
     is_HN = False
     if customer.city == 'Hà Nội':
         is_HN = True
@@ -246,7 +277,7 @@ def cart_view(request):
         is_over_book = True
         is_F = True
     is_B = False
-    if memberCard.servicePlan == 'MB' or memberCard.servicePlan == 'AB':
+    if memberCard.servicePlan == 'Thẻ tháng thường' or memberCard.servicePlan == 'Thẻ năm thường':
         is_B = True
         if books != None:
             for book in books:
@@ -257,6 +288,12 @@ def cart_view(request):
         for book in books:
             if book.quantity <= book.beingBorrowedQuantity:
                 is_F = True
+    over_date = False
+    today = date.today()
+    timeD = customer.memberCard.expriedDate
+    if today > date(timeD.year, timeD.month, timeD.day):
+        over_date = True
+        is_F = True
     return render(request, 'myaccount/myAccount-myCart.html', {
         'is_login': is_login,
         'is_staff': is_staff,
@@ -269,7 +306,8 @@ def cart_view(request):
         'is_F': is_F,
         'is_B': is_B,
         'fO': fO,
-        'hM': hM, })
+        'hM': hM,
+        'over_date': over_date})
 
 
 @login_required(login_url='/login/require-login/')
@@ -333,7 +371,7 @@ def cart_payment(request):
                 is_over_book = True
                 is_F = True
             is_B = False
-            if memberCard.servicePlan == 'MB' or memberCard.servicePlan == 'AB':
+            if memberCard.servicePlan == 'Thẻ tháng thường' or memberCard.servicePlan == 'Thẻ năm thường':
                 is_B = True
                 if books != None:
                     for book in books:
@@ -344,6 +382,12 @@ def cart_payment(request):
                 for book in books:
                     if book.quantity <= book.beingBorrowedQuantity:
                         is_F = True
+            over_date = False
+            today = date.today()
+            timeD = customer.memberCard.expriedDate
+            if today > date(timeD.year, timeD.month, timeD.day):
+                over_date = True
+                is_F = True
             return render(request, 'myaccount/myAccount-myCart.html', {
                 'is_login': is_login,
                 'is_staff': is_staff,
@@ -356,7 +400,8 @@ def cart_payment(request):
                 'is_F': is_F,
                 'is_B': is_B,
                 'fO': fO,
-                'hM': hM})
+                'hM': hM,
+                'over_date': over_date})
 
 
 @login_required(login_url='/login/require-login/')
@@ -371,7 +416,7 @@ def newOrder(request, name, address, city):
                 if customer.memberCard == None:
                     return render(request, 'myaccount/myAccount-updatePlan.html')
                 t1 = timedelta(days=45)
-                if customer.memberCard.servicePlan == 'AV' or customer.memberCard.servicePlan == 'MV':
+                if customer.memberCard.servicePlan == 'Thẻ năm VIP' or customer.memberCard.servicePlan == 'Thẻ tháng VIP':
                     t1 = timedelta(days=60)
                 t2 = date.today()
                 t3 = t2 + t1
@@ -418,7 +463,8 @@ class MyBorrowedBooks(LoginRequiredMixin, View):
         hM = False
         if customer.memberCard != None:
             hM = True
-        myOrder = OrderedBooks.objects.filter(customer=customer).order_by('-expired_date')
+        myOrder = OrderedBooks.objects.filter(
+            customer=customer).order_by('-expired_date')
         count = len(myOrder)
         today = date.today()
         return render(request, 'myaccount/myAccount-borrowBooks.html', {
@@ -464,7 +510,8 @@ def saveReturnBook(request, orderID, bookID):
         rB = formReturn(request.POST, request.FILES)
         if rB.is_valid():
             customer = request.user.customer.all().first()
-            order = models.OrderedBooks.objects.filter(id=orderID).all().first()
+            order = models.OrderedBooks.objects.filter(
+                id=orderID).all().first()
             m = customer.memberCard.nbOfBooksBeingBorrowed - 1
             customer.memberCard.nbOfBooksBeingBorrowed = m
             customer.memberCard.save()
@@ -493,13 +540,6 @@ def saveReturnBook(request, orderID, bookID):
                                                                   'is_staff': is_staff, })
     else:
         return HttpResponse('not POST')
-
-
-import io
-from xhtml2pdf import pisa
-from django.template.loader import get_template
-from django.template import Context
-from django.http import HttpResponse
 
 
 def render_to_pdf(template_src, context_dict={}):
@@ -577,21 +617,21 @@ class MyPlan(LoginRequiredMixin, View):
         SAB2 = 3 * SMB
         SAV2 = 3 * SMV
         if customer.firstName == None or customer.lastName == None or customer.address == None or customer.city == None or customer.emailAddress == None:
-            return HttpResponseRedirect(reverse('myaccount:registerPlan'))
+            return HttpResponseRedirect(reverse('myaccount:registerPlanform1'))
         myPlan = customer.memberCard
         if customer.memberCard == None:
             is_none_membercard = True
         else:
-            if customer.memberCard.servicePlan == 'MB':
+            if customer.memberCard.servicePlan == 'Thẻ tháng thường':
                 is_MB = True
                 is_B = True
-            if customer.memberCard.servicePlan == 'AB':
+            if customer.memberCard.servicePlan == 'Thẻ năm thường':
                 is_AB = True
                 is_B = True
-            if customer.memberCard.servicePlan == 'MV':
+            if customer.memberCard.servicePlan == 'Thẻ tháng VIP':
                 is_MV = True
                 is_V = True
-            if customer.memberCard.servicePlan == 'AV':
+            if customer.memberCard.servicePlan == 'Thẻ năm VIP':
                 is_AV = True
                 is_V = True
 
@@ -631,9 +671,9 @@ def formUpdate(request, number):
     print(number)
     uP = updatePlanform()
     return render(request, 'myaccount/register-payment.html', {
-            'is_login': is_login,
-            'is_staff': is_staff,
-            'user': request.user.customer.all().first(),'uP': uP, 'number': number})
+        'is_login': is_login,
+        'is_staff': is_staff,
+        'user': request.user.customer.all().first(), 'uP': uP, 'number': number})
 
 
 @login_required(login_url='/login/require-login/')
@@ -650,152 +690,266 @@ def updatePlan(request, number):
                 is_staff = True
             if number == 1:
                 if customer.memberCard == None:
-                    memberCard = MemberCard.objects.create(servicePlan='MB', numOfFault=0, maxNbOfBooksToBorrow=5,
+                    memberCard = MemberCard.objects.create(servicePlan='Thẻ tháng thường', numOfFault=0, maxNbOfBooksToBorrow=5,
                                                            nbOfBooksBeingBorrowed=0, registerDate=date.today(),
                                                            expriedDate=date.today() + timedelta(days=30))
-                    customer.memberCard = memberCard;
+                    customer.memberCard = memberCard
                     customer.memberCard.save()
                     customer.save()
                 #    return HttpResponse('success')
-                if customer.memberCard.servicePlan == 'MB':
-                    m = customer.memberCard.expriedDate + timedelta(days=30)
-                    customer.memberCard.expriedDate = m
+                if customer.memberCard.servicePlan == 'Thẻ tháng thường':
+                    today = date.today()
+                    timeD = customer.memberCard.expriedDate
+                    if today > date(timeD.year, timeD.month, timeD.day):
+                        customer.memberCard.registerDate = today
+                        customer.memberCard.expriedDate = today + \
+                            timedelta(days=30)
+                    else:
+                        m = customer.memberCard.expriedDate + \
+                            timedelta(days=30)
+                        customer.memberCard.expriedDate = m
                     customer.memberCard.maxNbOfBooksToBorrow = 5
                     customer.memberCard.save()
+                    customer.save()
                 #    return HttpResponse('success')
 
-                if customer.memberCard.servicePlan == 'AB':
-                    m = customer.memberCard.expriedDate + timedelta(days=30)
-                    customer.memberCard.expriedDate = m
+                if customer.memberCard.servicePlan == 'Thẻ năm thường':
+                    customer.memberCard.servicePlan = 'Thẻ tháng thường'
+                    today = date.today()
+                    timeD = customer.memberCard.expriedDate
+                    if today > date(timeD.year, timeD.month, timeD.day):
+                        customer.memberCard.registerDate = today
+                        customer.memberCard.expriedDate = today + \
+                            timedelta(days=30)
+                    else:
+                        m = customer.memberCard.expriedDate + \
+                            timedelta(days=30)
+                        customer.memberCard.expriedDate = m
                     customer.memberCard.maxNbOfBooksToBorrow = 5
                     customer.memberCard.save()
+                    customer.save()
                 #    return HttpResponse('success')
 
-                if customer.memberCard.servicePlan == 'MV':
-                    customer.memberCard.servicePlan = 'MB'
-                    m = customer.memberCard.expriedDate + timedelta(days=30)
-                    customer.memberCard.expriedDate = m
+                if customer.memberCard.servicePlan == 'Thẻ tháng VIP':
+                    customer.memberCard.servicePlan = 'Thẻ tháng thường'
+                    today = date.today()
+                    timeD = customer.memberCard.expriedDate
+                    if today > date(timeD.year, timeD.month, timeD.day):
+                        customer.memberCard.registerDate = today
+                        customer.memberCard.expriedDate = today + \
+                            timedelta(days=30)
+                    else:
+                        m = customer.memberCard.expriedDate + \
+                            timedelta(days=30)
+                        customer.memberCard.expriedDate = m
                     customer.memberCard.maxNbOfBooksToBorrow = 5
                     customer.memberCard.save()
+                    customer.save()
                 #    return HttpResponse('success')
-                if customer.memberCard.servicePlan == 'AV':
-                    customer.memberCard.servicePlan = 'MB'
-                    m = customer.memberCard.expriedDate + timedelta(days=30)
-                    customer.memberCard.expriedDate = m
+                if customer.memberCard.servicePlan == 'Thẻ năm VIP':
+                    customer.memberCard.servicePlan = 'Thẻ tháng thường'
+                    today = date.today()
+                    timeD = customer.memberCard.expriedDate
+                    if today > date(timeD.year, timeD.month, timeD.day):
+                        customer.memberCard.registerDate = today
+                        customer.memberCard.expriedDate = today + \
+                            timedelta(days=30)
+                    else:
+                        m = customer.memberCard.expriedDate + \
+                            timedelta(days=30)
+                        customer.memberCard.expriedDate = m
                     customer.memberCard.maxNbOfBooksToBorrow = 5
                     customer.memberCard.save()
+                    customer.save()
                 #    return HttpResponse('success')
             if number == 3:
                 if customer.memberCard == None:
-                    memberCard = MemberCard.objects.create(servicePlan='MV', numOfFault=0, maxNbOfBooksToBorrow=8,
+                    memberCard = MemberCard.objects.create(servicePlan='Thẻ tháng VIP', numOfFault=0, maxNbOfBooksToBorrow=8,
                                                            nbOfBooksBeingBorrowed=0, registerDate=date.today(),
                                                            expriedDate=date.today() + timedelta(days=30))
-                    customer.memberCard = memberCard;
+                    customer.memberCard = memberCard
                     customer.memberCard.save()
                     customer.save()
                 #   return HttpResponse('success')
-                if customer.memberCard.servicePlan == 'MB':
-                    customer.memberCard.servicePlan = 'MV'
+                if customer.memberCard.servicePlan == 'Thẻ tháng thường':
+                    customer.memberCard.servicePlan = 'Thẻ tháng VIP'
                     customer.memberCard.registerDate = date.today()
                     customer.memberCard.expriedDate = date.today() + timedelta(days=30)
                     customer.memberCard.maxNbOfBooksToBorrow = 8
                     customer.memberCard.save()
+                    customer.save()
                 #   return HttpResponse('success')
-                if customer.memberCard.servicePlan == 'AB':
-                    customer.memberCard.servicePlan = 'MV'
+                if customer.memberCard.servicePlan == 'Thẻ năm thường':
+                    customer.memberCard.servicePlan = 'Thẻ tháng VIP'
                     customer.memberCard.registerDate = date.today()
                     customer.memberCard.expriedDate = date.today() + timedelta(days=30)
                     customer.memberCard.maxNbOfBooksToBorrow = 8
                     customer.memberCard.save()
+                    customer.save()
                 #    return HttpResponse('success')
-                if customer.memberCard.servicePlan == 'MV':
-                    m = customer.memberCard.expriedDate + timedelta(days=30)
+                if customer.memberCard.servicePlan == 'Thẻ tháng VIP':
+                    today = date.today()
+                    timeD = customer.memberCard.expriedDate
+                    if today > date(timeD.year, timeD.month, timeD.day):
+                        customer.memberCard.registerDate = today
+                        customer.memberCard.expriedDate = today + \
+                            timedelta(days=30)
+                    else:
+                        m = customer.memberCard.expriedDate + \
+                            timedelta(days=30)
+                        customer.memberCard.expriedDate = m
                     customer.memberCard.maxNbOfBooksToBorrow = 8
-                    customer.memberCard.expriedDate = m
                     customer.memberCard.save()
+                    customer.save()
                 #   return HttpResponse('success')
-                if customer.memberCard.servicePlan == 'AV':
-                    customer.memberCard.servicePlan = 'MV'
-                    m = customer.memberCard.expriedDate + timedelta(days=30)
+                if customer.memberCard.servicePlan == 'Thẻ năm VIP':
+                    customer.memberCard.servicePlan = 'Thẻ tháng VIP'
+                    today = date.today()
+                    timeD = customer.memberCard.expriedDate
+                    if today > date(timeD.year, timeD.month, timeD.day):
+                        customer.memberCard.registerDate = today
+                        customer.memberCard.expriedDate = today + \
+                            timedelta(days=30)
+                    else:
+                        m = customer.memberCard.expriedDate + \
+                            timedelta(days=30)
+                        customer.memberCard.expriedDate = m
                     customer.memberCard.maxNbOfBooksToBorrow = 8
-                    customer.memberCard.expriedDate = m
                     customer.memberCard.save()
+                    customer.save()
             #    return HttpResponse('success')
             if number == 2:
                 if customer.memberCard == None:
-                    memberCard = MemberCard.objects.create(servicePlan='AB', numOfFault=0, maxNbOfBooksToBorrow=5,
+                    memberCard = MemberCard.objects.create(servicePlan='Thẻ năm thường', numOfFault=0, maxNbOfBooksToBorrow=5,
                                                            nbOfBooksBeingBorrowed=0, registerDate=date.today(),
                                                            expriedDate=date.today() + timedelta(days=365))
-                    customer.memberCard = memberCard;
+                    customer.memberCard = memberCard
                     customer.memberCard.save()
                     customer.save()
                 #    return HttpResponse('success')
-                if customer.memberCard.servicePlan == 'MB':
-                    customer.memberCard.servicePlan = 'AB'
-                    m = customer.memberCard.expriedDate + timedelta(days=365)
+                if customer.memberCard.servicePlan == 'Thẻ tháng thường':
+                    customer.memberCard.servicePlan = 'Thẻ năm thường'
+                    today = date.today()
+                    timeD = customer.memberCard.expriedDate
+                    if today > date(timeD.year, timeD.month, timeD.day):
+                        customer.memberCard.registerDate = today
+                        customer.memberCard.expriedDate = today + \
+                            timedelta(days=365)
+                    else:
+                        m = customer.memberCard.expriedDate + \
+                            timedelta(days=365)
+                        customer.memberCard.expriedDate = m
                     customer.memberCard.maxNbOfBooksToBorrow = 5
-                    customer.memberCard.expriedDate = m
                     customer.memberCard.save()
+                    customer.save()
                 #   return HttpResponse('success')
 
-                if customer.memberCard.servicePlan == 'AB':
-                    m = customer.memberCard.expriedDate + timedelta(days=365)
-                    customer.memberCard.expriedDate = m
+                if customer.memberCard.servicePlan == 'Thẻ năm thường':
+                    today = date.today()
+                    timeD = customer.memberCard.expriedDate
+                    if today > date(timeD.year, timeD.month, timeD.day):
+                        customer.memberCard.registerDate = today
+                        customer.memberCard.expriedDate = today + \
+                            timedelta(days=365)
+                    else:
+                        m = customer.memberCard.expriedDate + \
+                            timedelta(days=365)
+                        customer.memberCard.expriedDate = m
                     customer.memberCard.maxNbOfBooksToBorrow = 5
                     customer.memberCard.save()
+                    customer.save()
                 #    return HttpResponse('success')
 
-                if customer.memberCard.servicePlan == 'MV':
-                    customer.memberCard.servicePlan = 'AM'
-                    m = customer.memberCard.expriedDate + timedelta(days=365)
-                    customer.memberCard.expriedDate = m
+                if customer.memberCard.servicePlan == 'Thẻ tháng VIP':
+                    customer.memberCard.servicePlan = 'Thẻ năm thường'
+                    today = date.today()
+                    timeD = customer.memberCard.expriedDate
+                    if today > date(timeD.year, timeD.month, timeD.day):
+                        customer.memberCard.registerDate = today
+                        customer.memberCard.expriedDate = today + \
+                            timedelta(days=365)
+                    else:
+                        m = customer.memberCard.expriedDate + \
+                            timedelta(days=365)
+                        customer.memberCard.expriedDate = m
                     customer.memberCard.maxNbOfBooksToBorrow = 5
                     customer.memberCard.save()
+                    customer.save()
                 #    return HttpResponse('success')
-                if customer.memberCard.servicePlan == 'AV':
-                    m = customer.memberCard.expriedDate + timedelta(days=365)
-                    customer.memberCard.expriedDate = m
+                if customer.memberCard.servicePlan == 'Thẻ năm VIP':
+                    customer.memberCard.servicePlan = 'Thẻ năm thường'
+                    today = date.today()
+                    timeD = customer.memberCard.expriedDate
+                    if today > date(timeD.year, timeD.month, timeD.day):
+                        customer.memberCard.registerDate = today
+                        customer.memberCard.expriedDate = today + \
+                            timedelta(days=365)
+                    else:
+                        m = customer.memberCard.expriedDate + \
+                            timedelta(days=365)
+                        customer.memberCard.expriedDate = m
                     customer.memberCard.maxNbOfBooksToBorrow = 5
                     customer.memberCard.save()
+                    customer.save()
                 #   return HttpResponse('success')
             if number == 4:
 
                 if customer.memberCard == None:
-                    memberCard = MemberCard.objects.create(servicePlan='AV', numOfFault=0, maxNbOfBooksToBorrow=8,
+                    memberCard = MemberCard.objects.create(servicePlan='Thẻ năm VIP', numOfFault=0, maxNbOfBooksToBorrow=8,
                                                            nbOfBooksBeingBorrowed=0, registerDate=date.today(),
-                                                           expriedDate=date.today() + timedelta(years=1))
-                    customer.memberCard = memberCard;
+                                                           expriedDate=date.today() + timedelta(days=365))
+                    customer.memberCard = memberCard
                     customer.memberCard.save()
                     customer.save()
                 #    return HttpResponse('success')
-                if customer.memberCard.servicePlan == 'MB':
-                    customer.memberCard.servicePlan = 'AV'
+                if customer.memberCard.servicePlan == 'Thẻ tháng thường':
+                    customer.memberCard.servicePlan = 'Thẻ năm VIP'
                     customer.memberCard.registerDate = date.today()
-                    customer.memberCard.expriedDate = date.today + timedelta(days=365)
+                    customer.memberCard.expriedDate = date.today() + timedelta(days=365)
                     customer.memberCard.maxNbOfBooksToBorrow = 8
                     customer.memberCard.save()
+                    customer.save()
                 #   return HttpResponse('success')
 
-                if customer.memberCard.servicePlan == 'AB':
-                    customer.memberCard.servicePlan = 'AV'
+                if customer.memberCard.servicePlan == 'Thẻ năm thường':
+                    customer.memberCard.servicePlan = 'Thẻ năm VIP'
                     customer.memberCard.registerDate = date.today()
-                    customer.memberCard.expriedDate = date.today + timedelta(days=30)
+                    customer.memberCard.expriedDate = date.today() + timedelta(days=365)
                     customer.memberCard.maxNbOfBooksToBorrow = 8
                     customer.memberCard.save()
+                    customer.save()
                 #    return HttpResponse('success')
 
-                if customer.memberCard.servicePlan == 'MV':
-                    customer.memberCard.servicePlan = 'AV'
-                    m = customer.memberCard.expriedDate + timedelta(days=365)
-                    customer.memberCard.expriedDate = m
+                if customer.memberCard.servicePlan == 'Thẻ tháng VIP':
+                    customer.memberCard.servicePlan = 'Thẻ năm VIP'
+                    today = date.today()
+                    timeD = customer.memberCard.expriedDate
+                    if today > date(timeD.year, timeD.month, timeD.day):
+                        customer.memberCard.registerDate = today
+                        customer.memberCard.expriedDate = today + \
+                            timedelta(days=365)
+                    else:
+                        m = customer.memberCard.expriedDate + \
+                            timedelta(days=365)
+                        customer.memberCard.expriedDate = m
                     customer.memberCard.maxNbOfBooksToBorrow = 8
                     customer.memberCard.save()
+                    customer.save()
                 #    return HttpResponse('success')
-                if customer.memberCard.servicePlan == 'AV':
-                    m = customer.memberCard.expriedDate + timedelta(days=365)
-                    customer.memberCard.expriedDate = m
+                if customer.memberCard.servicePlan == 'Thẻ năm VIP':
+                    today = date.today()
+                    timeD = customer.memberCard.expriedDate
+                    if today > date(timeD.year, timeD.month, timeD.day):
+                        customer.memberCard.registerDate = today
+                        customer.memberCard.expriedDate = today + \
+                            timedelta(days=365)
+                    else:
+                        m = customer.memberCard.expriedDate + \
+                            timedelta(days=365)
+                        customer.memberCard.expriedDate = m
                     customer.memberCard.maxNbOfBooksToBorrow = 8
                     customer.memberCard.save()
+                    customer.save()
                 #    return HttpResponse('success')
 
             return render(request, 'myaccount/getACard3.html', {'memberCard': customer.memberCard, 'customer': customer,
@@ -897,11 +1051,18 @@ def save_profile_plan(request):
             customer.gender = rpf.cleaned_data['gender']
             customer.city = rpf.cleaned_data['city']
             customer.identificationCard = rpf.cleaned_data['identificationCard']
-            customer.emailAddress = rpf.cleaned_data['email']
             customer.phoneNumber = rpf.cleaned_data['phoneNumber']
-            customer.save()
-            user.save()
-            return HttpResponseRedirect(reverse('myaccount:my_plan'))
+            email = rpf.cleaned_data['email']
+            if Customer.objects.filter(emailAddress=email).exists() and customer != Customer.objects.get(emailAddress=email):
+                return render(request, 'myaccount/getACard2.html', {'rpf': rpf, 'email_invalid': True,
+                                                                    'is_login': is_login,
+                                                                    'is_staff': is_staff, })
+            else:
+                customer.emailAddress = rpf.cleaned_data['email']
+                user.email = customer.emailAddress
+                customer.save()
+                user.save()
+                return HttpResponseRedirect(reverse('myaccount:my_plan'))
         else:
             dict = {'rpf': rpf,
                     'is_login': is_login,
@@ -913,9 +1074,15 @@ def save_profile_plan(request):
         return HttpResponse('not POST')
 
 
-
-
-
-
-
-
+def registerBefore(request):
+    is_login = False
+    is_staff = False
+    if not request.user.is_anonymous:
+        is_login = True
+    if request.user.is_staff:
+        is_staff = True
+    return render(request, 'register_service_before.html', {
+        'is_login': is_login,
+        'is_staff': is_staff,
+        'user': request.user.customer.all().first(),
+    })

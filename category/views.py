@@ -51,6 +51,7 @@ def category(request):
     if request.user.is_staff:
         is_staff = True
     book_list = Book.objects.all().order_by('title')
+
     trang = int(request.GET.get('trang', 1))
     total_page = math.ceil(len(book_list)/10)
     results = [ob.as_json() for ob in book_list]
@@ -79,6 +80,16 @@ def category_search(request):
         keyStr = request.GET.get('keyStr', '')
     book_list_title = Book.objects.filter(title__icontains=keyStr)
     book_list_author = Book.objects.filter(author__name__icontains=keyStr)
+    # book_list = []
+    # for book in book_list_title:
+    #     bookType = ''
+    #     if book.type == 'Chính trị pháp luật':
+    #         bookType = 'CTPL'
+    #     elif book.type == 'TT':
+    #         bookType == 'TT'
+    #     book_list.append({'title': book.title, 'id': book.id, 'author': { 'first': book.author.first()},
+    #                   'summary': book.summary, 'slug': book.slug, 'image': {'url': book.image.url}, 'genre': book.genre,
+    #                       'type': bookType})
     book_list = list(book_list_title)
     book_list.extend(x for x in book_list_author if x not in book_list)
     trang = int(request.GET.get('trang', 1))

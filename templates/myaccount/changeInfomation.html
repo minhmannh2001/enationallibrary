@@ -53,6 +53,10 @@
           padding: 7px;
         }
 
+        #id_gender, #id_city, #id_dateOfBirth {
+            height: 38px;
+            border: #d9d3d3 solid 1px;
+        }
     </style>
 </head>
 <body>
@@ -180,7 +184,7 @@
   <main >
     <div class="main-category">
       <div class="container">
-       
+          <hr>
        <button  style="    border: none;
        padding: 5px 20px;
        color: white;
@@ -188,10 +192,13 @@
        font-size: 18px;">
             <a href="{% url 'myaccount:profile' %}" style="color: white">Quay lại</a>
         </button>
-        <div class="rightColumn d-flex justify-content-between" style="display: inline-block;margin-right: -227px;
+        <div class="leftColumn">
+            <img style="width: 500px !important; max-width: 500px!important; margin-top: 350px; margin-left: 80px;" src="https://lh3.googleusercontent.com/Q8aqvR9FquQvH0qI4Zc-2cPDJZI8_T5vWzX41-vJlZstKPowaPe8WBT9oT7Ki_iyomJ3RuJqImRi4MKCCaCUg0P2WjIUHsaOQlUmPw=w1200-l80-sg-rj" alt="">
+        </div>
+        <div class="rightColumn d-flex justify-content-between" style="display: inline-block;margin-right: -527px;
         margin-top: 21px; 
         ">
-            <div class="changePW d-flex flex-column align-items-center" style="padding-left: 90px; margin-top: 50px; margin-bottom: 100px;">
+            <div class="changePW d-flex flex-column align-items-center" style="margin-top: 50px; margin-bottom: 100px;">
                 <h3 class="mb-5">Thay đổi thông tin cá nhân</h3>
                 <form action="{% url 'myaccount:save' %}" method="post">
                     {% csrf_token %}
@@ -244,6 +251,9 @@
                         <th>Email:</th>
                         <td>{{cP.email}}
                           {{cP.email.errors}}
+                          {% if email_invalid %}
+                          <h6 style="color: red; font-size: 18px;"> Email đã tồn tại.</h6>
+                          {% endif %}
                         </td>
                       </tr>
                       <tr>
@@ -258,8 +268,7 @@
                     color: white;
                     border-radius: 5px;
                     padding: 5px 20px;
-                    /* margin: auto; */
-                    margin-left: 184px;
+                    margin-left: 174px;
                     margin-top: 24px;
                     font-size: 18px;" class="submit-change-information-btn">Lưu thay đổi</button>
                 </form>  

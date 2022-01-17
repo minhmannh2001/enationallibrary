@@ -5,6 +5,7 @@ app_name = 'myaccount'
 
 urlpatterns = [
     path('myprofile/', views.MyProfile.as_view(), name='profile'),
+    path('register-before-using-service/', views.registerBefore, name='register_before'),
     path('mycart/', views.cart_view, name='my-cart'),
     path('add-to-cart/<int:pk>', views.add_to_cart_view,name='add-to-cart'),
     path('remove/<int:pk>', views.remove_from_cart, name='removecart'),

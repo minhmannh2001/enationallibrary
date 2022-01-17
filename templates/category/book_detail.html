@@ -63,7 +63,7 @@
 <header class="header mb-5">
     <div class="container">
       <div class="headerMobile">
-        <a href="./homepage.html">
+        <a href="{% url 'home:homepage' %}">
           <svg class="headerMobileLogo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             viewBox="0 0 108 117">
             <g id="Logo">
@@ -152,7 +152,7 @@
                 d="M338.29 338.29L448 448" />
             </svg>
           </i>
-          <form class="search" action="{% url 'category:category_search' %}" method='post'>
+            <form class="search" action="{% url 'category:category_search' %}" method='post'>
             {{ form.as_p }}
             {% csrf_token %}
                 <i class="search-bar-icon">
@@ -166,6 +166,7 @@
           </i>
           <input type="text" name="content_key" class="search-bar-field input-search-form" style="width: 750px;" placeholder="Tìm kiếm...">
           </form>
+
         </div>
       </div>
       <div class="header-navMenu">
@@ -182,6 +183,7 @@
   <main class="category7">
     <div class="main-category">
       <div class="container">
+          <hr>
         <div class="resume">
             <div class="top-resume">
                 <div class="left-top-resume">
