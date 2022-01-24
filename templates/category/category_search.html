@@ -478,13 +478,6 @@
     function render_books_page(books){
       var start = (page - 1) * 10;
       var end   = start + 10 < books.length ? start + 10: books.length;
-      // if(list_filter.length == 0){
-      //     page_books = books.slice(start, end);
-      //     showPagging(true)
-      // }else{
-      //      page_books = books
-      //     showPagging(false)
-      // }
       page_books = books.slice(start, end);
       showPagging(true)
       document.getElementById('list_book').innerHTML = "";
@@ -532,13 +525,6 @@
          ${s}
         <a  id="next_page" href="#" onClick="onNextClick()">&raquo;</a>
     `
-       // <li id="pre_page" style="display: none">
-      //   <button  onClick="onPreClick()">Trang trước</button>
-      // </li>
-      // ${s}
-      // <li id="next_page" >
-      //   <button id="text" onClick="onNextClick()">Trang tiếp </button>
-      // </li>
   }
 
   function onPageClick(numPage){
@@ -583,10 +569,10 @@ var check_novels = document.getElementById("check_novels");
 check_novels.addEventListener('change', function() {
   if (this.checked) {
     console.log("Checkbox is checked..");
-    genre_filter_check.push('TTT')
+    genre_filter_check.push('Truyện, tiểu thuyết')
   } else {
     console.log("Checkbox is not checked..");
-    genre_filter_check = genre_filter_check.filter(item => item !== 'TTT')
+    genre_filter_check = genre_filter_check.filter(item => item !== 'Truyện, tiểu thuyết')
   }
  render_books(genre_filter_check);
 });
@@ -595,10 +581,10 @@ var check_science = document.getElementById("check_science");
 check_science.addEventListener('change', function() {
   if (this.checked) {
     console.log("check_science is checked..");
-    genre_filter_check.push('KHCNKT')
+    genre_filter_check.push('Khoa học công nghệ - Kinh tế')
   } else {
     console.log("check_science is not checked..");
-    genre_filter_check = genre_filter_check.filter(item => item !== 'KHCNKT')
+    genre_filter_check = genre_filter_check.filter(item => item !== 'Khoa học công nghệ - Kinh tế')
   }
  render_books( genre_filter_check);
 });
@@ -607,10 +593,10 @@ var check_comics = document.getElementById("check_comics");
 check_comics.addEventListener('change', function() {
   if (this.checked) {
     console.log("check_comics is checked..");
-    genre_filter_check.push('TT')
+    genre_filter_check.push('Truyện tranh')
   } else {
     console.log("check_comics is not checked..");
-    genre_filter_check = genre_filter_check.filter(item => item !== 'TT')
+    genre_filter_check = genre_filter_check.filter(item => item !== 'Truyện tranh')
   }
  render_books(genre_filter_check);
 });
@@ -619,10 +605,10 @@ var check_vhxhls = document.getElementById("check_vhxhls");
 check_vhxhls.addEventListener('change', function() {
   if (this.checked) {
     console.log("check_vhxhls is checked..");
-    genre_filter_check.push('VHXHLS')
+    genre_filter_check.push('Văn hóa xã hội - Lịch sử')
   } else {
     console.log("check_vhxhls is not checked..");
-    genre_filter_check = genre_filter_check.filter(item => item !== 'VHXHLS')
+    genre_filter_check = genre_filter_check.filter(item => item !== 'Văn hóa xã hội - Lịch sử')
   }
  render_books( genre_filter_check);
 });
@@ -631,10 +617,10 @@ var check_children = document.getElementById("check_children");
 check_children.addEventListener('change', function() {
   if (this.checked) {
     console.log("check_children is checked..");
-    genre_filter_check.push('STN')
+    genre_filter_check.push('Sách thiếu nhi')
   } else {
     console.log("check_children is not checked..");
-    genre_filter_check = genre_filter_check.filter(item => item !== 'STN')
+    genre_filter_check = genre_filter_check.filter(item => item !== 'Sách thiếu nhi')
   }
  render_books( genre_filter_check);
 });
@@ -643,10 +629,10 @@ var check_psychology = document.getElementById("check_psychology");
 check_psychology.addEventListener('change', function() {
   if (this.checked) {
     console.log("check_psychology is checked..");
-    genre_filter_check.push('TL')
+    genre_filter_check.push('Tâm lý')
   } else {
     console.log("check_psychology is not checked..");
-    genre_filter_check = genre_filter_check.filter(item => item !== 'TL')
+    genre_filter_check = genre_filter_check.filter(item => item !== 'Tâm lý')
   }
  render_books( genre_filter_check);
 });
@@ -655,10 +641,10 @@ var check_edu = document.getElementById("check_edu");
 check_edu.addEventListener('change', function() {
   if (this.checked) {
     console.log("check_edu is checked..");
-    genre_filter_check.push('GD')
+    genre_filter_check.push('Giáo dục')
   } else {
     console.log("check_edu is not checked..");
-    genre_filter_check = genre_filter_check.filter(item => item !== 'GD')
+    genre_filter_check = genre_filter_check.filter(item => item !== 'Giáo dục')
   }
  render_books( genre_filter_check);
 });
@@ -667,10 +653,10 @@ var check_tltg = document.getElementById("check_tltg");
 check_tltg.addEventListener('change', function() {
   if (this.checked) {
     console.log("check_tltg is checked..");
-    genre_filter_check.push('TLTG')
+    genre_filter_check.push('Tâm linh, tôn giáo')
   } else {
     console.log("check_tltg is not checked..");
-    genre_filter_check = genre_filter_check.filter(item => item !== 'TLTG')
+    genre_filter_check = genre_filter_check.filter(item => item !== 'Tâm linh, tôn giáo')
   }
  render_books( genre_filter_check);
 });
@@ -679,10 +665,10 @@ var check_ctpl = document.getElementById("check_ctpl");
 check_ctpl.addEventListener('change', function() {
   if (this.checked) {
     console.log("check_ctpl is checked..");
-    genre_filter_check.push('CTPL')
+    genre_filter_check.push('Chính trị pháp luật')
   } else {
     console.log("check_ctpl is not checked..");
-    genre_filter_check = genre_filter_check.filter(item => item !== 'CTPL')
+    genre_filter_check = genre_filter_check.filter(item => item !== 'Chính trị pháp luật')
   }
  render_books( genre_filter_check);
 });
@@ -691,10 +677,10 @@ var check_vhnt = document.getElementById("check_vhnt");
 check_vhnt.addEventListener('change', function() {
   if (this.checked) {
     console.log("check_vhnt is checked..");
-    genre_filter_check.push('VHNT')
+    genre_filter_check.push('Văn học nghệ thuật')
   } else {
     console.log("check_vhnt is not checked..");
-    genre_filter_check = genre_filter_check.filter(item => item !== 'VHNT')
+    genre_filter_check = genre_filter_check.filter(item => item !== 'Văn học nghệ thuật')
   }
  render_books( genre_filter_check);
 });
@@ -703,10 +689,10 @@ var check_type1 = document.getElementById("check_type1");
 check_type1.addEventListener('change', function() {
   if (this.checked) {
     console.log("check_type1 is checked..");
-    genre_filter_check.push('NB')
+    genre_filter_check.push('Sách giấy')
   } else {
     console.log("check_type1 is not checked..");
-    genre_filter_check = genre_filter_check.filter(item => item !== 'NB')
+    genre_filter_check = genre_filter_check.filter(item => item !== 'Sách giấy')
   }
  render_books( genre_filter_check);
 });
@@ -715,10 +701,10 @@ var check_type2 = document.getElementById("check_type2");
 check_type2.addEventListener('change', function() {
   if (this.checked) {
     console.log("check_type2 is checked..");
-    genre_filter_check.push('EB')
+    genre_filter_check.push('Sách điện tử')
   } else {
     console.log("check_type2 is not checked..");
-    genre_filter_check = genre_filter_check.filter(item => item !== 'EB')
+    genre_filter_check = genre_filter_check.filter(item => item !== 'Sách điện tử')
   }
  render_books( genre_filter_check);
 });
